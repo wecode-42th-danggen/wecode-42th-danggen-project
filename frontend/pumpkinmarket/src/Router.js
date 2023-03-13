@@ -1,14 +1,14 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
-import Nav from "./components/Nav/Nav";
-import Chatting from "./pages/Chatting/Chatting";
-import Login from "./pages/Login/Login";
-import Main from "./pages/Main/Main";
-import Posting from "./pages/Posting/Posting";
-import Product from "./pages/Product/Product";
-import ProductList from "./pages/ProductList/ProductList";
-import SignUp from "./pages/SignUp/SignUp";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Footer from './components/Footer/Footer';
+import Nav from './components/Nav/Nav';
+import Chatting from './pages/Chatting/Chatting';
+import Login from './pages/Login/Login';
+import Main from './pages/Main/Main';
+import Posting from './pages/Posting/Posting';
+import Product from './pages/Product/Product';
+import ProductList from './pages/ProductList/ProductList';
+import SignUp from './pages/SignUp/SignUp';
 
 const Router = () => {
   return (
