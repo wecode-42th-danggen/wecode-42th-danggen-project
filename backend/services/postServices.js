@@ -38,7 +38,17 @@ const updatePost = async (
   );
 };
 
+const hidePost = async (userId, postId) => {
+  return await postDao.hidePost(userId, postId);
+};
+
+const unhidePost = async (userId, postId) => {
+  return await postDao.unhidePost(userId, postId);
+};
+
 module.exports = {
   createPost,
   updatePost,
+  hidePost,
+  unhidePost,
 };

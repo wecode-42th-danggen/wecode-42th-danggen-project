@@ -71,13 +71,51 @@ const updatePost = async (
       description=?,
       category_id=?,
       price_suggestion=?
-    WHERE user_id=? AND id=?
+    WHERE user_id=? AND id=?;
   `,
     [title, price, description, categoryId, priceSuggestion, userId, postId]
+  );
+};
+
+const hidePost = async (userId, postId) => {
+  return await appDataSource.query(
+    `
+    UPDATE posts
+    SET
+      hidden=1
+    WHERE user_id=? AND id=?;
+  `,
+    [userId, postId]
+  );
+};
+
+const unhidePost = async (userId, postId) => {
+  return await appDataSource.query(
+    `
+    UPDATE posts
+    SET
+      hidden=0
+    WHERE user_id=? AND id=?;
+  `,
+    [userId, postId]
+  );
+};
+
+const pullUpPost = async (userId, postId) => {
+  return await appDataSource.query(
+    `
+    UPDATE posts
+    SET
+      hidden=0
+    WHERE user_id=? AND id=?;
+  `,
+    [userId, postId]
   );
 };
 
 module.exports = {
   createPost,
   updatePost,
+  hidePost,
+  unhidePost,
 };
