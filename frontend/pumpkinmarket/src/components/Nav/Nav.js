@@ -18,11 +18,16 @@ export default function Nav() {
 
   const toChatting = () => {
     if (!Token) {
-      alert('로그인이 필요한 서이스 입니다. \n로그인 하시겠습니까?');
+      alert('로그인이 필요한 서비스 입니다. \n로그인 하시겠습니까?');
       navigate('/login');
     } else if (Token) {
       navigate('/chatting');
     }
+  };
+
+  const toLogout = () => {
+    alert('로그아웃하시겠습니까?');
+    localStorage.removeItem('token');
   };
 
   useEffect(() => {
@@ -32,12 +37,12 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav className="flex justify-around items-center h-20 border border-gray-100">
+    <nav className="flex justify-around items-center h-20 border border-gray-100 fixed bg-white w-full">
       <div>
         <Link className="text-green-600 font-bold text-xl pr-1.5" to="/">
           호박마켓
         </Link>
-        <Link to="/product-list" className="text-xl">
+        <Link to="/product-list" className="ml-10 text-lg">
           중고거래
         </Link>
       </div>
@@ -51,11 +56,13 @@ export default function Nav() {
       </div>
       {Token ? (
         <div className="flex items-center ">
-          <img
-            className="w-7 h-7"
-            src="./images/Nav/profile.png"
-            alt="profileImg"
-          />
+          <button type="button" onClick={toLogout}>
+            <img
+              className="w-7 h-7"
+              src="./images/Nav/profile.png"
+              alt="profileImg"
+            />
+          </button>
           <button
             className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5 text-sm"
             type="button"
@@ -65,14 +72,26 @@ export default function Nav() {
           </button>
         </div>
       ) : (
-        <div className="flex items-center">
-          <Link className="text-lg text-gray-500 pr-1.5" to="/login">
-            로그인
-          </Link>
-          <span className="text-gray-500">|</span>
-          <Link className="text-lg text-gray-500 pl-1.5" to="/sign-up">
-            회원가입
-          </Link>
+        <div className="flex items-center ">
+          <div>
+            <Link className="text-lg text-gray-500 pr-1.5 text-sm" to="/login">
+              로그인
+            </Link>
+            <span className="text-gray-500">|</span>
+            <Link
+              className="text-lg text-gray-500 pl-1.5 text-sm"
+              to="/sign-up"
+            >
+              회원가입
+            </Link>
+          </div>
+          <button
+            className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5 text-sm"
+            type="button"
+            onClick={toChatting}
+          >
+            채팅하기
+          </button>
         </div>
       )}
     </nav>
