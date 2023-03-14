@@ -43,7 +43,7 @@ export default function Nav() {
       </div>
       <div>
         <input
-          className="w-96 text-center border border-#d1d5db-600 rounded-sm"
+          className="w-96 h-8 text-center border border-#d1d5db-600 rounded-sm text-sm"
           placeholder=" 🔍     물품이나 동네를 검색해보세요"
           value={searchKeyword}
           onChange={productSearch}
@@ -53,11 +53,11 @@ export default function Nav() {
         <div className="flex items-center ">
           <img
             className="w-7 h-7"
-            src="./images/Nav/profileImg.png"
+            src="./images/Nav/profile.png"
             alt="profileImg"
           />
           <button
-            className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5"
+            className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5 text-sm"
             type="button"
             onClick={toChatting}
           >
