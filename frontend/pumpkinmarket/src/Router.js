@@ -13,17 +13,17 @@ import SignUp from './pages/SignUp/SignUp';
 const Router = () => {
   return (
     <BrowserRouter>
+      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/nav" element={<Nav />} />
-        <Route path="/footer" element={<Footer />} />
         <Route path="/product" element={<Product />} />
         <Route path="/product-list" element={<ProductList />} />
         <Route path="/posting" element={<Posting />} />
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/sign-up" element={<SignUp />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
