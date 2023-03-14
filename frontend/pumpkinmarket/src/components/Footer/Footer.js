@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="flex justify-around items-center w-full h-60 bg-gray-100 static bottom-0 max-md:flex-col">
       <div>
-        <div className="pb-5 ">
+        <div className="pb-5">
           <p className="text-gray-500 text-sm">
             대표 | 방서빈, 이홍열, 장주성, 이수민
           </p>
