@@ -44,14 +44,14 @@ const signUp = async (email, password, phoneNumber, nickName) => {
   }
 };
 
-const accessToken = async (userInfo) => {
+const accessToken = async (userId) => {
   const secterKey = process.env.SECRET_KEY;
   const time = new Date().getTime() / 1000 + 60 * 60 * 9;
   const currentTime = Math.floor(time);
   const expireTime = currentTime * 60 * 60 * 24;
 
   const payload = {
-    userInfo: userInfo,
+    userId: userId,
     iss: 'waem-danggen',
     iat: currentTime,
     exp: expireTime,
