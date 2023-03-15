@@ -128,10 +128,27 @@ const getPasswordByEmail = async (email) => {
   return result[0].password;
 };
 
+const checkRegisterUserId = async (userId) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+      SELECT
+        id
+      FROM
+        users
+      WHERE
+        id=?
+    ) AS registed`,
+    [userId]
+  );
+  return !!parseInt(result.registed);
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getUserByPhoneNumber,
   getUserByNickName,
   getPasswordByEmail,
+  checkRegisterUserId,
 };
