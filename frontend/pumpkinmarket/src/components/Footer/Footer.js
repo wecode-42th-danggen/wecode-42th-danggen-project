@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="flex justify-around items-center w-full h-60 bg-gray-100 static bottom-0">
+    <footer className="flex justify-around items-center w-full h-60 bg-gray-100 static bottom-0 max-md:flex-col">
       <div>
-        <div className="pb-5">
+        <div className="pb-5 ">
           <p className="text-gray-500 text-sm">
             대표 | 방서빈, 이홍열, 장주성, 이수민
           </p>
@@ -30,7 +30,7 @@ export default function Footer() {
           );
         })}
       </div>
-      <div className="flex text-center items-center ml-20">
+      <div className="flex text-center items-center ml-20 max-md:ml-0">
         {FOOTER_IMG.map(list => {
           return (
             <img
