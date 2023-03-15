@@ -1,6 +1,6 @@
 const { appDataSource } = require('./index');
 
-const getUserEmail = async (email) => {
+const getUserByEmail = async (email) => {
   const userEmail = await appDataSource.query(
     `
     SELECT
@@ -8,6 +8,7 @@ const getUserEmail = async (email) => {
       u.social_id AS socialId,
       u.social_type_id AS socialTypeId,
       u.email,
+      u.password,
       u.phone_number AS PhoneNumber,
       u.nickname AS nickName,
       u.user_status_id AS userStatusId
@@ -18,10 +19,9 @@ const getUserEmail = async (email) => {
     `,
     [email]
   );
-  console.log(userEmail[0]);
   return userEmail[0];
 };
-const getUserPhoneNumber = async (phoneNumber) => {
+const getUserByPhoneNumber = async (phoneNumber) => {
   const userPhoneNumber = await appDataSource.query(
     `
     SELECT
@@ -42,7 +42,7 @@ const getUserPhoneNumber = async (phoneNumber) => {
   return userPhoneNumber[0];
 };
 
-const getUserNickName = async (nickName) => {
+const getUserByNickName = async (nickName) => {
   const userNickName = await appDataSource.query(
     `
     SELECT
@@ -76,44 +76,62 @@ const defaultUserStatusType = Object.freeze({
 });
 
 const createUser = (
-  socialId,
   email,
   password,
   phoneNumber,
   nickName,
+  socialId,
   profileImageUrl
 ) => {
   return appDataSource.query(
     `
     INSERT INTO
       users(
-        social_id,
-        social_type_id,
         email,
         password,
         phone_number,
         nickname,
+        social_id,
         profile_image_url,
+        social_type_id,
         user_status_id)
     VALUES
         (?,?,?,?,?,?,?,?)
     `,
     [
-      socialId,
-      defaultUserSocialType.itself,
       email,
       password,
       phoneNumber,
       nickName,
+      socialId,
       profileImageUrl,
+      defaultUserSocialType.itself,
       defaultUserStatusType.activity,
     ]
   );
 };
 
+const getPasswordByEmail = async (email) => {
+  const result = await appDataSource.query(
+    `
+    SELECT
+      u.id,
+      u.email,
+      u.password
+    FROM
+      users u
+    WHERE
+      u.email=?
+    `,
+    [email]
+  );
+  return result[0].password;
+};
+
 module.exports = {
   createUser,
-  getUserEmail,
-  getUserPhoneNumber,
-  getUserNickName,
+  getUserByEmail,
+  getUserByPhoneNumber,
+  getUserByNickName,
+  getPasswordByEmail,
 };
