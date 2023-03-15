@@ -48,7 +48,7 @@ export default function Nav() {
       </div>
       <div>
         <input
-          className="w-96 h-8 text-center border border-#d1d5db-600 rounded-sm text-sm"
+          className="w-96 h-8 text-center border border-#d1d5db-600 rounded-sm text-sm max-md:hidden"
           placeholder=" 🔍     물품이나 동네를 검색해보세요"
           value={searchKeyword}
           onChange={productSearch}
@@ -59,7 +59,7 @@ export default function Nav() {
           <button type="button" onClick={toLogout}>
             <img
               className="w-7 h-7"
-              src="./images/Nav/profile.png"
+              src="images/Nav/profile.png"
               alt="profileImg"
             />
           </button>
@@ -72,8 +72,15 @@ export default function Nav() {
           </button>
         </div>
       ) : (
-        <div className="flex items-center ">
-          <div>
+        <div className="flex items-center">
+          <div className="flex items-center">
+            <button className="hidden mr-3 max-md:block">
+              <img
+                className="w-4"
+                src="images/Nav/search.png"
+                alt="searchBtn"
+              />
+            </button>
             <Link className="text-lg text-gray-500 pr-1.5 text-sm" to="/login">
               로그인
             </Link>
