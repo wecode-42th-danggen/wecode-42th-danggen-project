@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 export default function SignUp() {
+  const [signUp, setSignUp] = useState({});
   useEffect(() => {
-    fetch(`../../../public/data/test.json`, {
-      method: 'GET',
-    })
+    fetch(
+      `http://127.0.0.1:3000/user/signin
+    `,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({
+          email: signUp.email,
+          password: signUp.password,
+          phoneNumber: signUp.phoneNumber,
+          nickname: signUp.nickname,
+        }),
+      }
+    )
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        setSignUp(data);
       });
   }, []);
 
@@ -20,10 +34,6 @@ export default function SignUp() {
 
   const navigate = useNavigate();
   let inputRef;
-
-  function signUpSumbit() {
-    navigate('/login');
-  }
 
   const saveImage = e => {
     e.preventDefault();
@@ -45,7 +55,6 @@ export default function SignUp() {
           className="flex flex-col space-x-6 justify-center items-center"
           encType="multipart/form-data"
           method="POST"
-          action="login"
         >
           <div className="img-wrapper flex w-full h-24 max-w-xs overflow-hidden">
             <img src={image.preview_URL} className="rounded-full" />
@@ -54,7 +63,7 @@ export default function SignUp() {
           <input
             multiple
             type="file"
-            class="block w-full text-sm text-slate-500
+            className="block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
@@ -70,16 +79,17 @@ export default function SignUp() {
             // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
             // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
           />
+          <input placeholder="nickName" type="name" name="name" />
+          <input placeholder="email" type="email" name="email" />
+          <input placeholder="password" type="password" name="password" />
+          <input placeholder="phone" type="text" name="phone_number" />
           <input
-            placeholder="email"
-            type="email"
-            name="profile_image_url"
-          ></input>
-          <input placeholder="name" type="name" name="name"></input>
-          <input placeholder="id" type="id" name="id"></input>
-          <input placeholder="password" type="password" name="password"></input>
-          <input placeholder="phone" type="text" name="phone_number"></input>
-          <input type="submit" value="update" onClick="signUpSumbit"></input>
+            type="submit"
+            value="update"
+            onClick={() => {
+              navigate(`/login`);
+            }}
+          />
         </form>
       </div>
     </div>
