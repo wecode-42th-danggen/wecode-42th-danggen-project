@@ -1,0 +1,18 @@
+{
+  "getUsers": [
+    {
+      "id": 1,
+      "name": "hi",
+      "phone_number": "01012345678",
+      "email": "1234@56.789",
+      "profile_image_url": "https://github.com/jangjuseong/small_box-img-repo/blob/main/smallbox_%ED%8F%AC%EC%8A%A4%ED%84%B0%EC%83%98%ED%94%8C%2015%EC%A2%85/poster13.png?raw=true"
+    },
+    {
+      "id": 2,
+      "name": "hello",
+      "phone_number": "01012345678",
+      "email": "123@456.789",
+      "profile_image_url": "https://github.com/jangjuseong/small_box-img-repo/blob/main/smallbox_%ED%8F%AC%EC%8A%A4%ED%84%B0%EC%83%98%ED%94%8C%2015%EC%A2%85/poster13.png?raw=true"
+    }
+  ]
+}
