@@ -39,11 +39,14 @@ export default function Nav() {
   return (
     <nav className="flex justify-around items-center h-20 border border-gray-100 fixed bg-white w-full">
       <div>
-        <Link className="text-green-600 font-bold text-xl pr-1.5" to="/">
-          호박마켓
+        <Link className="font-bold text-xl pr-1.5" to="/">
+          💝 문情
         </Link>
         <Link to="/product-list" className="ml-10 text-lg">
           중고거래
+        </Link>
+        <Link to="/product-list" className="ml-10 text-lg">
+          동네정보
         </Link>
       </div>
       <div>
