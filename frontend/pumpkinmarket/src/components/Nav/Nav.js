@@ -24,8 +24,8 @@ export default function Nav() {
   const handleOnKeyPress = e => {
     if (e.key === 'Enter') {
       handleOnClick();
-      setIsClicked(prev => !prev);
       setSearchKeyword('');
+      setIsClicked(prev => !prev);
     }
   };
   // const filteredProduct = searchData.filter(list =>
@@ -53,9 +53,9 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav className="flex justify-around items-center h-20 border border-gray-100 fixed bg-white w-full">
+    <nav className="flex justify-between items-center h-20 border border-gray-100 fixed bg-white w-full">
       <div>
-        <Link className="font-bold text-xl pr-1.5" to="/">
+        <Link className="font-bold text-xl ml-10" to="/">
           💝 문情
         </Link>
         <Link to="/product-list" className="ml-10 text-lg">
@@ -105,13 +105,15 @@ export default function Nav() {
               />
             </button>
             {isClicked && (
-              <input
-                className="w-96 h-8 text-center border border-#d1d5db-600 rounded-sm text-sm absolute top-20 left-28"
-                placeholder=" 🔍     물품이나 동네를 검색해보세요"
-                value={searchKeyword}
-                onChange={productSearch}
-                onKeyDown={handleOnKeyPress}
-              />
+              <div className="hidden max-md:block">
+                <input
+                  className="w-96 h-8 text-center border border-#d1d5db-600 rounded-sm text-sm absolute top-20 left-28"
+                  placeholder=" 🔍     물품이나 동네를 검색해보세요"
+                  value={searchKeyword}
+                  onChange={productSearch}
+                  onKeyDown={handleOnKeyPress}
+                />
+              </div>
             )}
 
             <Link className="text-lg text-gray-500 pr-1.5 text-sm" to="/login">
@@ -119,7 +121,7 @@ export default function Nav() {
             </Link>
             <span className="text-gray-500">|</span>
             <Link
-              className="text-lg text-gray-500 pl-1.5 text-sm"
+              className="text-lg text-gray-500 pl-1.5 text-sm mr-10"
               to="/sign-up"
             >
               회원가입
