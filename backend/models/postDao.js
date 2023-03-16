@@ -6,11 +6,13 @@ const createPost = async (image, postInfo) => {
     onReservation: 2,
     doneDeal: 3,
   });
+
   const adminPostStatus = Object.freeze({
     normal: 1,
     onReporting: 2,
     takeDown: 3,
   });
+
   const { userId, title, price, description, categoryId, priceSuggestion } =
     postInfo;
 
@@ -22,7 +24,7 @@ const createPost = async (image, postInfo) => {
     const post = await appDataSource.query(
       `
       INSERT INTO posts (
-        user_id, 
+        user_id,
         title, 
         price, 
         description, 
