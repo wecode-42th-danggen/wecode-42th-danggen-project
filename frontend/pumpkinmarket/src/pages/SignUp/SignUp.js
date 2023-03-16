@@ -1,6 +1,4 @@
-
 import React, { useState, useRef } from 'react';
-
 
 export default function SignUp() {
   const [imgFile, setImgFile] = useState('');
