@@ -58,7 +58,7 @@ export default function SignUp() {
           <input placeholder="name" type="name" name="name"></input>
           <input placeholder="password" type="password" name="password"></input>
           <input placeholder="phone" type="text" name="phone_number"></input>
-          <input type="submit" value="Update Profile"></input>
+          <input type="submit" value="signUp"></input>
         </form>
       </div>
     </div>
