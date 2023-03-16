@@ -36,12 +36,12 @@ export default function SignUp() {
           <label for="avatar">Avatar</label>
           <input
             type="file"
-            class="block w-full text-sm text-slate-500
+            className="block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-violet-700
-      hover:file:bg-violet-100
+      hover:file:bg-violet-10 mb-5
     "
             name="avatar"
             accept="image/*"
@@ -54,11 +54,31 @@ export default function SignUp() {
             placeholder="email"
             type="email"
             name="profile_image_url"
+            className="mb-5"
           ></input>
-          <input placeholder="name" type="name" name="name"></input>
-          <input placeholder="password" type="password" name="password"></input>
-          <input placeholder="phone" type="text" name="phone_number"></input>
-          <input type="submit" value="Update Profile"></input>
+          <input
+            placeholder="name"
+            type="name"
+            name="name"
+            className="mb-5"
+          ></input>
+          <input
+            placeholder="password"
+            type="password"
+            name="password"
+            className="mb-5"
+          ></input>
+          <input
+            placeholder="phone"
+            type="text"
+            name="phone_number"
+            className="mb-5"
+          ></input>
+          <input
+            type="submit"
+            value="signUp"
+            className="w-44 bg-green-500 rounded-lg"
+          ></input>
         </form>
       </div>
     </div>
