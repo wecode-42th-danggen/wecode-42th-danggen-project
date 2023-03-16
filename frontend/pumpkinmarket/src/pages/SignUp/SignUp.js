@@ -58,7 +58,11 @@ export default function SignUp() {
           <input placeholder="name" type="name" name="name"></input>
           <input placeholder="password" type="password" name="password"></input>
           <input placeholder="phone" type="text" name="phone_number"></input>
-          <input type="submit" value="signUp"></input>
+          <input
+            type="submit"
+            value="signUp"
+            className="w-44 bg-green-500 rounded-lg"
+          ></input>
         </form>
       </div>
     </div>
