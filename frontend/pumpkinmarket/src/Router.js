@@ -5,6 +5,7 @@ import Nav from './components/Nav/Nav';
 import Chatting from './pages/Chatting/Chatting';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
+import Mypage from './pages/Mypage/Mypage';
 import Posting from './pages/Posting/Posting';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
@@ -22,6 +23,7 @@ const Router = () => {
         <Route path="/posting" element={<Posting />} />
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/mypage" element={<Mypage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
