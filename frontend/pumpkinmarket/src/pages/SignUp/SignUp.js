@@ -80,9 +80,13 @@ export default function SignUp() {
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-violet-700
 
+      
+
+
       hover:file:bg-violet-10 mb-5
       
             name="profile_image_url"
+
             accept="image/*"
             id="profileImg"
             onChange={saveImgFile}
@@ -90,10 +94,27 @@ export default function SignUp() {
           />
 
           <input
+
+            placeholder="email"
+            type="email"
+            name="email"
+            className="mb-5"
+          ></input>
+          <input
+
             placeholder="name"
             type="name"
             name="name"
             className="mb-5"
+
+          ></input>
+          
+          <input
+            type="submit"
+            value="signUp"
+            className="w-44 bg-green-500 rounded-lg"
+
+
 
 
           ></input>
@@ -107,7 +128,7 @@ export default function SignUp() {
 
           ></input>
           
-
+<input
             name="phoneNumber"
             className="mb-5"
             onChange={getSignupInfo}
