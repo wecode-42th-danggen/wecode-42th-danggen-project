@@ -1,3 +1,8 @@
+
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 export default function SignUp() {
   const [formData, setFormData] = useState({ id: '', password: '' });
   const navigate = useNavigate();
@@ -6,6 +11,7 @@ export default function SignUp() {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const goToMain = e => {
     e.preventDefault();
     fetch('http://192.168.0.191:3000/users/signin', {
@@ -41,7 +47,11 @@ export default function SignUp() {
           <input
             placeholder="email"
             type="email"
+
             name="email"
+
+      
+
             className="ml-7 mb-7"
             onChange={getUserInfo}
           ></input>
@@ -56,6 +66,10 @@ export default function SignUp() {
           <button type="submit" onClick={goToMain}>
             Login
           </button>
+
+
+
+  
         </form>
       </div>
     </div>

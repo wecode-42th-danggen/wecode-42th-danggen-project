@@ -70,11 +70,11 @@ const REFERENCE_INFO = [
     title: '광고 문의',
   },
   {
-    id: 2,
+    id: 3,
     title: 'PR 문의',
   },
   {
-    id: 3,
+    id: 4,
     title: 'IR 문의',
   },
 ];
