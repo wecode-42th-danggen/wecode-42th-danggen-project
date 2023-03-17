@@ -1,7 +1,22 @@
 import React, { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [imgFile, setImgFile] = useState('');
+  const [signupInfo, setSignupInfo] = useState({
+    phoneNumber: '',
+    nickname: '',
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+
+  const getSignupInfo = event => {
+    const { name, value } = event.target;
+    setSignupInfo({ ...signupInfo, [name]: value });
+  };
+
   const imgRef = useRef();
 
   const saveImgFile = () => {
@@ -11,6 +26,28 @@ export default function SignUp() {
     reader.onloadend = () => {
       setImgFile(reader.result);
     };
+  };
+
+  const submitUser = e => {
+    e.preventDefault();
+    fetch('http://127.0.0.1:3000/user/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: '',
+      },
+      body: JSON.stringify({
+        phoneNumber: signupInfo.phoneNumber,
+        nickName: signupInfo.nickName,
+        email: signupInfo.email,
+        password: signupInfo.password,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        navigate('/');
+      });
   };
   return (
     <div className="flex justify-center ">
@@ -32,16 +69,16 @@ export default function SignUp() {
               alt="Current profile photo"
             />
           </div>
-          <span class="sr-only">Choose profile photo</span>
+          <span className="sr-only">Choose profile photo</span>
           <label for="avatar">Avatar</label>
           <input
             type="file"
-            class="block w-full text-sm text-slate-500
+            className="block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-violet-700
-      hover:file:bg-violet-100
+      hover:file:bg-violet-100 mb-5
     "
             name="avatar"
             accept="image/*"
@@ -54,15 +91,37 @@ export default function SignUp() {
             placeholder="email"
             type="email"
             name="profile_image_url"
+            className="mb-5"
+            onChange={getSignupInfo}
           ></input>
-          <input placeholder="name" type="name" name="name"></input>
-          <input placeholder="password" type="password" name="password"></input>
-          <input placeholder="phone" type="text" name="phone_number"></input>
           <input
-            type="submit"
-            value="signUp"
-            className="w-44 bg-green-500 rounded-lg"
+            placeholder="nickName"
+            type="name"
+            name="nickName"
+            className="mb-5"
+            onChange={getSignupInfo}
           ></input>
+          <input
+            placeholder="password"
+            type="password"
+            name="password"
+            className="mb-5"
+            onChange={getSignupInfo}
+          ></input>
+          <input
+            placeholder="phone"
+            type="text"
+            name="phone_number"
+            className="mb-5"
+            onChange={getSignupInfo}
+          ></input>
+          <button
+            type="submit"
+            className="w-44 bg-green-500 rounded-lg text-slate-50"
+            onClick={submitUser}
+          >
+            signUp
+          </button>
         </form>
       </div>
     </div>
