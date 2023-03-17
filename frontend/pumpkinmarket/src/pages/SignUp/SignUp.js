@@ -88,9 +88,9 @@ export default function SignUp() {
           />
 
           <input
-            placeholder="name"
-            type="name"
-            name="name"
+            placeholder="nickName"
+            type="nickName"
+            name="nickName"
             className="mb-5"
           ></input>
           <input
