@@ -79,8 +79,9 @@ export default function SignUp() {
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-violet-700
-      hover:file:bg-violet-100 mb-5
-    "
+
+      hover:file:bg-violet-10 mb-5
+      
             name="profile_image_url"
             accept="image/*"
             id="profileImg"
@@ -89,29 +90,24 @@ export default function SignUp() {
           />
 
           <input
-            placeholder="email"
-            type="email"
-            name="email"
-            className="mb-5"
-            onChange={getSignupInfo}
-          ></input>
-          <input
-            placeholder="nickName"
+            placeholder="name"
             type="name"
-            name="nickName"
+            name="name"
             className="mb-5"
-            onChange={getSignupInfo}
+
+
           ></input>
           <input
             placeholder="password"
             type="password"
             name="password"
             className="mb-5"
+
             onChange={getSignupInfo}
+
           ></input>
-          <input
-            placeholder="phone"
-            type="text"
+          
+
             name="phoneNumber"
             className="mb-5"
             onChange={getSignupInfo}
@@ -123,6 +119,7 @@ export default function SignUp() {
           >
             signUp
           </button>
+
         </form>
       </div>
     </div>
