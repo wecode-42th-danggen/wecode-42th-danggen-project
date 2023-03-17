@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Nav from './components/Nav/Nav';
-import Chatting from './pages/Chatting/Chatting';
+import Chat from './pages/Chatting/Chat';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import Mypage from './pages/Mypage/Mypage';
@@ -21,7 +21,7 @@ const Router = () => {
         <Route path="/product" element={<Product />} />
         <Route path="/product-list" element={<ProductList />} />
         <Route path="/posting" element={<Posting />} />
-        <Route path="/chatting" element={<Chatting />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/mypage" element={<Mypage />} />
       </Routes>
