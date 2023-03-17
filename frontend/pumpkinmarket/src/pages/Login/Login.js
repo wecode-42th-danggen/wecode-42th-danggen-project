@@ -42,8 +42,16 @@ export default function SignUp() {
             placeholder="email"
             type="email"
             name="profile_image_url"
+            className="ml-7 mb-7"
+            onChange={getUserInfo}
           ></input>
-          <input placeholder="password" type="password" name="password"></input>
+          <input
+            placeholder="password"
+            type="password"
+            name="password"
+            className="mb-7"
+            onChange={getUserInfo}
+          ></input>
           <button type="submit" onClick={goToMain}>
             Login
           </button>
