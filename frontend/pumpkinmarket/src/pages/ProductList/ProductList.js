@@ -10,8 +10,6 @@ export default function ProductList() {
     navigate('/posting');
   };
 
-  const postInfoData = ProductListData.map(data => data.postInfo);
-
   // TOFIX: Mockdata 연결 시 동작할 코드
   // useEffect(() => {
   //   fetch('./data/data.json', {
@@ -49,23 +47,27 @@ export default function ProductList() {
           + 글쓰기
         </button>
         <div className="grid grid-cols-4 gap-12 max-md:grid-cols-2">
-          {postInfoData.map(data => {
+          {ProductListData.map(data => {
             return (
-              <Link className="w-52" key={data.id} to="/product">
-                <img
-                  className="object-cover w-52 h-52 rounded-xl mb-2"
-                  src={data[0].imageUrl}
-                  alt="product"
-                />
-                <div>
-                  <h2 className="pb-1">{data[0].title}</h2>
-                  <p className="text-sm font-bold pb-1">
-                    {data[0].price.toLocaleString()}원
-                  </p>
-                  <p className="text-xs text-zinc-500 pb-1">
-                    좋아요 {data[0].likes}
-                  </p>
-                </div>
+              <Link className="w-52" key={data.id} to={`/product/${data.id}`}>
+                {data.postInfo.map(list => {
+                  return (
+                    <>
+                      <img
+                        className="object-cover w-52 h-52 rounded-xl mb-2"
+                        src={list.imageUrl}
+                        alt="product"
+                      />
+                      <div>
+                        <h2 className="pb-1">{list.title}</h2>
+                        <p className="text-sm font-bold pb-1">{list.price}원</p>
+                        <p className="text-xs text-zinc-500 pb-1">
+                          좋아요 {list.likes}
+                        </p>
+                      </div>
+                    </>
+                  );
+                })}
               </Link>
             );
           })}
