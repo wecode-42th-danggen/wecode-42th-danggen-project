@@ -1,7 +1,5 @@
-
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 export default function SignUp() {
   const [formData, setFormData] = useState({ id: '', password: '' });
@@ -47,11 +45,7 @@ export default function SignUp() {
           <input
             placeholder="email"
             type="email"
-
             name="email"
-
-      
-
             className="ml-7 mb-7"
             onChange={getUserInfo}
           ></input>
@@ -66,10 +60,6 @@ export default function SignUp() {
           <button type="submit" onClick={goToMain}>
             Login
           </button>
-
-
-
-  
         </form>
       </div>
     </div>
