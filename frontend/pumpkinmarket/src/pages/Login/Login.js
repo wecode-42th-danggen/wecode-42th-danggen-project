@@ -8,18 +8,15 @@ export default function SignUp() {
   const getUserInfo = event => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-
     const goToMain = () => {
-      fetch('http://127.0.0.1:3000/user/signin', {
+      fetch('http://10.58.52.55:8000/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify({
-          password: formData.pw,
+          password: formData.password,
           email: formData.email,
-          nickName: formData.name,
-          phoneNumber: formData.phoneNumber,
         }),
       })
         .then(response => response.json())
@@ -44,7 +41,9 @@ export default function SignUp() {
             name="profile_image_url"
           ></input>
           <input placeholder="password" type="password" name="password"></input>
-          <input type="submit" value="제출" onClick={goToMain}></input>
+          <button type="submit" onClick={goToMain}>
+            Login
+          </button>
         </form>
       </div>
     </div>
