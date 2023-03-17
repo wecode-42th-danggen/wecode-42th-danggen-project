@@ -8,15 +8,15 @@ const { upload } = require('../utils/imageUplodaer');
 router.post(
   '/',
   upload.single('img'),
-  //checkValidationToken,
+  checkValidationToken,
   cmpostController.createCmpost
 );
 router.patch(
   '/:postId',
   upload.single('img'),
-  //checkValidationToken,
+  checkValidationToken,
   cmpostController.updateCmpost
 );
-router.delete('/:postId', cmpostController.deleteCmpost); //실제 통신 및 기능 설정시 checkValidationToken, 사용
+router.delete('/:postId', checkValidationToken, cmpostController.deleteCmpost);
 
 module.exports = { router };
