@@ -8,23 +8,26 @@ export default function SignUp() {
   const getUserInfo = event => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    const goToMain = () => {
-      fetch('http://10.58.52.55:8000/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify({
-          password: formData.password,
-          email: formData.email,
-        }),
+  };
+  const goToMain = () => {
+    fetch('http://10.58.52.55:8000/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        password: formData.password,
+        email: formData.email,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        navigate('/');
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          navigate('/');
-        });
-    };
+      .catch(err => {
+        console.log(err.messages);
+      });
   };
   return (
     <div className="flex justify-center ">
