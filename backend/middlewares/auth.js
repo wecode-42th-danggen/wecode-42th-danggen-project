@@ -9,7 +9,7 @@ const checkValidationToken = catchAsync(async (req, res, next) => {
 
   if (!accesstoken) {
     const error = new Error('NOT_EXIST_TOKEN');
-    error.statusCode = 400;
+    error.statusCode = 401;
     throw error;
   }
 
