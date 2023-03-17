@@ -9,6 +9,7 @@ export default function SignUp() {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const goToMain = () => {
     fetch('http://10.58.52.55:8000/users/login', {
       method: 'POST',
@@ -29,6 +30,7 @@ export default function SignUp() {
         console.log(err.messages);
       });
   };
+
   return (
     <div className="flex justify-center ">
       <div className="flex justify-center leading-10 h-screen align-items: center;">
@@ -52,9 +54,12 @@ export default function SignUp() {
             className="mb-7"
             onChange={getUserInfo}
           ></input>
+
           <button type="submit" onClick={goToMain}>
             Login
           </button>
+
+      
         </form>
       </div>
     </div>

@@ -4,8 +4,7 @@ const { deleteImage } = require('../utils/imageUplodaer');
 
 const createPost = catchAsync(async (req, res) => {
   const image = req.file;
-  const { postContent } = req.body;
-  const postInfo = JSON.parse(postContent);
+  const postInfo = req.body;
 
   if (!image) {
     const error = new Error('Image Upload Failed');
