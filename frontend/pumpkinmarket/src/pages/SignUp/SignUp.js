@@ -5,7 +5,7 @@ export default function SignUp() {
   const [imgFile, setImgFile] = useState('');
   const [signupInfo, setSignupInfo] = useState({
     phoneNumber: '',
-    nickname: '',
+    nickName: '',
     email: '',
     password: '',
   });
@@ -16,7 +16,7 @@ export default function SignUp() {
     const { name, value } = event.target;
     setSignupInfo({ ...signupInfo, [name]: value });
   };
-
+  console.log(signupInfo);
   const imgRef = useRef();
 
   const saveImgFile = () => {
@@ -30,7 +30,7 @@ export default function SignUp() {
 
   const submitUser = e => {
     e.preventDefault();
-    fetch('http://127.0.0.1:3000/user/signin', {
+    fetch('http://192.168.0.191:3000/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -46,6 +46,7 @@ export default function SignUp() {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        console.log(signupInfo);
         navigate('/');
       });
   };
@@ -80,7 +81,7 @@ export default function SignUp() {
       file:bg-violet-50 file:text-violet-700
       hover:file:bg-violet-100 mb-5
     "
-            name="avatar"
+            name="profile_image_url"
             accept="image/*"
             id="profileImg"
             onChange={saveImgFile}
@@ -90,7 +91,7 @@ export default function SignUp() {
           <input
             placeholder="email"
             type="email"
-            name="profile_image_url"
+            name="email"
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
@@ -111,7 +112,7 @@ export default function SignUp() {
           <input
             placeholder="phone"
             type="text"
-            name="phone_number"
+            name="phoneNumber"
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
