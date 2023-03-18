@@ -139,7 +139,7 @@ export default function SignUp() {
             disabled={isDisabledJoin ? false : true}
             onClick={submitUser}
           >
-            signUp
+            signUp!
           </button>
         </form>
       </div>
