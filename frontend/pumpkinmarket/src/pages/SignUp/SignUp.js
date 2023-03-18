@@ -13,8 +13,8 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const getSignupInfo = event => {
-    const { name, value } = event.target;
-    setSignupInfo({ ...signupInfo, [name]: value });
+    const { nickName, value } = event.target;
+    setSignupInfo({ ...signupInfo, [nickName]: value });
   };
   console.log(signupInfo);
   const imgRef = useRef();
@@ -24,11 +24,12 @@ export default function SignUp() {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
+      console.log('setImg' + reader.result);
       setImgFile(reader.result);
     };
   };
 
-  const submitUser = e => {
+  const submitUser = (e, props) => {
     e.preventDefault();
     fetch('http://192.168.0.191:3000/users/signup', {
       method: 'POST',
@@ -47,9 +48,30 @@ export default function SignUp() {
       .then(data => {
         console.log(data);
         console.log(signupInfo);
-        navigate('/');
       });
   };
+  const waringEmail = () => {
+    if (
+      regexEmail.test(signupInfo.email) === false &&
+      signupInfo.email.length > 0
+    ) {
+      return '이메일 형식이 올바르지 않습니다.';
+    } else if (regexEmail.test(signupInfo.email) === true) {
+      return '형식에 맞는 이메일주소 입니다.';
+    } else if (signupInfo.email.length === 0) {
+      return null;
+    }
+  };
+
+  const regexEmail =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+  const isDisabledJoin =
+    signupInfo.id.length > 0 &&
+    regexEmail.test(signupInfo.email) === true &&
+    signupInfo.phoneNumber.length > 0 &&
+    signupInfo.name.length > 0;
+
   return (
     <div className="flex justify-center ">
       <div className="flex justify-center leading-10 h-screen align-items: center;">
@@ -80,11 +102,7 @@ export default function SignUp() {
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-violet-700
 
-      
-
-
-      hover:file:bg-violet-10 mb-5
-      
+      hover:file:bg-violet-10 mb-5"
             name="profile_image_url"
 
             accept="image/*"
@@ -92,7 +110,6 @@ export default function SignUp() {
             onChange={saveImgFile}
             ref={imgRef}
           />
-
           <input
 
             placeholder="email"
@@ -100,24 +117,16 @@ export default function SignUp() {
             name="email"
             className="mb-5"
           ></input>
+          {waringEmail()}
           <input
 
             placeholder="name"
             type="name"
             name="name"
             className="mb-5"
-
           ></input>
           
-          <input
-            type="submit"
-            value="signUp"
-            className="w-44 bg-green-500 rounded-lg"
-
-
-
-
-          ></input>
+          </input>
           <input
             placeholder="password"
             type="password"
@@ -127,6 +136,7 @@ export default function SignUp() {
             onChange={getSignupInfo}
 
           ></input>
+
           
 <input
             name="phoneNumber"
@@ -136,6 +146,7 @@ export default function SignUp() {
           <button
             type="submit"
             className="w-44 bg-green-500 rounded-lg text-slate-50"
+            disabled={isDisabledJoin ? false : true}
             onClick={submitUser}
           >
             signUp
