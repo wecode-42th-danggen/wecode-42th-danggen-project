@@ -101,14 +101,17 @@ export default function SignUp() {
       file:rounded-full file:border-0
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-violet-700
+
       hover:file:bg-violet-10 mb-5"
             name="profile_image_url"
+
             accept="image/*"
             id="profileImg"
             onChange={saveImgFile}
             ref={imgRef}
           />
           <input
+
             placeholder="email"
             type="email"
             name="email"
@@ -116,19 +119,26 @@ export default function SignUp() {
           ></input>
           {waringEmail()}
           <input
+
             placeholder="name"
             type="name"
             name="name"
             className="mb-5"
           ></input>
+          
+          </input>
           <input
             placeholder="password"
             type="password"
             name="password"
             className="mb-5"
+
             onChange={getSignupInfo}
+
           ></input>
-          <input
+
+          
+<input
             name="phoneNumber"
             className="mb-5"
             onChange={getSignupInfo}
@@ -141,6 +151,7 @@ export default function SignUp() {
           >
             signUp
           </button>
+
         </form>
       </div>
     </div>
