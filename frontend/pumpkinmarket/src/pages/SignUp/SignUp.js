@@ -9,7 +9,7 @@ export default function SignUp() {
     email: '',
     password: '',
   });
-
+  console.log(signupInfo);
   const navigate = useNavigate();
 
   const getSignupInfo = event => {
@@ -93,7 +93,7 @@ export default function SignUp() {
             />
           </div>
           <span className="sr-only">Choose profile photo</span>
-          <label for="avatar">Avatar</label>
+          <label htmlFor="avatar">Avatar</label>
           <input
             type="file"
             className="block w-full text-sm text-slate-500
@@ -111,24 +111,27 @@ export default function SignUp() {
             ref={imgRef}
           />
           <input
-
+            value={signupInfo}
             placeholder="email"
             type="email"
             name="email"
             className="mb-5"
+            onChange={getSignupInfo}
           ></input>
           {waringEmail()}
           <input
-
-            placeholder="name"
-            type="name"
-            name="name"
+            placeholder="nickName"
+            value={signupInfo}
+            type="nickName"
+            name="nickName"
             className="mb-5"
+            onChange={getSignupInfo}
           ></input>
           
           </input>
           <input
             placeholder="password"
+            value={signupInfo}
             type="password"
             name="password"
             className="mb-5"
@@ -140,6 +143,7 @@ export default function SignUp() {
           
 <input
             name="phoneNumber"
+            value={signupInfo}
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
