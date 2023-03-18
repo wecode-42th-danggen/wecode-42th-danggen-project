@@ -57,7 +57,7 @@ export default function SignUp() {
     ) {
       return '이메일 형식이 올바르지 않습니다.';
     } else if (regexEmail.test(signupInfo.email) === true) {
-      return '형식에 맞는 이메일주소 입니다.';
+      return '형식에 맞는 이메일주소 입니다!';
     } else if (signupInfo.email.length === 0) {
       return null;
     }
