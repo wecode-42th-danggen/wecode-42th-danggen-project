@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 export default function SignUp() {
   const [formData, setFormData] = useState({ id: '', password: '' });
