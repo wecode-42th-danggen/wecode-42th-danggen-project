@@ -58,7 +58,7 @@ export default function SignUp() {
           ></input>
 
           <button type="submit" onClick={goToMain}>
-            Login
+            Login!
           </button>
         </form>
       </div>
