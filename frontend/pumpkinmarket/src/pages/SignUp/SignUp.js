@@ -122,11 +122,6 @@ export default function SignUp() {
             className="mb-5"
           ></input>
           <input
-            type="submit"
-            value="signUp"
-            className="w-44 bg-green-500 rounded-lg"
-          ></input>
-          <input
             placeholder="password"
             type="password"
             name="password"
