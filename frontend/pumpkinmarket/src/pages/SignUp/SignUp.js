@@ -3,15 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [imgFile, setImgFile] = useState('');
-  const [nickName, setNickName] = useState('');
-  const [email, setEmail] = useState('');
   const [signupInfo, setSignupInfo] = useState({
     phoneNumber: '',
     nickName: '',
     email: '',
     password: '',
   });
-
+  console.log(signupInfo);
   const navigate = useNavigate();
 
   const getSignupInfo = event => {
@@ -111,7 +109,7 @@ export default function SignUp() {
             ref={imgRef}
           />
           <input
-            value={email}
+            value={signupInfo}
             placeholder="email"
             type="email"
             name="email"
@@ -121,7 +119,7 @@ export default function SignUp() {
           {waringEmail()}
           <input
             placeholder="nickName"
-            value="nickName"
+            value={signupInfo}
             type="nickName"
             name="nickName"
             className="mb-5"
@@ -129,7 +127,7 @@ export default function SignUp() {
           ></input>
           <input
             placeholder="password"
-            value="password"
+            value={signupInfo}
             type="password"
             name="password"
             className="mb-5"
@@ -137,7 +135,7 @@ export default function SignUp() {
           ></input>
           <input
             name="phoneNumber"
-            value="phoneNumber"
+            value={signupInfo}
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
