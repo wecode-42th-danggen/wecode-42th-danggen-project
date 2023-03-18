@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [imgFile, setImgFile] = useState('');
+  const [nickName, setNickName] = useState('');
+  const [email, setEmail] = useState('');
   const [signupInfo, setSignupInfo] = useState({
     phoneNumber: '',
     nickName: '',
@@ -93,7 +95,7 @@ export default function SignUp() {
             />
           </div>
           <span className="sr-only">Choose profile photo</span>
-          <label for="avatar">Avatar</label>
+          <label htmlFor="avatar">Avatar</label>
           <input
             type="file"
             className="block w-full text-sm text-slate-500
@@ -109,20 +111,25 @@ export default function SignUp() {
             ref={imgRef}
           />
           <input
+            value={email}
             placeholder="email"
             type="email"
             name="email"
             className="mb-5"
+            onChange={getSignupInfo}
           ></input>
           {waringEmail()}
           <input
-            placeholder="name"
-            type="name"
-            name="name"
+            placeholder="nickName"
+            value="nickName"
+            type="nickName"
+            name="nickName"
             className="mb-5"
+            onChange={getSignupInfo}
           ></input>
           <input
             placeholder="password"
+            value="password"
             type="password"
             name="password"
             className="mb-5"
@@ -130,6 +137,7 @@ export default function SignUp() {
           ></input>
           <input
             name="phoneNumber"
+            value="phoneNumber"
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
