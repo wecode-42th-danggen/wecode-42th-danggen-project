@@ -34,7 +34,7 @@ const signIn = catchAsync(async (req, res) => {
       secure: false,
       signed: process.env.COOKIE_SECRET,
     })
-    .json({ message: `SUCCESS_LOG_IN, TOKEN_NUMBER : ${accessToken}` });
+    .json({ message: accessToken });
 });
 
 module.exports = { signUp, signIn };
