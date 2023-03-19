@@ -1,15 +1,28 @@
 import React, { useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
+  const [signupInfo, setSignupInfo] = useState('');
   const [imgFile, setImgFile] = useState('');
-  const [signupInfo, setSignupInfo] = useState({
-    phoneNumber: '',
-    nickName: '',
-    email: '',
-    password: '',
-  });
-  console.log(signupInfo);
+
+  const [Email, setEmail] = useState('');
+  const [nickName, setNickName] = useState('');
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const onEmailHandler = event => {
+    setEmail(event.currentTarget.value);
+  };
+  const onNickNameHandler = event => {
+    setNickName(event.currentTarget.value);
+  };
+  const onPasswordHandler = event => {
+    setPassword(event.currentTarget.value);
+  };
+  const onPhoneNumber = event => {
+    setPhoneNumber(event.currentTarget.value);
+  };
+
   const navigate = useNavigate();
 
   const getSignupInfo = event => {
@@ -31,7 +44,7 @@ export default function SignUp() {
 
   const submitUser = (e, props) => {
     e.preventDefault();
-    fetch('http://192.168.0.191:3000/users/signup', {
+    fetch('http://192.168.219.104:3000/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -114,7 +127,7 @@ export default function SignUp() {
             type="email"
             name="email"
             className="mb-5"
-            onChange={getSignupInfo}
+            onChange={onEmailHandler}
           ></input>
           {waringEmail()}
           <input
@@ -123,7 +136,7 @@ export default function SignUp() {
             type="nickName"
             name="nickName"
             className="mb-5"
-            onChange={getSignupInfo}
+            onChange={onNickNameHandler}
           ></input>
           <input
             placeholder="password"
@@ -131,13 +144,13 @@ export default function SignUp() {
             type="password"
             name="password"
             className="mb-5"
-            onChange={getSignupInfo}
+            onChange={onPasswordHandler}
           ></input>
           <input
             name="phoneNumber"
             value={signupInfo}
             className="mb-5"
-            onChange={getSignupInfo}
+            onChange={onPhoneNumber}
           ></input>
           <button
             type="submit"
