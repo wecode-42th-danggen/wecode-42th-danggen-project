@@ -24,6 +24,7 @@ export default function Login() {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data.accessToken);
         if (data.accessToken == null) {
           alert('아이디 혹은 비밀번호 확인해주세요.');
         } else {
