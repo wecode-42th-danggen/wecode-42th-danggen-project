@@ -40,7 +40,32 @@ const deletePost = async (userId, postId) => {
   return await postDao.deletePost(userId, postId);
 };
 
-const getPosts = async (postId) => {
+const getPosts = async (postId, cookie) => {
+  if (cookie) {
+    const viewObj = new Object();
+    const [currentViews] = await postDao.getPostViewsByPostId(postId);
+    let updatedViews;
+
+    if (currentViews.viewCount == null) {
+      updatedViews = 0;
+    } else {
+      updatedViews = currentViews.viewCount;
+    }
+
+    if (postId) {
+      if (!viewObj[postId]) {
+        viewObj[postId] = [];
+      }
+
+      if (viewObj[postId].indexOf(cookie) == -1) {
+        viewObj[postId].push(cookie);
+        updatedViews += 1;
+        console.log(updatedViews);
+        await postDao.addPostViewCount(updatedViews, postId);
+      }
+    }
+  }
+
   return await postDao.getPosts(postId);
 };
 

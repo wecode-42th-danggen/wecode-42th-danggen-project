@@ -28,6 +28,12 @@ const signIn = catchAsync(async (req, res) => {
 
   return res
     .status(200)
+    .cookie('viewCount', 'count', {
+      expires: new Date(Date.now() + 43200000),
+      httpOnly: true,
+      secure: false,
+      signed: process.env.COOKIE_SECRET,
+    })
     .json({ message: `SUCCESS_LOG_IN, TOKEN_NUMBER : ${accessToken}` });
 });
 

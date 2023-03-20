@@ -1,10 +1,10 @@
 const express = require('express');
 
 const postController = require('../controllers/postController');
+const { checkValidationToken } = require('../middlewares/auth');
+const { upload } = require('../utils/imageUplodaer');
 
 const router = express.Router();
-
-const { upload } = require('../utils/imageUplodaer');
 
 router.post('/', upload.single('image'), postController.createPost);
 router.patch('/hide/:postId', postController.hidePost);
