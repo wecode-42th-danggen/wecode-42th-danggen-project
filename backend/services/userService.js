@@ -18,6 +18,7 @@ const signUp = async (email, password, phoneNumber, nickName) => {
     error.statusCode = 400;
     throw error;
   }
+
   if (userPhoneNumber) {
     const error = new Error('ALREADY_EXIST_PHONE_NUMBER');
     error.statusCode = 400;
@@ -81,6 +82,7 @@ const signIn = async (email, password) => {
   }
 
   const userId = checkUserInfo.id;
+
   return accessToken(userId);
 };
 

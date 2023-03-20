@@ -23,8 +23,6 @@ const createPost = async (image, postInfo) => {
     categoryId,
     priceSuggestion,
   } = postInfo;
-  console.log(postInfo);
-  console.log(title);
 
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
@@ -190,33 +188,57 @@ const getPosts = async (postId) => {
   const query = queryBuilder.buildQuery();
   return await appDataSource.query(
     `
-  SELECT
-    post.id,
-    JSON_ARRAYAGG(
-      JSON_OBJECT(
-        "id", post.id,
-        "userId", post.user_id,
-        "nickname", user.nickname,
-        "title", post.title,
-        "price", post.price,
-        "description", post.description,
-        "category", category.name,
-        "hidden", post.hidden,
-        "location", post.location,
-        "viewCount", post.view_count,
-        "createdTime", post.created_at,
-        "pullupTime", post.pullup_time,
-        "imageUrl", image.image_url,
-        "likes", (SELECT COUNT(likes.id) FROM likes WHERE likes.post_id=post.id)
-      )
-    ) as postInfo
-  FROM posts post
-  INNER JOIN categories category ON category.id=post.category_id
-  INNER JOIN post_images image ON image.post_id=post.id
-  INNER JOIN users user ON user.id=post.user_id
-  ${query}
-  GROUP BY post.id;
-`
+    SELECT
+      post.id,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          "id", post.id,
+          "userId", post.user_id,
+          "nickname", user.nickname,
+          "title", post.title,
+          "price", post.price,
+          "description", post.description,
+          "category", category.name,
+          "hidden", post.hidden,
+          "location", post.location,
+          "viewCount", post.view_count,
+          "createdTime", post.created_at,
+          "pullupTime", post.pullup_time,
+          "imageUrl", image.image_url,
+          "likes", (SELECT COUNT(likes.id) FROM likes WHERE likes.post_id=post.id)
+        )
+      ) as postInfo
+    FROM posts post
+    INNER JOIN categories category ON category.id=post.category_id
+    INNER JOIN post_images image ON image.post_id=post.id
+    INNER JOIN users user ON user.id=post.user_id
+    ${query}
+    GROUP BY post.id;
+    `
+  );
+};
+
+const getPostViewsByPostId = async (postId) => {
+  return await appDataSource.query(
+    `
+    SELECT
+      id,
+      view_count as viewCount
+    FROM posts
+    WHERE id = ?
+    `,
+    [postId]
+  );
+};
+
+const addPostViewCount = async (viewCount, postId) => {
+  return await appDataSource.query(
+    `
+    UPDATE posts
+    SET view_count = ?
+    WHERE id = ?
+    `,
+    [viewCount, postId]
   );
 };
 
@@ -230,4 +252,6 @@ module.exports = {
   getPosts,
   createLike,
   cancelLike,
+  getPostViewsByPostId,
+  addPostViewCount,
 };
