@@ -138,25 +138,23 @@ export default function SignUp() {
             name="password"
             className="mb-5"
           ></input>
+          
           <input
-            placeholder="phone"
-            type="text"
-            name="phone_number"
+            placeholder="phoneNumber"
+            name="phoneNumber"
             className="mb-5"
             onChange={getSignupInfo}
-          ></input>
-          <input
-            type="submit"
-            value="signUp"
-            className="w-44 bg-green-500 rounded-lg"
-          ></input>
-          <input name="phoneNumber" className="mb-5" onChange={getSignupInfo} />
+          />
+
+         
+          
+
           <button
             type="submit"
             className="w-44 bg-green-500 rounded-lg text-slate-50"
             onClick={submitUser}
           >
-            signUp!
+            signUp
           </button>
         </form>
       </div>
