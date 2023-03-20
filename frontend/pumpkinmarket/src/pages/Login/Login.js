@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function Login() {
   const [formData, setFormData] = useState({ id: '', password: '' });
   const navigate = useNavigate();
 
