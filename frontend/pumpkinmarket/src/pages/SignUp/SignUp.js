@@ -46,7 +46,12 @@ export default function SignUp() {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data);
+        console.log(signupInfo);
         navigate('/');
+      })
+      .catch(error => {
+        console.log(error.messages);
       });
   };
   const waringEmail = () => {
