@@ -9,6 +9,7 @@ export default function SignUp() {
     email: '',
     password: '',
   });
+
   const navigate = useNavigate();
 
   const getSignupInfo = event => {
@@ -28,7 +29,7 @@ export default function SignUp() {
     };
   };
 
-  const submitUser = e => {
+  const submitUser = (e, props) => {
     e.preventDefault();
     fetch('http://192.168.0.195:3000/users/signup', {
       method: 'POST',
@@ -46,9 +47,6 @@ export default function SignUp() {
       .then(response => response.json())
       .then(data => {
         navigate('/');
-      })
-      .catch(err => {
-        console.log(err.messages);
       });
   };
   const waringEmail = () => {
@@ -56,9 +54,13 @@ export default function SignUp() {
       regexEmail.test(signupInfo.email) === false &&
       signupInfo.email.length > 0
     ) {
-      return '이메일 형식이 올바르지 않습니다.';
+      return (
+        <div className="text-red-400">이메일 형식이 올바르지 않습니다.</div>
+      );
     } else if (regexEmail.test(signupInfo.email) === true) {
-      return '형식에 맞는 이메일주소 입니다!';
+      return (
+        <div className="text-teal-500">형식에 맞는 이메일주소 입니다!</div>
+      );
     } else if (signupInfo.email.length === 0) {
       return null;
     }
