@@ -135,6 +135,7 @@ export default function SignUp() {
           />
           <input
             placeholder="phoneNumber"
+            type="text"
             name="phoneNumber"
             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
