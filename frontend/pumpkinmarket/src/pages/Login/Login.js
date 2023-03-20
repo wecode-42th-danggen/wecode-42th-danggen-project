@@ -62,8 +62,12 @@ export default function Login() {
             onChange={getUserInfo}
           />
 
-          <button type="submit" onClick={goToMain}>
-            Login!
+          <button
+            type="submit"
+            onClick={goToMain}
+            className="w-44 bg-green-500 rounded-lg text-slate-50"
+          >
+            Login
           </button>
         </form>
       </div>
