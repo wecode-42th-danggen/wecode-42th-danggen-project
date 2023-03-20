@@ -1,4 +1,5 @@
 const { appDataSource } = require('../models');
+const QueryBuilder = require('./queryBuilder');
 
 const createPost = async (image, postInfo) => {
   const postStatus = Object.freeze({
@@ -183,7 +184,12 @@ const cancelLike = async (userId, postId) => {
   );
 };
 
-const getPosts = async () => {
+const getPosts = async (postId) => {
+  const queryBuilder = new QueryBuilder({
+    postId: postId,
+  });
+
+  const query = queryBuilder.buildQuery();
   return await appDataSource.query(
     `
   SELECT
@@ -209,6 +215,7 @@ const getPosts = async () => {
   INNER JOIN categories category ON category.id=post.category_id
   INNER JOIN post_images image ON image.post_id=post.id
   INNER JOIN users user ON user.id=post.user_id
+  ${query}
   GROUP BY post.id;
 `
   );
