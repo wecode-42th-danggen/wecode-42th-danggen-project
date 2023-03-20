@@ -20,10 +20,10 @@ const Router = () => {
     <BrowserRouter>
       <Nav />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/product-list" element={<ProductList />} />
+        <Route path="/" element={<ProductList />} />
         <Route path="/posting" element={<Posting />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/sign-up" element={<SignUp />} />
