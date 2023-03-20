@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function Login() {
   const [formData, setFormData] = useState({ id: '', password: '' });
   const navigate = useNavigate();
 
@@ -24,9 +24,13 @@ export default function SignUp() {
     })
       .then(response => response.json())
       .then(data => {
-        alert('로그인 되었습니다');
-        window.localStorage.setItem('accessToken', data.accessToken);
-        navigate('/');
+        if (data.accessToken == null) {
+          alert('아이디 혹은 비밀번호 확인해주세요.');
+        } else {
+          alert('로그인 되었습니다');
+          window.localStorage.setItem('accessToken', data.accessToken);
+          navigate('/');
+        }
       })
       .catch(err => {
         console.log(err.messages);
