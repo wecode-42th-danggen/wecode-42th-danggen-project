@@ -1,5 +1,5 @@
 class QueryBuilder {
-  constructor({ postId }) {
+  constructor(postId) {
     this.whereParams = {
       ...(postId && { postId }),
     };
