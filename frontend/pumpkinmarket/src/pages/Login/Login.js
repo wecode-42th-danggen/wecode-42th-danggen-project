@@ -12,21 +12,26 @@ export default function SignUp() {
 
   const goToMain = e => {
     e.preventDefault();
-    fetch('http://192.168.0.191:3000/users/signin', {
+    fetch('http://192.168.0.195:3000/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify({
-        password: formData.password,
         email: formData.email,
+        password: formData.password,
       }),
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        console.log(formData);
-        navigate('/');
+        console.log(data.accessToken);
+        if (data.accessToken == null) {
+          alert('아이디 혹은 비밀번호 확인해주세요.');
+        } else {
+          alert('로그인 되었습니다');
+          window.localStorage.setItem('accessToken', data.accessToken);
+          navigate('/');
+        }
       })
       .catch(err => {
         console.log(err.messages);
@@ -48,14 +53,14 @@ export default function SignUp() {
             name="email"
             className="ml-7 mb-7"
             onChange={getUserInfo}
-          ></input>
+          />
           <input
             placeholder="password"
             type="password"
             name="password"
             className="mb-7"
             onChange={getUserInfo}
-          ></input>
+          />
 
           <button type="submit" onClick={goToMain}>
             Login!
