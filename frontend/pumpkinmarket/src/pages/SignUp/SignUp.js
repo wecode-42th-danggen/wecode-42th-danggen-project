@@ -86,7 +86,7 @@ function SignUpForm() {
         />
       </div>
       <div>
-        <label htmlFor="NickName">nickName</label>
+        <label htmlFor="nickName">nickName</label>
         <input
           type="text"
           id="confirmNickName"
@@ -95,7 +95,7 @@ function SignUpForm() {
         />
       </div>
       <div>
-        <label htmlFor="Password">phonePhoneNumber</label>
+        <label htmlFor="phoneNumber">phonePhoneNumber</label>
         <input
           type="text"
           id="PhoneNumber"
