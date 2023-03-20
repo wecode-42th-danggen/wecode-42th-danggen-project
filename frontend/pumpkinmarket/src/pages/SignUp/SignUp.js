@@ -1,6 +1,5 @@
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SignUp from '../Login/Login';
 
 function SignUpForm() {
   const [signupInfo, setSignupInfo] = useState('');
