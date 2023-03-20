@@ -78,7 +78,8 @@ const deletePost = catchAsync(async (req, res) => {
 });
 
 const getPosts = catchAsync(async (req, res) => {
-  const data = await postService.getPosts();
+  const { postId } = req.query;
+  const data = await postService.getPosts(postId);
 
   return res.status(200).json({ data });
 });

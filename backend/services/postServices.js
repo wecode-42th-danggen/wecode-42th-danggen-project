@@ -40,8 +40,8 @@ const deletePost = async (userId, postId) => {
   return await postDao.deletePost(userId, postId);
 };
 
-const getPosts = async () => {
-  return await postDao.getPosts();
+const getPosts = async (postId) => {
+  return await postDao.getPosts(postId);
 };
 
 const createLike = async (userId, postId) => {
