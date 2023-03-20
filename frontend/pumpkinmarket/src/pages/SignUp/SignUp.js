@@ -110,21 +110,17 @@ export default function SignUp() {
             ref={imgRef}
           />
           <input
-
             value={signupInfo}
-
             placeholder="email"
             type="email"
             name="email"
             className="mb-5"
-
           />
           {waringEmail()}
           <input
             placeholder="name"
             type="name"
             name="name"
-
             onChange={getSignupInfo}
           ></input>
           {waringEmail()}
@@ -133,7 +129,6 @@ export default function SignUp() {
             value={signupInfo}
             type="nickName"
             name="nickName"
-
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
@@ -163,7 +158,6 @@ export default function SignUp() {
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
-
 
           <input
             name="phoneNumber"
