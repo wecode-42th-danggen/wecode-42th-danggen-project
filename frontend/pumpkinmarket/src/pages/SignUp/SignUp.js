@@ -144,7 +144,7 @@ export default function SignUp() {
             className="w-44 bg-green-500 rounded-lg text-slate-50"
             onClick={submitUser}
           >
-            signUp!
+            signUp
           </button>
         </form>
       </div>
