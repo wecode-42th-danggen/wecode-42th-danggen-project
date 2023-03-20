@@ -1,5 +1,6 @@
 const userService = require('../services/userService');
 const { catchAsync } = require('../utils/error');
+const { checkValidationToken } = require('../middlewares/auth');
 
 const signUp = catchAsync(async (req, res) => {
   const { email, password, phoneNumber, nickName } = req.body;
@@ -27,6 +28,12 @@ const signIn = catchAsync(async (req, res) => {
 
   return res
     .status(200)
+    .cookie('viewCount', 'count', {
+      expires: new Date(Date.now() + 43200000),
+      httpOnly: true,
+      secure: false,
+      signed: process.env.COOKIE_SECRET,
+    })
     .json({ message: `SUCCESS_LOG_IN, TOKEN_NUMBER : ${accessToken}` });
 });
 

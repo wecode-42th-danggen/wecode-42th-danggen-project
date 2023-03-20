@@ -1,11 +1,19 @@
+const socketIO = require('socket.io');
+
 require('dotenv').config();
 
 const { createApp } = require('./app');
 const { appDataSource } = require('./models/index');
+const { socketMessage } = require('./middlewares/socket.io');
 
 const startServer = async () => {
   const app = createApp();
   const PORT = process.env.PORT;
+  const SOCKET_PORT = process.env.SOCKET_PORT;
+
+  const io = socketIO(SOCKET_PORT);
+
+  socketMessage(io);
 
   await appDataSource
     .initialize()
