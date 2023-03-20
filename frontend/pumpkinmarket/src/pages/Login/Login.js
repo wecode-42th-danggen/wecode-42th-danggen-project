@@ -24,14 +24,9 @@ export default function SignUp() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data.accessToken);
-        if (data.accessToken == null) {
-          alert('아이디 혹은 비밀번호 확인해주세요.');
-        } else {
-          alert('로그인 되었습니다');
-          window.localStorage.setItem('accessToken', data.accessToken);
-          navigate('/');
-        }
+        alert('로그인 되었습니다');
+        window.localStorage.setItem('accessToken', data.accessToken);
+        navigate('/');
       })
       .catch(err => {
         console.log(err.messages);
