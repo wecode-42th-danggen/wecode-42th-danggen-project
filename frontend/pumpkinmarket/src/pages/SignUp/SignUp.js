@@ -133,7 +133,12 @@ export default function SignUp() {
             className="mb-5"
             onChange={getSignupInfo}
           />
-          <input name="phoneNumber" className="mb-5" onChange={getSignupInfo} />
+          <input
+            placeholder="phoneNumber"
+            name="phoneNumber"
+            className="mb-5"
+            onChange={getSignupInfo}
+          />
           <button
             type="submit"
             className="w-44 bg-green-500 rounded-lg text-slate-50"
