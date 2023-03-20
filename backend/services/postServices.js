@@ -40,9 +40,17 @@ const deletePost = async (userId, postId) => {
   return await postDao.deletePost(userId, postId);
 };
 
-// const getPostsByCategoryId = async (userId, postId) => {
-//   return await postDao.deletePost(userId, postId);
-// };
+const getPosts = async (postId) => {
+  return await postDao.getPosts(postId);
+};
+
+const createLike = async (userId, postId) => {
+  return await postDao.createLike(userId, postId);
+};
+
+const cancelLike = async (userId, postId) => {
+  return await postDao.cancelLike(userId, postId);
+};
 
 module.exports = {
   createPost,
@@ -51,4 +59,7 @@ module.exports = {
   unhidePost,
   pullUpPost,
   deletePost,
+  getPosts,
+  createLike,
+  cancelLike,
 };

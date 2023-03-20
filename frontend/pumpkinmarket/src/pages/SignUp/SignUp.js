@@ -116,6 +116,12 @@ export default function SignUp() {
             type="email"
             name="email"
             className="mb-5"
+          />
+          {waringEmail()}
+          <input
+            placeholder="name"
+            type="name"
+            name="name"
             onChange={getSignupInfo}
           />
           {waringEmail()}
@@ -125,14 +131,25 @@ export default function SignUp() {
             name="nickName"
             className="mb-5"
             onChange={getSignupInfo}
-          />
+/>
           <input
             placeholder="password"
             type="password"
             name="password"
             className="mb-5"
+          ></input>
+          <input
+            placeholder="phone"
+            type="text"
+            name="phone_number"
+            className="mb-5"
             onChange={getSignupInfo}
-          />
+          ></input>
+          <input
+            type="submit"
+            value="signUp"
+            className="w-44 bg-green-500 rounded-lg"
+          ></input>
           <input name="phoneNumber" className="mb-5" onChange={getSignupInfo} />
           <button
             type="submit"
