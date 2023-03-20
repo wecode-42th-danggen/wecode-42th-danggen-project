@@ -104,18 +104,27 @@ export default function SignUp() {
 
       hover:file:bg-violet-10 mb-5"
             name="profile_image_url"
-
             accept="image/*"
             id="profileImg"
             onChange={saveImgFile}
             ref={imgRef}
           />
           <input
+
             value={signupInfo}
+
             placeholder="email"
             type="email"
             name="email"
             className="mb-5"
+
+          />
+          {waringEmail()}
+          <input
+            placeholder="name"
+            type="name"
+            name="name"
+
             onChange={getSignupInfo}
           ></input>
           {waringEmail()}
@@ -124,11 +133,11 @@ export default function SignUp() {
             value={signupInfo}
             type="nickName"
             name="nickName"
+
             className="mb-5"
             onChange={getSignupInfo}
           ></input>
-          
-          </input>
+
           <input
             placeholder="password"
             value={signupInfo}
