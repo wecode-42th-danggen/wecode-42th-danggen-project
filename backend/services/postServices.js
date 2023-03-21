@@ -1,7 +1,7 @@
 const postDao = require('../models/postDao');
 
-const createPost = async (image, postInfo) => {
-  return await postDao.createPost(image, postInfo);
+const createPost = async (image, postInfo, userId) => {
+  return await postDao.createPost(image, postInfo, userId);
 };
 
 const updatePost = async (

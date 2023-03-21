@@ -4,8 +4,8 @@ const { deleteImage } = require('../utils/imageUplodaer');
 
 const createPost = catchAsync(async (req, res) => {
   const image = req.file;
-  const { postContents } = req.body;
-  const postInfo = JSON.parse(postContents);
+  const postInfo = req.body;
+  const userId = req.user;
 
   if (!image) {
     const error = new Error('Image Upload Failed');
@@ -14,7 +14,7 @@ const createPost = catchAsync(async (req, res) => {
   }
 
   try {
-    await postService.createPost(image, postInfo);
+    await postService.createPost(image, postInfo, userId);
 
     return res.status(201).json({ message: 'Post Created Successfully' });
   } catch (err) {
@@ -24,9 +24,9 @@ const createPost = catchAsync(async (req, res) => {
 });
 
 const updatePost = catchAsync(async (req, res) => {
-  const { userId, title, price, description, categoryId, priceSuggestion } =
-    req.body;
+  const { title, price, description, categoryId, priceSuggestion } = req.body;
   const { postId } = req.params;
+  const userId = req.user;
 
   await postService.updatePost(
     userId,
@@ -42,7 +42,7 @@ const updatePost = catchAsync(async (req, res) => {
 });
 
 const hidePost = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const userId = req.user;
   const { postId } = req.params;
 
   await postService.hidePost(userId, postId);
@@ -51,7 +51,7 @@ const hidePost = catchAsync(async (req, res) => {
 });
 
 const unhidePost = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const userId = req.user;
   const { postId } = req.params;
 
   await postService.unhidePost(userId, postId);
@@ -60,7 +60,7 @@ const unhidePost = catchAsync(async (req, res) => {
 });
 
 const pullUpPost = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const userId = req.user;
   const { postId } = req.params;
 
   await postService.pullUpPost(userId, postId);
@@ -69,7 +69,7 @@ const pullUpPost = catchAsync(async (req, res) => {
 });
 
 const deletePost = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const userId = req.user;
   const { postId } = req.params;
 
   await postService.deletePost(userId, postId);
@@ -87,7 +87,7 @@ const getPosts = catchAsync(async (req, res) => {
 });
 
 const createLike = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const userId = req.user;
   const { postId } = req.params;
   await postService.createLike(userId, postId);
 
@@ -95,7 +95,7 @@ const createLike = catchAsync(async (req, res) => {
 });
 
 const cancelLike = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const userId = req.user;
   const { postId } = req.params;
 
   await postService.cancelLike(userId, postId);
