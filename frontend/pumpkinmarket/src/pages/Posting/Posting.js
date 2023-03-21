@@ -71,6 +71,8 @@ export default function Posting() {
     setUploadInfo(prev => ({ ...prev, categoryId: parseInt(e.target.value) }));
   };
 
+  const Token = localStorage.getItem('accessToken');
+
   const onSubmit = e => {
     e.preventDefault();
 
@@ -78,14 +80,14 @@ export default function Posting() {
       method: 'POST',
       headers: {
         enctype: 'multipart/form-data',
-        // authorization: Token,
+        authorization: Token,
       },
       body: uploadForm,
     })
       .then(response => response.json())
       .then(data => {
         if (data.message === 'Post Created Successfully') {
-          navigate('/product-list');
+          navigate('/');
         } else {
           alert('실패');
         }
