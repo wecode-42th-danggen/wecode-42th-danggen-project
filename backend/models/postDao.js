@@ -22,7 +22,7 @@ const createPost = async (image, postInfo, userId) => {
   await queryRunner.startTransaction();
 
   try {
-    const post = await appDataSource.query(
+    const post = await queryRunner.query(
       `
       INSERT INTO posts (
         user_id,
@@ -177,8 +177,8 @@ const cancelLike = async (userId, postId) => {
 
 const getPosts = async (postId) => {
   const queryBuilder = new QueryBuilder(postId);
-
   const query = queryBuilder.buildQuery();
+
   return await appDataSource.query(
     `
     SELECT
