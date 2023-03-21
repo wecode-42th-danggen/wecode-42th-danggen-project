@@ -6,7 +6,6 @@ const getUserByEmail = async (email) => {
     SELECT
       u.id,
       u.social_id AS socialId,
-      u.social_type_id AS socialTypeId,
       u.email,
       u.password,
       u.phone_number AS PhoneNumber,
@@ -28,7 +27,6 @@ const getUserByPhoneNumber = async (phoneNumber) => {
     SELECT
       u.id,
       u.social_id AS socialId,
-      u.social_type_id AS socialTypeId,
       u.email,
       u.phone_number AS PhoneNumber,
       u.nickname AS nickName,
@@ -49,7 +47,6 @@ const getUserByNickName = async (nickName) => {
     SELECT
       u.id,
       u.social_id AS socialId,
-      u.social_type_id AS socialTypeId,
       u.email,
       u.phone_number AS PhoneNumber,
       u.nickname AS nickName,
