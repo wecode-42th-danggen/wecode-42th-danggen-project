@@ -63,19 +63,7 @@ const getUserByNickName = async (nickName) => {
   return userNickName[0];
 };
 
-const defaultUserSocialType = Object.freeze({
-  itself: 1,
-  waem: 2,
-});
-
-const defaultUserStatusType = Object.freeze({
-  activity: 1,
-  reporting: 2,
-  stopActivity: 3,
-  leave: 4,
-});
-
-const createUser = (
+const createUser = async (
   email,
   password,
   phoneNumber,
@@ -83,32 +71,73 @@ const createUser = (
   socialId,
   profileImageUrl
 ) => {
-  return appDataSource.query(
-    `
-    INSERT INTO
-      users(
+  const defaultUserSocialType = Object.freeze({
+    itself: 1,
+    waem: 2,
+  });
+
+  const defaultUserStatusType = Object.freeze({
+    activity: 1,
+    reporting: 2,
+    stopActivity: 3,
+    leave: 4,
+  });
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  try {
+    await queryRunner.query(
+      `
+      INSERT INTO
+        users(
+          email,
+          password,
+          phone_number,
+          nickname,
+          social_id,
+          profile_image_url,
+          user_status_id)
+      VALUES
+        (?,?,?,?,?,?,?)
+    `,
+      [
         email,
         password,
-        phone_number,
-        nickname,
-        social_id,
-        profile_image_url,
-        social_type_id,
-        user_status_id)
-    VALUES
-        (?,?,?,?,?,?,?,?)
-    `,
-    [
-      email,
-      password,
-      phoneNumber,
-      nickName,
-      socialId,
-      profileImageUrl,
-      defaultUserSocialType.itself,
-      defaultUserStatusType.activity,
-    ]
-  );
+        phoneNumber,
+        nickName,
+        socialId,
+        profileImageUrl,
+        defaultUserStatusType.activity,
+      ]
+    );
+
+    const [userId] = await queryRunner.query(
+      `SELECT LAST_INSERT_ID() as insertId FROM users`
+    );
+
+    await queryRunner.query(
+      `
+      INSERT INTO users_social_types (
+          user_id,
+          social_type_id
+        )
+      VALUES (
+        ?,
+        ?
+      )
+      `,
+      [userId.insertId, defaultUserSocialType.itself]
+    );
+
+    await queryRunner.commitTransaction();
+    await queryRunner.release();
+  } catch (err) {
+    await queryRunner.rollbackTransaction();
+    await queryRunner.release();
+
+    throw new Error('Failed To Create User');
+  }
 };
 
 const getPasswordByEmail = async (email) => {
