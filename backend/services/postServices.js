@@ -60,7 +60,6 @@ const getPosts = async (postId, cookie) => {
       if (viewObj[postId].indexOf(cookie) == -1) {
         viewObj[postId].push(cookie);
         updatedViews += 1;
-        console.log(updatedViews);
         await postDao.addPostViewCount(updatedViews, postId);
       }
     }
