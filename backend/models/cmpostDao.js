@@ -1,9 +1,8 @@
+const { CustomRepositoryNotFoundError } = require('typeorm');
 const { appDataSource } = require('./index');
 
-const createCmpost = async (image, cmpostInfo) => {
+const createCmpost = async (image, title, description, categoryId, userId) => {
   const { imageUrl } = image;
-  const { userId, title, description, categoryId } = cmpostInfo;
-
   try {
     const cmpost = await appDataSource.query(
       `
@@ -18,7 +17,7 @@ const createCmpost = async (image, cmpostInfo) => {
       VALUES
         (?,?,?,?,?)
       `,
-      [userId, title, imageUrl, description, categoryId]
+      [userId, title, image.location, description, categoryId]
     );
     return cmpost;
   } catch (err) {
