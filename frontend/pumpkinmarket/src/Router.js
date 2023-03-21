@@ -13,7 +13,6 @@ import Posting from './pages/Posting/Posting';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
-import Admin from './pages/Admin/Admin';
 
 const Router = () => {
   return (
@@ -31,7 +30,6 @@ const Router = () => {
         <Route path="/neighborinfo" element={<NeighborInfo />} />
         <Route path="/neighborinfo-list" element={<NeighborInfoList />} />
         <Route path="/neighborinfo-posting" element={<NeighborInfoPosting />} />
-        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </BrowserRouter>
