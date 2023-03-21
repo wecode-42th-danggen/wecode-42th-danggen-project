@@ -12,7 +12,7 @@ export default function AdminProject() {
           <Link to="/dealings">중고거래 게시글 관리</Link>
         </li>
         <li>
-          <Link to="/communuty">커뮤니티 게시글 관리</Link>
+          <Link to="/Community">커뮤니티 게시글 관리</Link>
         </li>
       </ul>
     </div>

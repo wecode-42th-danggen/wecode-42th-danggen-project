@@ -4,7 +4,9 @@ import AdminProject from './AdminProject';
 export default function Dealings() {
   return (
     <>
-      <AdminProject />
+      <div className="flex pt-20">
+        <AdminProject />
+      </div>
     </>
   );
 }
