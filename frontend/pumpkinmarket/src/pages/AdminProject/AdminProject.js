@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function AdminProject() {
   return (
-    <div className="pt-20 h-screen leading-7 pl-9">
+    <div className="pt-20 h-screen leading-7 pl-9 w-2/5">
       <ul>
         <li>
           <Link to="/member">회원관리</Link>
