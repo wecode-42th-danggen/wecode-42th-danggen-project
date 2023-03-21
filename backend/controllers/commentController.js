@@ -5,7 +5,6 @@ const createComment = catchAsync(async (req, res) => {
   const { cmpostId } = req.params;
   const { content } = req.body;
   const userId = req.user;
-  console.log(userId);
 
   if (!content) {
     const error = new Error('KEY_ERROR');
