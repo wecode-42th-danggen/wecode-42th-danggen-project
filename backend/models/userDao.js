@@ -21,6 +21,7 @@ const getUserByEmail = async (email) => {
   );
   return userEmail[0];
 };
+
 const getUserByPhoneNumber = async (phoneNumber) => {
   const userPhoneNumber = await appDataSource.query(
     `
@@ -154,6 +155,7 @@ const getPasswordByEmail = async (email) => {
     `,
     [email]
   );
+  console.log(result);
   return result[0].password;
 };
 
