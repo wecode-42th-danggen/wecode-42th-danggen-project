@@ -34,7 +34,7 @@ const signIn = catchAsync(async (req, res) => {
       secure: false,
       signed: process.env.COOKIE_SECRET,
     })
-    .json({ message: accessToken });
+    .json({ accessToken });
 });
 
 module.exports = { signUp, signIn };
