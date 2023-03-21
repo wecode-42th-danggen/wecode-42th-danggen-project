@@ -1,5 +1,11 @@
 import React from 'react';
+import AdminProject from './AdminProject';
 
 export default function Community() {
-  return <></>;
+  return (
+    <>
+      <AdminProject />
+      <div>re</div>
+    </>
+  );
 }
