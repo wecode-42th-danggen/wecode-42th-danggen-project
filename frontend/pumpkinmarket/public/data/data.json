@@ -1,0 +1,204 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "postInfo": [
+        {
+          "likes": 3,
+          "price": 100000,
+          "title": "테스트 타이틀",
+          "hidden": null,
+          "userId": 1,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/167896001148059e30531-60ea-4611-ad78-951251be6b91cellphone.jpg",
+          "location": null,
+          "nickname": "호박",
+          "viewCount": null,
+          "pullupTime": "2023-03-16 18:46:52.000000",
+          "createdTime": "2023-03-16 18:46:52.000000",
+          "description": "좋은 제품입니다"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50000,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 2,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/167904258461351a3790b-6813-4c22-abd1-4bb7d5033616cellphone.jpg",
+          "location": "gs편의점 앞",
+          "nickname": "당근",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:05.000000",
+          "createdTime": "2023-03-17 17:43:05.000000",
+          "description": "좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "postInfo": [
+        {
+          "likes": 0,
+          "price": 50440,
+          "title": "테스트 타이틀2",
+          "hidden": null,
+          "userId": 3,
+          "category": "가구/인테리어",
+          "imageUrl": "https://juseongawsbucket.s3.ap-northeast-2.amazonaws.com/16790426299810f15bece-162c-490a-9521-78b440fbe26dcellphone.jpg",
+          "location": "gs편의점 뒤  ",
+          "nickname": "오이",
+          "viewCount": null,
+          "pullupTime": "2023-03-17 17:43:51.000000",
+          "createdTime": "2023-03-17 17:43:51.000000",
+          "description": "암튼 좋은 제품임~~~"
+        }
+      ]
+    }
+  ]
+}

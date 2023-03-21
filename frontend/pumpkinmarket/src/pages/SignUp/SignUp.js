@@ -115,6 +115,7 @@ export default function SignUp() {
             placeholder="email"
             type="email"
             name="email"
+
             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
@@ -130,9 +131,11 @@ export default function SignUp() {
             placeholder="password"
             type="password"
             name="password"
+
             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
+
           <input
             placeholder="phoneNumber"
             type="text"
@@ -140,6 +143,7 @@ export default function SignUp() {
             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
+
           <button
             type="submit"
             className="w-44 bg-green-500 rounded-lg text-slate-50"
