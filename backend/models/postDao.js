@@ -1,31 +1,41 @@
 const { appDataSource } = require('../models');
+const QueryBuilder = require('./queryBuilder');
 
-const createPost = async (image, postInfo) => {
+const createPost = async (
+  image,
+  title,
+  price,
+  description,
+  categoryId,
+  priceSuggestion,
+  location,
+  userId
+) => {
   const postStatus = Object.freeze({
     onSale: 1,
     onReservation: 2,
     doneDeal: 3,
   });
+
   const adminPostStatus = Object.freeze({
     normal: 1,
     onReporting: 2,
     takeDown: 3,
   });
-  const { userId, title, price, description, categoryId, priceSuggestion } =
-    postInfo;
 
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
   await queryRunner.startTransaction();
 
   try {
-    const post = await appDataSource.query(
+    const post = await queryRunner.query(
       `
       INSERT INTO posts (
-        user_id, 
+        user_id,
         title, 
         price, 
         description, 
+        location,
         price_suggestion,
         category_id, 
         post_status_id,
@@ -38,6 +48,7 @@ const createPost = async (image, postInfo) => {
         ?,
         ?, 
         ?,
+        ?,
         ?
       );
       `,
@@ -46,6 +57,7 @@ const createPost = async (image, postInfo) => {
         title,
         price,
         description,
+        location,
         priceSuggestion,
         categoryId,
         postStatus.onSale,
@@ -143,6 +155,92 @@ const deletePost = async (userId, postId) => {
   );
 };
 
+const createLike = async (userId, postId) => {
+  return await appDataSource.query(
+    `
+    INSERT INTO likes (
+      user_id,
+      post_id
+    ) VALUES (
+      ?,
+      ?
+    )
+    `,
+    [userId, postId]
+  );
+};
+
+const cancelLike = async (userId, postId) => {
+  return await appDataSource.query(
+    `
+    DELETE
+    FROM likes
+    WHERE user_id=? AND post_id=?;
+    `,
+    [userId, postId]
+  );
+};
+
+const getPosts = async (postId) => {
+  const queryBuilder = new QueryBuilder(postId);
+  const query = queryBuilder.buildQuery();
+
+  return await appDataSource.query(
+    `
+    SELECT
+      post.id,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          "id", post.id,
+          "userId", post.user_id,
+          "nickname", user.nickname,
+          "title", post.title,
+          "price", post.price,
+          "description", post.description,
+          "category", category.name,
+          "hidden", post.hidden,
+          "location", post.location,
+          "viewCount", post.view_count,
+          "createdTime", post.created_at,
+          "pullupTime", post.pullup_time,
+          "imageUrl", image.image_url,
+          "likes", (SELECT COUNT(likes.id) FROM likes WHERE likes.post_id=post.id)
+        )
+      ) as postInfo
+    FROM posts post
+    INNER JOIN categories category ON category.id=post.category_id
+    INNER JOIN post_images image ON image.post_id=post.id
+    INNER JOIN users user ON user.id=post.user_id
+    ${query}
+    GROUP BY post.id;
+    `
+  );
+};
+
+const getPostViewsByPostId = async (postId) => {
+  return await appDataSource.query(
+    `
+    SELECT
+      id,
+      view_count as viewCount
+    FROM posts
+    WHERE id = ?
+    `,
+    [postId]
+  );
+};
+
+const addPostViewCount = async (viewCount, postId) => {
+  return await appDataSource.query(
+    `
+    UPDATE posts
+    SET view_count = ?
+    WHERE id = ?
+    `,
+    [viewCount, postId]
+  );
+};
+
 module.exports = {
   createPost,
   updatePost,
@@ -150,4 +248,9 @@ module.exports = {
   unhidePost,
   pullUpPost,
   deletePost,
+  getPosts,
+  createLike,
+  cancelLike,
+  getPostViewsByPostId,
+  addPostViewCount,
 };

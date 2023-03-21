@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function Login() {
   const [formData, setFormData] = useState({ id: '', password: '' });
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ export default function SignUp() {
     <div className="flex justify-center ">
       <div className="flex justify-center leading-10 h-screen align-items: center;">
         <form
-          className="flex flex-col space-x-6 justify-center items-center "
+          className="flex flex-col space-x-6 justify-center items-center"
           encType="multipart/form-data"
           method="POST"
           action="login"
@@ -50,10 +50,25 @@ export default function SignUp() {
           <input
             placeholder="email"
             type="email"
-            name="profile_image_url"
-          ></input>
-          <input placeholder="password" type="password" name="password"></input>
-          <input type="submit" value="제출" onClick={goToMain}></input>
+            name="email"
+            className="ml-7 mb-7"
+            onChange={getUserInfo}
+          />
+          <input
+            placeholder="password"
+            type="password"
+            name="password"
+            className="mb-7"
+            onChange={getUserInfo}
+          />
+
+          <button
+            type="submit"
+            onClick={goToMain}
+            className="w-44 bg-green-500 rounded-lg text-slate-50"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>

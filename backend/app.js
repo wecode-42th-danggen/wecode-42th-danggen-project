@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const routes = require('./routes');
+const adminRoutes = require('./backOffice/routes');
 const { globalErrorHandler } = require('./utils/error');
 
 const createApp = () => {
@@ -11,7 +13,9 @@ const createApp = () => {
   app.use(express.json());
   app.use(morgan('dev'));
   app.use(cors());
+  app.use(cookieParser(process.env.COOKIE_SECRET));
   app.use(routes);
+  app.use(adminRoutes);
 
   app.get('/ping', (req, res) => {
     res.status(200).json({ message: 'pong' });
