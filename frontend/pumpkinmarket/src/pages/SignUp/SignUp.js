@@ -115,27 +115,32 @@ export default function SignUp() {
             placeholder="email"
             type="email"
             name="email"
-            className="mb-5"
+
+            className="mb-5 border-solid border-2 border-slate-100  rounded-md"
+            onChange={getSignupInfo}
           />
           {waringEmail()}
           <input
             placeholder="nickName"
             type="nickName"
             name="nickName"
-            className="mb-5"
+            className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
           <input
             placeholder="password"
             type="password"
             name="password"
-            className="mb-5"
+
+            className="mb-5 border-solid border-2 border-slate-100  rounded-md"
+            onChange={getSignupInfo}
           />
 
           <input
             placeholder="phoneNumber"
+            type="text"
             name="phoneNumber"
-            className="mb-5"
+            className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
 
