@@ -155,7 +155,6 @@ const getPasswordByEmail = async (email) => {
     `,
     [email]
   );
-  console.log(result);
   return result[0].password;
 };
 
