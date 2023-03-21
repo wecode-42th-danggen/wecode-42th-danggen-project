@@ -10,7 +10,7 @@ export default function Nav() {
     setIsClicked(prev => !prev);
   };
 
-  const Token = localStorage.getItem('token');
+  const Token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
 
   const productSearch = e => {
@@ -43,7 +43,8 @@ export default function Nav() {
 
   const toLogout = () => {
     alert('로그아웃하시겠습니까?');
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -58,11 +59,14 @@ export default function Nav() {
         <Link className="font-bold text-xl ml-10" to="/">
           💝 문情
         </Link>
-        <Link to="/product-list" className="ml-10 text-lg">
+        <Link to="/" className="ml-10 text-lg">
           중고거래
         </Link>
-        <Link to="/product-list" className="ml-10 text-lg">
+        <Link to="/neighborinfo-list" className="ml-10 text-lg">
           동네정보
+        </Link>
+        <Link to="/main" className="ml-10 text-lg">
+          문情생활
         </Link>
       </div>
       <div>
