@@ -4,7 +4,8 @@ const { deleteImage } = require('../utils/imageUplodaer');
 
 const createPost = catchAsync(async (req, res) => {
   const image = req.file;
-  const postInfo = req.body;
+  const { title, price, description, categoryId, priceSuggestion, location } =
+    req.body;
   const userId = req.user;
 
   if (!image) {
@@ -14,7 +15,16 @@ const createPost = catchAsync(async (req, res) => {
   }
 
   try {
-    await postService.createPost(image, postInfo, userId);
+    await postService.createPost(
+      image,
+      title,
+      price,
+      description,
+      categoryId,
+      priceSuggestion,
+      location,
+      userId
+    );
 
     return res.status(201).json({ message: 'Post Created Successfully' });
   } catch (err) {
