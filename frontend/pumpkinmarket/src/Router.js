@@ -31,7 +31,8 @@ const Router = () => {
         <Route path="/neighborinfo" element={<NeighborInfo />} />
         <Route path="/neighborinfo-list" element={<NeighborInfoList />} />
         <Route path="/neighborinfo-posting" element={<NeighborInfoPosting />} />
-        <Route path="/admin-project" element={<AdminProject />} />
+        <Route path="/admin" element={<AdminProject />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>
