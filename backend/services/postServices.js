@@ -1,7 +1,25 @@
 const postDao = require('../models/postDao');
 
-const createPost = async (image, postInfo, userId) => {
-  return await postDao.createPost(image, postInfo, userId);
+const createPost = async (
+  image,
+  title,
+  price,
+  description,
+  categoryId,
+  priceSuggestion,
+  location,
+  userId
+) => {
+  return await postDao.createPost(
+    image,
+    title,
+    price,
+    description,
+    categoryId,
+    priceSuggestion,
+    location,
+    userId
+  );
 };
 
 const updatePost = async (
@@ -60,7 +78,6 @@ const getPosts = async (postId, cookie) => {
       if (viewObj[postId].indexOf(cookie) == -1) {
         viewObj[postId].push(cookie);
         updatedViews += 1;
-        console.log(updatedViews);
         await postDao.addPostViewCount(updatedViews, postId);
       }
     }

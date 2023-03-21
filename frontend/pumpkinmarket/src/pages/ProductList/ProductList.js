@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ProductList() {
   const [ProductListData, setProductListData] = useState([]);
+
+  const navigate = useNavigate();
+
+  const goToPosting = () => {
+    navigate('/posting');
+  };
 
   const postInfoData = ProductListData.map(data => data.postInfo);
 
@@ -34,9 +40,15 @@ export default function ProductList() {
 
   return (
     <section className="h-sreen py-32 ">
-      <div className="pt-14 flex flex-col items-center">
-        <h1 className="text-3xl font-semibold pb-16">중고거래 매물</h1>
-        <div className="grid grid-cols-4 gap-12 justify-items-center">
+      <div className="pt-14 flex flex-col items-center re">
+        <h1 className="text-3xl font-semibold pb-20">중고거래 매물</h1>
+        <button
+          className="text-lg rounded-full p-1.5 bg-green-500 text-white text-sm w-20 fixed bottom-28 right-40 max-md:right-12"
+          onClick={goToPosting}
+        >
+          + 글쓰기
+        </button>
+        <div className="grid grid-cols-4 gap-12 max-md:grid-cols-2">
           {postInfoData.map(data => {
             return (
               <Link className="w-52" key={data.id} to="/product">

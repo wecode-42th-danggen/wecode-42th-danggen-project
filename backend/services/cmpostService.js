@@ -1,7 +1,19 @@
 const cmpostDao = require('../models/cmpostDao');
 
-const createCmpost = async (imageUrl, cmpostInfo) => {
-  return cmpostDao.createCmpost(imageUrl, cmpostInfo);
+const createCmpost = async (
+  imageUrl,
+  title,
+  description,
+  categoryId,
+  userId
+) => {
+  return cmpostDao.createCmpost(
+    imageUrl,
+    title,
+    description,
+    categoryId,
+    userId
+  );
 };
 
 const updateCmpost = async (

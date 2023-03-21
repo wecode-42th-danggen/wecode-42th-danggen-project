@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Nav from './components/Nav/Nav';
+import Community from './pages/AdminProject/Community';
+import Dealings from './pages/AdminProject/Dealings';
+import Member from './pages/AdminProject/Member';
 import Chat from './pages/Chat/Chat';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
@@ -23,10 +26,10 @@ const Router = () => {
     <BrowserRouter>
       <Nav />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/product-list" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/" element={<ProductList />} />
         <Route path="/posting" element={<Posting />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -38,6 +41,7 @@ const Router = () => {
         <Route path="/dealings" element={<Dealings />} />
         <Route path="/member" element={<Member />} />
         <Route path="/table" element={<Table />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>

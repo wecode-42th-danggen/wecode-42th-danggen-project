@@ -1,7 +1,16 @@
 const { appDataSource } = require('../models');
 const QueryBuilder = require('./queryBuilder');
 
-const createPost = async (image, postInfo, userId) => {
+const createPost = async (
+  image,
+  title,
+  price,
+  description,
+  categoryId,
+  priceSuggestion,
+  location,
+  userId
+) => {
   const postStatus = Object.freeze({
     onSale: 1,
     onReservation: 2,
@@ -13,9 +22,6 @@ const createPost = async (image, postInfo, userId) => {
     onReporting: 2,
     takeDown: 3,
   });
-
-  const { title, price, description, location, categoryId, priceSuggestion } =
-    postInfo;
 
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
