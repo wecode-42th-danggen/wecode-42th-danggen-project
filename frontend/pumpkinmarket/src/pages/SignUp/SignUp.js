@@ -115,7 +115,6 @@ export default function SignUp() {
             placeholder="email"
             type="email"
             name="email"
-
             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
@@ -131,7 +130,6 @@ export default function SignUp() {
             placeholder="password"
             type="password"
             name="password"
-
             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
