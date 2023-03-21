@@ -26,9 +26,9 @@ const signIn = catchAsync(async (req, res) => {
 
   const accessToken = await userService.signIn(email, password);
 
-  return res
+  res
     .status(200)
-    .cookie('viewCount', 'count', {
+    .cookie('Count', 'count', {
       expires: new Date(Date.now() + 43200000),
       httpOnly: true,
       secure: false,
