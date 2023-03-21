@@ -104,56 +104,50 @@
 //       file:text-sm file:font-semibold
 //       file:bg-violet-50 file:text-violet-700
 
-
-//       hover:file:bg-violet-10 mb-5"
-//             name="profile_image_url"
-//             accept="image/*"
-//             id="profileImg"
-//             onChange={saveImgFile}
-//             ref={imgRef}
-//           />
-//           <input
-//             placeholder="email"
-//             type="email"
-//             name="email"
-
-//             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
-//             onChange={getSignupInfo}
-//           />
-//           {waringEmail()}
-//           <input
-//             placeholder="nickName"
-//             type="nickName"
-//             name="nickName"
-//             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
-//             onChange={getSignupInfo}
-//           />
-//           <input
-//             placeholder="password"
-//             type="password"
-//             name="password"
-
-//             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
-//             onChange={getSignupInfo}
-//           />
-
-//           <input
-//             placeholder="phoneNumber"
-//             type="text"
-//             name="phoneNumber"
-//             className="mb-5 border-solid border-2 border-slate-100  rounded-md"
-//             onChange={getSignupInfo}
-//           />
-
-//           <button
-//             type="submit"
-//             className="w-44 bg-green-500 rounded-lg text-slate-50"
-//             onClick={submitUser}
-//           >
-//             signUp
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
+      hover:file:bg-violet-10 mb-5"
+            name="profile_image_url"
+            accept="image/*"
+            id="profileImg"
+            onChange={saveImgFile}
+            ref={imgRef}
+          />
+          <input
+            placeholder="email"
+            type="email"
+            name="email"
+            className="mb-5 border-solid border-2 border-slate-100 rounded-md"
+            onChange={getSignupInfo}
+          />
+          {waringEmail()}
+          <input
+            placeholder="nickName"
+            type="nickName"
+            name="nickName"
+            className="mb-5 border-solid border-2 border-slate-100 rounded-md"
+            onChange={getSignupInfo}
+          />
+          <input
+            placeholder="password"
+            type="password"
+            name="password"
+            className="mb-5 border-solid border-2 border-slate-100 rounded-md"
+            onChange={getSignupInfo}
+          />
+          <input
+            placeholder="phoneNumber"
+            name="phoneNumber"
+            className="mb-5 border-solid border-2 border-slate-100 rounded-md"
+            onChange={getSignupInfo}
+          />
+          <button
+            type="submit"
+            className="w-44 bg-green-500 rounded-lg text-slate-50"
+            onClick={submitUser}
+          >
+            signUp!
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
