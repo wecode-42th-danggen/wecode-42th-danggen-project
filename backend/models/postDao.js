@@ -206,7 +206,7 @@ const getPosts = async (postId) => {
           "imageUrl", image.image_url,
           "likes", (SELECT COUNT(likes.id) FROM likes WHERE likes.post_id=post.id)
         )
-      ) as title, price, description, categoryId, priceSuggestion, location
+      ) as postInfo
     FROM posts post
     INNER JOIN categories category ON category.id=post.category_id
     INNER JOIN post_images image ON image.post_id=post.id

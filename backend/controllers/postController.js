@@ -6,6 +6,7 @@ const createPost = catchAsync(async (req, res) => {
   const image = req.file;
   const { title, price, description, categoryId, priceSuggestion, location } =
     req.body;
+
   const userId = req.user;
 
   if (!image) {
