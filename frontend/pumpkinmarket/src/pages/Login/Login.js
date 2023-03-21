@@ -10,6 +10,34 @@ export default function SignUp() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const goToMain = e => {
+    e.preventDefault();
+    fetch('http://192.168.0.195:3000/users/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.accessToken);
+        if (data.accessToken == null) {
+          alert('아이디 혹은 비밀번호 확인해주세요.');
+        } else {
+          alert('로그인 되었습니다');
+          window.localStorage.setItem('accessToken', data.accessToken);
+          navigate('/');
+        }
+      })
+      .catch(err => {
+        console.log(err.messages);
+      });
+  };
+
   return (
     <div className="flex justify-center ">
       <div className="flex justify-center leading-10 h-screen align-items: center;">
