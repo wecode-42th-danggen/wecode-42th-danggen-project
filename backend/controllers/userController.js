@@ -1,6 +1,5 @@
 const userService = require('../services/userService');
 const { catchAsync } = require('../utils/error');
-const { checkValidationToken } = require('../middlewares/auth');
 
 const signUp = catchAsync(async (req, res) => {
   const { email, password, phoneNumber, nickName } = req.body;
