@@ -1,4 +1,3 @@
-const { CustomRepositoryNotFoundError } = require('typeorm');
 const { appDataSource } = require('./index');
 
 const createCmpost = async (image, title, description, categoryId, userId) => {
@@ -94,4 +93,49 @@ const checkCmpostId = async (postId) => {
   return !!parseInt(result);
 };
 
-module.exports = { createCmpost, updateCmpost, deleteCmpost, checkCmpostId };
+const getCmpost = async (categoryId) => {
+  const whereClause = categoryId ? `WHERE cp.category_id = ${categoryId}` : '';
+  const data = await appDataSource.query(
+    `
+    SELECT
+      cp.id AS cmpostId,
+        JSON_ARRAYAGG(
+          JSON_OBJECT(
+            "postId", cp.id,
+            "postUserId", cp.user_id,
+            "postImageUrl", cp.image_url,
+            "postDescription", cp.description,
+            "postViewCount", cp.view_count,
+            "postCategoryId", cp.category_id,
+            "postCategoryName", cc.name,
+            "postUserNickname", u.nickname,
+            "postCreateTime", cp.created_at,
+            "postUpateTime", cp.updated_at,
+            "likes", (SELECT COUNT(cl.id) FROM community_likes cl WHERE cp.id=cl.community_post_id)
+          ) 
+        ) as cmpostInfo
+    FROM
+      community_posts cp
+    LEFT JOIN
+      community_categories cc
+    ON
+      cc.id = cp.category_id
+    LEFT JOIN
+      users u
+    ON
+      u.id = cp.user_id
+    ${whereClause}
+    GROUP BY
+      cp.id
+    `
+  );
+  return data;
+};
+
+module.exports = {
+  createCmpost,
+  updateCmpost,
+  deleteCmpost,
+  checkCmpostId,
+  getCmpost,
+};

@@ -43,4 +43,8 @@ const deleteCmpost = async (postId) => {
   return cmpostDao.deleteCmpost(postId);
 };
 
-module.exports = { createCmpost, updateCmpost, deleteCmpost };
+const getCmpost = async (categoryId) => {
+  return cmpostDao.getCmpost(categoryId);
+};
+
+module.exports = { createCmpost, updateCmpost, deleteCmpost, getCmpost };
