@@ -51,14 +51,14 @@ export default function Login() {
             placeholder="email"
             type="email"
             name="email"
-            className="ml-7 mb-7"
+            className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md"
             onChange={getUserInfo}
           />
           <input
             placeholder="password"
             type="password"
             name="password"
-            className="mb-7"
+            className="mb-7 border-solid border-2 border-slate-100 rounded-md"
             onChange={getUserInfo}
           />
 
