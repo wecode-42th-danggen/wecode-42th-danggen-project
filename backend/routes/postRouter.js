@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
   '/',
   checkValidationToken,
-  upload.single('image'),
+  upload.array('image'),
   postController.createPost
 );
 router.patch('/hide/:postId', checkValidationToken, postController.hidePost);

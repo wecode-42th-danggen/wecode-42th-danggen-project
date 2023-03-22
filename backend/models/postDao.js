@@ -65,15 +65,18 @@ const createPost = async (
       ]
     );
 
-    await queryRunner.query(
-      `
-      INSERT INTO post_images (
-        image_url,
-        post_id
-      ) VALUES (?, ?)
-      `,
-      [image.location, post.insertId]
-    );
+    for (let i = 0; i < image.length; i++) {
+      await queryRunner.query(
+        `
+        INSERT INTO post_images (
+          image_url,
+          post_id
+        ) VALUES (?, ?)
+        `,
+        [image[i].location, post.insertId]
+      );
+    }
+
     await queryRunner.commitTransaction();
     await queryRunner.release();
   } catch (err) {
