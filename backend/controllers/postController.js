@@ -3,7 +3,7 @@ const { catchAsync } = require('../utils/error');
 const { deleteImage } = require('../utils/imageUploader');
 
 const createPost = catchAsync(async (req, res) => {
-  const image = req.file;
+  const image = req.files;
   const { title, price, description, categoryId, priceSuggestion, location } =
     req.body;
 
