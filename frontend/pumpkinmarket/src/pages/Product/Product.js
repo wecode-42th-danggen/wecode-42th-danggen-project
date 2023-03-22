@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Moment from 'react-moment';
+import 'moment/locale/ko';
 
 export default function Product() {
   const [clickedLikeBtn, setClickedLikeBtn] = useState(false);
   const [productData, setProductData] = useState([]);
   const params = useParams();
+
+  const startTime = new Date(productData[0]?.postInfo[0].createdTime);
 
   const toggleLike = e => {
     setClickedLikeBtn(!clickedLikeBtn);
@@ -58,7 +62,7 @@ export default function Product() {
             alt="userProfile"
           />
           <p className="pl-2 text-sm ffont-normal">
-            {productData[0]?.postInfo[0].nickName}
+            {productData[0]?.postInfo[0].nickname}
           </p>
         </div>
         <button
@@ -73,14 +77,21 @@ export default function Product() {
           좋아요
         </button>
       </div>
-      <h1 className="font-medium pt-4">{productData[0]?.postInfo[0].title}</h1>
+      <div className="flex pt-4 justify-between">
+        <h1 className="font-medium">{productData[0]?.postInfo[0].title}</h1>
+        <p className="text-sm">
+          📍 거래장소:{productData[0]?.postInfo[0].location}
+        </p>
+      </div>
       <p className="text-xs text-gray-500 pt-2">
-        {productData[0]?.postInfo[0].category} &#183; 6일전
+        {productData[0]?.postInfo[0].category} &#183;{' '}
+        <Moment fromNow>{startTime}</Moment>
       </p>
       <p className="font-medium pt-4">{productData[0]?.postInfo[0].price}</p>
       <p className="pt-4">{productData[0]?.postInfo[0].description}</p>
       <p className="text-xs text-gray-500 pt-4">
-        좋아요 {productData[0]?.postInfo[0].likes}&#183; 조회 3992
+        좋아요 {productData[0]?.postInfo[0].likes} &#183; 조회{' '}
+        {productData[0]?.postInfo[0].viewCount}
       </p>
     </section>
   );
