@@ -81,12 +81,12 @@ export default function Nav() {
       {Token ? (
         <div className="flex items-center ">
           <button className="hidden mr-3 max-md:block">
-            <img className="w-4" src="images/Nav/search.png" alt="searchBtn" />
+            <img className="w-4" src="/images/Nav/search.png" alt="searchBtn" />
           </button>
           <button type="button" onClick={toLogout}>
             <img
               className="w-7 h-7"
-              src="images/Nav/profile.png"
+              src="/images/Nav/profile.png"
               alt="profileImg"
             />
           </button>
@@ -104,7 +104,7 @@ export default function Nav() {
             <button className="hidden mr-3 max-md:block" onClick={searchBtn}>
               <img
                 className="w-4"
-                src="images/Nav/search.png"
+                src="/images/Nav/search.png"
                 alt="searchBtn"
               />
             </button>
