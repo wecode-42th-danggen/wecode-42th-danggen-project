@@ -46,4 +46,12 @@ const deleteCmpost = catchAsync(async (req, res) => {
   return res.status(200).json({ message: 'DELETE_COMMUNITY_POST' });
 });
 
-module.exports = { createCmpost, updateCmpost, deleteCmpost };
+const getCmpost = catchAsync(async (req, res) => {
+  const { categoryId } = req.query;
+
+  const data = await cmpostService.getCmpost(categoryId);
+
+  return res.status(200).json({ data });
+});
+
+module.exports = { createCmpost, updateCmpost, deleteCmpost, getCmpost };
