@@ -1,0 +1,45 @@
+const { appDataSource } = require('../../models/');
+
+const getCmpost = async () => {
+  const result = await appDataSource.query(
+    `
+    SELECT
+      cp.id,
+      cp.user_Id AS userId,
+      u.social_id AS soialId,
+      u.email,
+      cp.title,
+      cp.image_url AS imageUrl,
+      cp.description,
+      cp.view_count AS viewCount,
+      cp.category_id AS categoryId,
+      cc.name AS categortName,
+      cp.created_at AS createPost,
+      cp.updated_at AS updatePost
+    FROM
+      community_posts cp
+    INNER JOIN
+      community_categories cc
+    ON
+      cp.category_id = cc.id
+    LEFT JOIN
+      users u
+    ON cp.user_id = u.id
+    `
+  );
+  return result;
+};
+
+const deleteCmpost = async (cmpostId) => {
+  const result = await appDataSource.query(
+    `
+    DELETE FROM
+      community_posts
+    WHERE
+      id=?
+    `,
+    [cmpostId]
+  );
+};
+
+module.exports = { getCmpost, deleteCmpost };
