@@ -1,11 +1,15 @@
 class QueryBuilder {
-  constructor(postId) {
+  constructor(postId, title, location) {
     this.whereParams = {
       ...(postId && { postId }),
+      ...(title && { title }),
+      ...(location && { location }),
     };
 
     this.whereMapper = {
       postId: this.postFilterBuilder,
+      title: this.titleFilterBuilder,
+      location: this.locationFilterBuilder,
     };
   }
 
@@ -23,6 +27,14 @@ class QueryBuilder {
 
   postFilterBuilder(postId) {
     return `post.id = ${postId}`;
+  }
+
+  titleFilterBuilder(title) {
+    return `post.title like "%${title}%"`;
+  }
+
+  locationFilterBuilder(location) {
+    return `post.location like "%${location}%"`;
   }
 
   buildQuery() {
