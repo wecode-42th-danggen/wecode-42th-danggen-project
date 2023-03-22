@@ -89,10 +89,11 @@ const deletePost = catchAsync(async (req, res) => {
 });
 
 const getPosts = catchAsync(async (req, res) => {
-  const { postId, title, location } = req.query;
+  const { postId, keyword } = req.query;
+  console.log(keyword);
   const cookie = req.headers.cookie;
 
-  const data = await postService.getPosts(postId, title, location, cookie);
+  const data = await postService.getPosts(postId, keyword, cookie);
 
   return res.status(200).json({ data });
 });

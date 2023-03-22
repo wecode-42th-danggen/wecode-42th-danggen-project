@@ -58,7 +58,7 @@ const deletePost = async (userId, postId) => {
   return await postDao.deletePost(userId, postId);
 };
 
-const getPosts = async (postId, title, location, cookie) => {
+const getPosts = async (postId, keyword, cookie) => {
   if (cookie && postId) {
     const viewObj = new Object();
     const [currentViews] = await postDao.getPostViewsByPostId(postId);
@@ -77,7 +77,7 @@ const getPosts = async (postId, title, location, cookie) => {
     }
   }
 
-  return await postDao.getPosts(postId, title, location);
+  return await postDao.getPosts(postId, keyword);
 };
 
 const createLike = async (userId, postId) => {
