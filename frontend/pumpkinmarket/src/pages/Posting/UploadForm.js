@@ -10,7 +10,7 @@ export default function UploadForm({
   ischecked,
   handlePriceSuggestion,
   uploadInfo,
-  // handleLocation,
+  handleLocation,
 }) {
   const { image, price } = uploadInfo;
   return (
@@ -78,12 +78,12 @@ export default function UploadForm({
                 placeholder="제목"
                 onChange={handleTitle}
               />
-              {/* <input
+              <input
                 className="w-96 h-8 border border-gray-300 outline-none rounded mb-2 p-2 text-sm"
                 type="text"
                 placeholder="거래 희망 장소"
                 onChange={handleLocation}
-              /> */}
+              />
               <input
                 className="w-96 h-8 border border-gray-300 outline-none rounded p-2 text-sm"
                 type="text"

@@ -13,7 +13,6 @@ export default function Posting() {
     price: 0,
     priceSuggestion: 0,
   });
-  console.log(uploadInfo);
 
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export default function Posting() {
     'priceSuggestion',
     JSON.stringify(uploadInfo.priceSuggestion)
   );
-  // uploadForm.append('location', uploadInfo.location);
+  uploadForm.append('location', uploadInfo.location);
 
   const handlePriceSuggestion = e => {
     const isChecked = e.target.checked ? 1 : 0;
@@ -59,9 +58,9 @@ export default function Posting() {
     setUploadInfo(prev => ({ ...prev, title: e.target.value }));
   };
 
-  // const handleLocation = e => {
-  //   setUploadInfo(prev => ({ ...prev, location: e.target.value }));
-  // };
+  const handleLocation = e => {
+    setUploadInfo(prev => ({ ...prev, location: e.target.value }));
+  };
 
   const handleDescription = e => {
     setUploadInfo(prev => ({ ...prev, description: e.target.value }));
@@ -118,7 +117,7 @@ export default function Posting() {
         ischecked={ischecked}
         handlePriceSuggestion={handlePriceSuggestion}
         uploadInfo={uploadInfo}
-        // handleLocation={handleLocation}
+        handleLocation={handleLocation}
       />
     </div>
   );
