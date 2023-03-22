@@ -181,8 +181,8 @@ const cancelLike = async (userId, postId) => {
   );
 };
 
-const getPosts = async (postId) => {
-  const queryBuilder = new QueryBuilder(postId);
+const getPosts = async (postId, title, location) => {
+  const queryBuilder = new QueryBuilder(postId, title, location);
   const query = queryBuilder.buildQuery();
 
   return await appDataSource.query(
