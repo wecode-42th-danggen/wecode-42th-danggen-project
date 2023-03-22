@@ -5,6 +5,7 @@ export default function Nav() {
   const [searchData, setSearchData] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isClicked, setIsClicked] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
 
   const searchBtn = () => {
     setIsClicked(prev => !prev);
@@ -18,16 +19,16 @@ export default function Nav() {
   };
 
   const handleOnClick = () => {
-    navigate('/product-list');
+    navigate('/');
   };
 
   const handleOnKeyPress = e => {
     if (e.key === 'Enter') {
       handleOnClick();
-      setSearchKeyword('');
       setIsClicked(prev => !prev);
     }
   };
+
   // const filteredProduct = searchData.filter(list =>
   //   list.name.toLowerCase().includes(searchKeyword.toLowerCase())
   // );
@@ -48,9 +49,36 @@ export default function Nav() {
   };
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(
+      `http://192.168.0.194:4000/posts?keyword=${encodeURIComponent(
+        searchKeyword
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization: Token,
+        },
+      }
+    )
       .then(res => res.json())
-      .then(data => setSearchData(data));
+      .then(data => {
+        setSearchData(data);
+      });
+  }, [searchKeyword]);
+
+  useEffect(() => {
+    fetch(`http://192.168.0.194:4000/users/image`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: Token,
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUserInfo(data);
+      });
   }, []);
 
   return (
@@ -85,13 +113,17 @@ export default function Nav() {
           </button>
           <button type="button" onClick={toLogout}>
             <img
-              className="w-7 h-7"
-              src="./images/Nav/profile.png"
+              className="w-7 h-7 rounded-full"
+              src={
+                userInfo.profileImageUrl
+                  ? userInfo.profileImageUrl
+                  : '/images/Nav/profile.png'
+              }
               alt="profileImg"
             />
           </button>
           <button
-            className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5 text-sm"
+            className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5 text-sm mr-10"
             type="button"
             onClick={toMypage}
           >
