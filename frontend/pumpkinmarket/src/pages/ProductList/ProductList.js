@@ -52,7 +52,7 @@ export default function ProductList() {
               <Link className="w-52" key={data.id} to={`/product/${data.id}`}>
                 {data.postInfo.map(list => {
                   return (
-                    <>
+                    <div key={list.id}>
                       <img
                         className="object-cover w-52 h-52 rounded-xl mb-2"
                         src={list.imageUrl}
@@ -65,7 +65,7 @@ export default function ProductList() {
                           좋아요 {list.likes}
                         </p>
                       </div>
-                    </>
+                    </div>
                   );
                 })}
               </Link>
