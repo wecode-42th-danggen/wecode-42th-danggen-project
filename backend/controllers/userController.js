@@ -29,7 +29,7 @@ const signIn = catchAsync(async (req, res) => {
   res
     .status(200)
     .cookie('Count', 'count', {
-      expires: new Date(Date.now() + 43200000),
+      expires: new Date(Date.now() + 3600000),
       httpOnly: true,
       secure: false,
       signed: process.env.COOKIE_SECRET,
