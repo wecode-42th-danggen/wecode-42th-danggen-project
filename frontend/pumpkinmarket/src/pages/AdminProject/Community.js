@@ -1,5 +1,6 @@
 import React from 'react';
 import AdminProject from './AdminProject';
+import Table from './Table';
 
 export default function Community() {
   return (
@@ -10,4 +11,4 @@ export default function Community() {
       </div>
     </>
   );
-
+}
