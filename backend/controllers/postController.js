@@ -1,6 +1,6 @@
 const postService = require('../services/postServices');
 const { catchAsync } = require('../utils/error');
-const { deleteImage } = require('../utils/imageUplodaer');
+const { deleteImage } = require('../utils/imageUploader');
 
 const createPost = catchAsync(async (req, res) => {
   const image = req.file;

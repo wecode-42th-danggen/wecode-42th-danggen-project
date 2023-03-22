@@ -3,7 +3,7 @@ const router = express.Router();
 
 const cmpostController = require('../controllers/cmpostcontroller');
 const { checkValidationToken } = require('../middlewares/auth');
-const { upload } = require('../utils/imageUplodaer');
+const { upload } = require('../utils/imageUploader');
 
 router.post(
   '/',

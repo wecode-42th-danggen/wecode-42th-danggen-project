@@ -194,6 +194,7 @@ const getPosts = async (postId, title, location) => {
           "id", post.id,
           "userId", post.user_id,
           "nickname", user.nickname,
+          "profileImageUrl", user.profile_image_url,
           "title", post.title,
           "price", post.price,
           "description", post.description,
