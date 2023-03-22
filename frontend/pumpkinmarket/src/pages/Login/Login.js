@@ -12,7 +12,7 @@ export default function Login() {
 
   const goToMain = e => {
     e.preventDefault();
-    fetch('http://192.168.0.195:3000/users/signin', {
+    fetch('http://192.168.0.194:4000/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

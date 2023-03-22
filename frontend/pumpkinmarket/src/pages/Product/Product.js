@@ -6,11 +6,12 @@ import 'moment/locale/ko';
 export default function Product() {
   const [clickedLikeBtn, setClickedLikeBtn] = useState(false);
   const [productData, setProductData] = useState([]);
+  // console.log(clickedLikeBtn);
   const params = useParams();
 
   const startTime = new Date(productData[0]?.postInfo[0].createdTime);
 
-  const toggleLike = e => {
+  const AaddLike = e => {
     setClickedLikeBtn(!clickedLikeBtn);
   };
 
@@ -58,7 +59,11 @@ export default function Product() {
         <div className="flex items-center">
           <img
             className="w-8 h-8 rounded-full"
-            src="/images/Product/profile2.jpeg"
+            src={
+              productData[0]?.postInfo[0].profileImageUrl
+                ? productData[0]?.postInfo[0].profileImageUrl
+                : '/images/Nav/profile.png'
+            }
             alt="userProfile"
           />
           <p className="pl-2 text-sm ffont-normal">
@@ -67,7 +72,7 @@ export default function Product() {
         </div>
         <button
           className="flex flex-col items-center text-xs text-gray-500"
-          onClick={toggleLike}
+          onClick={AaddLike}
         >
           <img
             className="w-4"
