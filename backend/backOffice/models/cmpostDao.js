@@ -40,6 +40,23 @@ const deleteCmpost = async (cmpostId) => {
     `,
     [cmpostId]
   );
+  return result;
 };
 
-module.exports = { getCmpost, deleteCmpost };
+const checkRegistCmpostId = async (cmpostId) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+    SELECT
+      cp.id
+    FROM
+      community_posts cp
+    WHERE
+      cp.id =?
+    )as register`,
+    [cmpostId]
+  );
+  return !!parseInt(result.register);
+};
+
+module.exports = { getCmpost, deleteCmpost, checkRegistCmpostId };
