@@ -149,51 +149,14 @@ const pullUpPost = async (userId, postId) => {
 };
 
 const deletePost = async (userId, postId) => {
-  const queryRunner = appDataSource.createQueryRunner();
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
-
-  try {
-    const [post] = await appDataSource.query(
-      `
-      SELECT
-        post_id,
-        image_url as imageUrl
-      FROM post_images
-      WHERE post_id=?
-      `,
-      [postId]
-    );
-    const imageFileName = post.imageUrl.split('com/')[1];
-
-    deleteImage(imageFileName);
-
-    await queryRunner.query(
-      `
-      DELETE
-      FROM post_images
-      WHERE post_id=?;
-      `,
-      [postId]
-    );
-
-    await queryRunner.query(
-      `
-      DELETE
-      FROM posts
-      WHERE user_id=? AND id=?;
-      `,
-      [userId, postId]
-    );
-
-    await queryRunner.commitTransaction();
-    await queryRunner.release();
-  } catch (err) {
-    await queryRunner.rollbackTransaction();
-    await queryRunner.release();
-
-    throw new Error('Failed To Delete Post');
-  }
+  return await appDataSource.query(
+    `
+    DELETE
+    FROM posts
+    WHERE user_id=? AND id=?;
+    `,
+    [userId, postId]
+  );
 };
 
 const createLike = async (userId, postId) => {

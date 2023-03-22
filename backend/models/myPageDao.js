@@ -63,6 +63,7 @@ const getCommunityCommentsByUserId = async (userId) => {
   return await appDataSource.query(
     `
     SELECT
+      cc.id,
       cc.user_id,
       cc.content
     FROM community_comments cc

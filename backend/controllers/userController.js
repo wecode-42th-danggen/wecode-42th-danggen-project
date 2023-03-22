@@ -37,15 +37,14 @@ const signIn = catchAsync(async (req, res) => {
   }
 
   const accessToken = await userService.signIn(email, password);
-
   res
-    .status(200)
-    .cookie('Count', 'count', {
-      expires: new Date(Date.now() + 3600000),
-      httpOnly: true,
-      secure: false,
-      signed: process.env.COOKIE_SECRET,
+    .cookie('count', 'viewCount', {
+      maxAge: 60000000,
+      httpOnly: false,
+      secure: true,
+      sameSite: 'None',
     })
+    .status(200)
     .json({ accessToken });
 });
 
