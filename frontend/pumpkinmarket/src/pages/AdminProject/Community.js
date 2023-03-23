@@ -1,12 +1,12 @@
 import React from 'react';
 import AdminProject from './AdminProject';
-import Table from './Table';
+import CommunityPage from './CommunityPage';
 
 export default function Community() {
   return (
-    <div className="flex pt-20">
+    <div className="flex pt-20 pr-5">
       <AdminProject />
-      <div className="pl-80">res</div>
+      <CommunityPage />
     </div>
   );
 }
