@@ -16,9 +16,7 @@ import Posting from './pages/Posting/Posting';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
-import Community from './pages/AdminProject/Community';
-import Dealings from './pages/AdminProject/Dealings';
-import Member from './pages/AdminProject/Member';
+
 const Router = () => {
   return (
     <BrowserRouter>
