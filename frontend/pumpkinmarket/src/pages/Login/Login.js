@@ -53,6 +53,7 @@ export default function Login() {
             name="email"
             className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md"
             onChange={getUserInfo}
+            autoComplete="on"
           />
           <input
             placeholder="password"
@@ -60,6 +61,7 @@ export default function Login() {
             name="password"
             className="mb-7 border-solid border-2 border-slate-100 rounded-md"
             onChange={getUserInfo}
+            autoComplete="on"
           />
 
           <button
