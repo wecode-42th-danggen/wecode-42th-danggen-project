@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MenuContext } from '../MenuProvider';
+import { MenuContext } from '../Nav/MenuProvider';
 export default function Nav() {
   const [searchData, setSearchData] = useContext(MenuContext);
   const [searchKeyword, setSearchKeyword] = useState('');

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MenuContext } from '../../components/MenuProvider';
+import { MenuContext } from '../../components/Nav/MenuProvider';
 
 export default function ProductList() {
   const [searchData, setSearchData] = useContext(MenuContext);
