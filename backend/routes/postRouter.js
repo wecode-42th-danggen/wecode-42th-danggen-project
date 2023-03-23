@@ -30,7 +30,11 @@ router.delete(
   checkValidationToken,
   postController.cancelLike
 );
-router.get('/likes/:postId', postController.getLikeStatus);
+router.get(
+  '/likes/:postId',
+  checkValidationToken,
+  postController.getLikeStatus
+);
 router.patch('/:postId', checkValidationToken, postController.updatePost);
 router.delete('/:postId', checkValidationToken, postController.deletePost);
 
