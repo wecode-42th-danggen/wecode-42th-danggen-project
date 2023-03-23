@@ -2,14 +2,14 @@ const express = require('express');
 
 const postController = require('../controllers/postController');
 const { checkValidationToken } = require('../middlewares/auth');
-const { upload } = require('../utils/imageUplodaer');
+const { upload } = require('../utils/imageUploader');
 
 const router = express.Router();
 
 router.post(
   '/',
   checkValidationToken,
-  upload.single('image'),
+  upload.array('image'),
   postController.createPost
 );
 router.patch('/hide/:postId', checkValidationToken, postController.hidePost);
@@ -30,8 +30,12 @@ router.delete(
   checkValidationToken,
   postController.cancelLike
 );
+router.get(
+  '/likes/:postId',
+  checkValidationToken,
+  postController.getLikeStatus
+);
 router.patch('/:postId', checkValidationToken, postController.updatePost);
 router.delete('/:postId', checkValidationToken, postController.deletePost);
-router.post('/like/:postId', checkValidationToken, postController.createLike);
 
 module.exports = router;
