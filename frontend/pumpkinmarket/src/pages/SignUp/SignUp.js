@@ -83,7 +83,7 @@ export default function SignUp() {
           method="POST"
           action="login"
         >
-          <div class="shrink-0">
+          <div className="shrink-0">
             <img
               className="h-16 w-16 object-cover rounded-full"
               src={
@@ -130,13 +130,14 @@ export default function SignUp() {
             placeholder="password"
             type="password"
             name="password"
-            className="mb-5 border-solid border-2 border-slate-100 rounded-md"
+            className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
           <input
             placeholder="phoneNumber"
+            type="text"
             name="phoneNumber"
-            className="mb-5 border-solid border-2 border-slate-100 rounded-md"
+            className="mb-5 border-solid border-2 border-slate-100  rounded-md"
             onChange={getSignupInfo}
           />
           <button
@@ -144,7 +145,7 @@ export default function SignUp() {
             className="w-44 bg-green-500 rounded-lg text-slate-50"
             onClick={submitUser}
           >
-            signUp!
+            signUp
           </button>
         </form>
       </div>
