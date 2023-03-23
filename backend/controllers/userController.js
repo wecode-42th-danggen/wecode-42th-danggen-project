@@ -1,9 +1,21 @@
 const userService = require('../services/userService');
 const { catchAsync } = require('../utils/error');
-const { checkValidationToken } = require('../middlewares/auth');
+const { deleteImage } = require('../utils/imageUploader');
+
+const getUserImageByUserId = catchAsync(async (req, res) => {
+  const userId = req.user;
+
+  const userImage = await userService.getUserImageByUserId(userId);
+  res.status(200).json(userImage);
+});
 
 const signUp = catchAsync(async (req, res) => {
+  let image = req.file;
   const { email, password, phoneNumber, nickName } = req.body;
+
+  if (!image) {
+    image = null;
+  }
 
   if (!email || !password || !phoneNumber || !nickName) {
     const error = new Error('KEY_ERROR');
@@ -11,8 +23,13 @@ const signUp = catchAsync(async (req, res) => {
     throw error;
   }
 
-  await userService.signUp(email, password, phoneNumber, nickName);
-  return res.status(201).json({ message: 'SUCCESS_CREATE_USER' });
+  try {
+    await userService.signUp(email, password, phoneNumber, nickName, image);
+    return res.status(201).json({ message: 'SUCCESS_CREATE_USER' });
+  } catch (err) {
+    deleteImage(image.key);
+    throw err;
+  }
 });
 
 const signIn = catchAsync(async (req, res) => {
@@ -26,15 +43,15 @@ const signIn = catchAsync(async (req, res) => {
 
   const accessToken = await userService.signIn(email, password);
 
-  return res
+  res
     .status(200)
-    .cookie('viewCount', 'count', {
-      expires: new Date(Date.now() + 43200000),
+    .cookie('Count', 'count', {
+      expires: new Date(Date.now() + 3600000),
       httpOnly: true,
       secure: false,
       signed: process.env.COOKIE_SECRET,
     })
-    .json({ message: accessToken });
+    .json({ accessToken });
 });
 
-module.exports = { signUp, signIn };
+module.exports = { getUserImageByUserId, signUp, signIn };
