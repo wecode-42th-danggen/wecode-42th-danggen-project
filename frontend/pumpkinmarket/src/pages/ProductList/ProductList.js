@@ -1,40 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { MenuContext } from '../../components/MenuProvider';
 
 export default function ProductList() {
-  const [ProductListData, setProductListData] = useState([]);
-
+  const [searchData, setSearchData] = useContext(MenuContext);
   const navigate = useNavigate();
-
   const goToPosting = () => {
     navigate('/posting');
   };
-
-  // TOFIX: Mockdata 연결 시 동작할 코드
-  // useEffect(() => {
-  //   fetch('./data/data.json', {
-  //     method: 'GET',
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setProductListData(data.data);
-  //     });
-  // }, []);
-
-  // TOFIX: API 연결 시 동작할 코드
-  useEffect(() => {
-    fetch(`http://192.168.0.194:4000/posts`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        authorization: '',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setProductListData(data.data);
-      });
-  }, []);
 
   return (
     <section className="h-sreen py-32 ">
@@ -47,7 +20,7 @@ export default function ProductList() {
           + 글쓰기
         </button>
         <div className="grid grid-cols-4 gap-12 max-md:grid-cols-2">
-          {ProductListData.map(data => {
+          {searchData.map(data => {
             return (
               <Link className="w-52" key={data.id} to={`/product/${data.id}`}>
                 {data.postInfo.map(list => {
