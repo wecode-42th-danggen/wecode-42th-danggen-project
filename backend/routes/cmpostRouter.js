@@ -20,5 +20,6 @@ router.patch(
 router.delete('/:postId', checkValidationToken, cmpostController.deleteCmpost);
 
 router.get('/', cmpostController.getCmpost);
+router.get('/:cmpostId', cmpostController.getCmpostDetail);
 
 module.exports = { router };

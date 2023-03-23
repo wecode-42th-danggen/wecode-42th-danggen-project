@@ -47,4 +47,14 @@ const getCmpost = async (categoryId) => {
   return cmpostDao.getCmpost(categoryId);
 };
 
-module.exports = { createCmpost, updateCmpost, deleteCmpost, getCmpost };
+const getCmpostDetail = async (cmpostId) => {
+  return cmpostDao.getCmpostDetail(cmpostId);
+};
+
+module.exports = {
+  createCmpost,
+  updateCmpost,
+  deleteCmpost,
+  getCmpost,
+  getCmpostDetail,
+};
