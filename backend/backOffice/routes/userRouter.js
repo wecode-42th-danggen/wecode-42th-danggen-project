@@ -7,4 +7,4 @@ const userController = require('../controllers/userController');
 router.get('/', userController.getUserInfo);
 router.patch('/:userId/:userStatusId', userController.changeUserStatus);
 
-module.exports = { router };
+module.exports = router;

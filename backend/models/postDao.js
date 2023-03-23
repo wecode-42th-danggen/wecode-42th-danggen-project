@@ -1,7 +1,16 @@
 const { appDataSource } = require('../models');
 const QueryBuilder = require('./queryBuilder');
 
-const createPost = async (image, postInfo, userId) => {
+const createPost = async (
+  image,
+  title,
+  price,
+  description,
+  categoryId,
+  priceSuggestion,
+  location,
+  userId
+) => {
   const postStatus = Object.freeze({
     onSale: 1,
     onReservation: 2,
@@ -13,9 +22,6 @@ const createPost = async (image, postInfo, userId) => {
     onReporting: 2,
     takeDown: 3,
   });
-
-  const { title, price, description, location, categoryId, priceSuggestion } =
-    postInfo;
 
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
@@ -59,15 +65,18 @@ const createPost = async (image, postInfo, userId) => {
       ]
     );
 
-    await queryRunner.query(
-      `
-      INSERT INTO post_images (
-        image_url,
-        post_id
-      ) VALUES (?, ?)
-      `,
-      [image.location, post.insertId]
-    );
+    for (let i = 0; i < image.length; i++) {
+      await queryRunner.query(
+        `
+        INSERT INTO post_images (
+          image_url,
+          post_id
+        ) VALUES (?, ?)
+        `,
+        [image[i].location, post.insertId]
+      );
+    }
+
     await queryRunner.commitTransaction();
     await queryRunner.release();
   } catch (err) {
@@ -175,8 +184,21 @@ const cancelLike = async (userId, postId) => {
   );
 };
 
-const getPosts = async (postId) => {
-  const queryBuilder = new QueryBuilder(postId);
+const getLikeStatus = async (userId, postId) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+      SELECT id FROM likes WHERE user_id=? AND post_id=?
+    ) AS isliked
+    `,
+    [userId, postId]
+  );
+
+  return !!parseInt(result.isliked);
+};
+
+const getPosts = async (postId, keyword) => {
+  const queryBuilder = new QueryBuilder(postId, keyword);
   const query = queryBuilder.buildQuery();
 
   return await appDataSource.query(
@@ -188,6 +210,7 @@ const getPosts = async (postId) => {
           "id", post.id,
           "userId", post.user_id,
           "nickname", user.nickname,
+          "profileImageUrl", user.profile_image_url,
           "title", post.title,
           "price", post.price,
           "description", post.description,
@@ -247,4 +270,5 @@ module.exports = {
   cancelLike,
   getPostViewsByPostId,
   addPostViewCount,
+  getLikeStatus,
 };

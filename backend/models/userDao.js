@@ -6,7 +6,6 @@ const getUserByEmail = async (email) => {
     SELECT
       u.id,
       u.social_id AS socialId,
-      u.social_type_id AS socialTypeId,
       u.email,
       u.password,
       u.phone_number AS PhoneNumber,
@@ -28,7 +27,6 @@ const getUserByPhoneNumber = async (phoneNumber) => {
     SELECT
       u.id,
       u.social_id AS socialId,
-      u.social_type_id AS socialTypeId,
       u.email,
       u.phone_number AS PhoneNumber,
       u.nickname AS nickName,
@@ -49,7 +47,6 @@ const getUserByNickName = async (nickName) => {
     SELECT
       u.id,
       u.social_id AS socialId,
-      u.social_type_id AS socialTypeId,
       u.email,
       u.phone_number AS PhoneNumber,
       u.nickname AS nickName,
@@ -64,14 +61,30 @@ const getUserByNickName = async (nickName) => {
   return userNickName[0];
 };
 
-const createUser = async (
-  email,
-  password,
-  phoneNumber,
-  nickName,
-  socialId,
-  profileImageUrl
-) => {
+const getUserImageByUserId = async (userId) => {
+  const [userImage] = await appDataSource.query(
+    `
+    SELECT
+      u.id,
+      u.profile_image_url AS profileImageUrl
+    FROM
+      users u
+    WHERE
+      u.id=?
+    `,
+    [userId]
+  );
+
+  return userImage;
+};
+
+const createUser = async (email, password, phoneNumber, nickName, image) => {
+  let imageUrl = null;
+
+  if (image) {
+    imageUrl = image.location;
+  }
+
   const defaultUserSocialType = Object.freeze({
     itself: 1,
     waem: 2,
@@ -96,19 +109,17 @@ const createUser = async (
           password,
           phone_number,
           nickname,
-          social_id,
           profile_image_url,
           user_status_id)
       VALUES
-        (?,?,?,?,?,?,?)
+        (?,?,?,?,?,?)
     `,
       [
         email,
         password,
         phoneNumber,
         nickName,
-        socialId,
-        profileImageUrl,
+        imageUrl,
         defaultUserStatusType.activity,
       ]
     );
@@ -155,7 +166,6 @@ const getPasswordByEmail = async (email) => {
     `,
     [email]
   );
-  console.log(result);
   return result[0].password;
 };
 
@@ -180,6 +190,7 @@ module.exports = {
   getUserByEmail,
   getUserByPhoneNumber,
   getUserByNickName,
+  getUserImageByUserId,
   getPasswordByEmail,
   checkRegisterUserId,
 };

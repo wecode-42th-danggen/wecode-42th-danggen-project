@@ -1,7 +1,25 @@
 const postDao = require('../models/postDao');
 
-const createPost = async (image, postInfo, userId) => {
-  return await postDao.createPost(image, postInfo, userId);
+const createPost = async (
+  image,
+  title,
+  price,
+  description,
+  categoryId,
+  priceSuggestion,
+  location,
+  userId
+) => {
+  return await postDao.createPost(
+    image,
+    title,
+    price,
+    description,
+    categoryId,
+    priceSuggestion,
+    location,
+    userId
+  );
 };
 
 const updatePost = async (
@@ -40,17 +58,11 @@ const deletePost = async (userId, postId) => {
   return await postDao.deletePost(userId, postId);
 };
 
-const getPosts = async (postId, cookie) => {
-  if (cookie) {
+const getPosts = async (postId, keyword, cookie) => {
+  if (cookie && postId) {
     const viewObj = new Object();
     const [currentViews] = await postDao.getPostViewsByPostId(postId);
-    let updatedViews;
-
-    if (currentViews.viewCount == null) {
-      updatedViews = 0;
-    } else {
-      updatedViews = currentViews.viewCount;
-    }
+    let updatedViews = currentViews.viewCount;
 
     if (postId) {
       if (!viewObj[postId]) {
@@ -60,21 +72,32 @@ const getPosts = async (postId, cookie) => {
       if (viewObj[postId].indexOf(cookie) == -1) {
         viewObj[postId].push(cookie);
         updatedViews += 1;
-        console.log(updatedViews);
         await postDao.addPostViewCount(updatedViews, postId);
       }
     }
   }
 
-  return await postDao.getPosts(postId);
+  return await postDao.getPosts(postId, keyword);
 };
 
 const createLike = async (userId, postId) => {
+  const isliked = await postDao.getLikeStatus(userId, postId);
+
+  if (isliked) {
+    const error = new Error('Already Liked Post. Please Remove Like First.');
+    error.statusCode = 409;
+    throw error;
+  }
+
   return await postDao.createLike(userId, postId);
 };
 
 const cancelLike = async (userId, postId) => {
   return await postDao.cancelLike(userId, postId);
+};
+
+const getLikeStatus = async (userId, postId) => {
+  return await postDao.getLikeStatus(userId, postId);
 };
 
 module.exports = {
@@ -87,4 +110,5 @@ module.exports = {
   getPosts,
   createLike,
   cancelLike,
+  getLikeStatus,
 };
