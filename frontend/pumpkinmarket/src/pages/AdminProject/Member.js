@@ -1,12 +1,14 @@
 import React from 'react';
 import AdminProject from './AdminProject';
-import Table from './Table';
+import MemberPage from './MemberPage';
+import './pagingCss.css';
 
 export default function Member() {
   return (
     <>
-      <div className="flex pt-20">
+      <div className="flex pt-20 pr-5">
         <AdminProject />
+        <MemberPage />
       </div>
     </>
   );
