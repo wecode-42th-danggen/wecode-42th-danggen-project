@@ -81,6 +81,14 @@ const getPosts = async (postId, keyword, cookie) => {
 };
 
 const createLike = async (userId, postId) => {
+  const isliked = await postDao.getLikeStatus(userId, postId);
+
+  if (isliked) {
+    const error = new Error('Already Liked Post. Please Remove Like First.');
+    error.statusCode = 409;
+    throw error;
+  }
+
   return await postDao.createLike(userId, postId);
 };
 
