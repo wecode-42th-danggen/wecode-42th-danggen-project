@@ -13,9 +13,9 @@ const signUp = catchAsync(async (req, res) => {
   let image = req.file;
   const { email, password, phoneNumber, nickName } = req.body;
 
-  if (!image) {
-    image = null;
-  }
+  // if (!image) {
+  //   image = null;
+  // }
 
   if (!email || !password || !phoneNumber || !nickName) {
     const error = new Error('KEY_ERROR');
@@ -23,13 +23,8 @@ const signUp = catchAsync(async (req, res) => {
     throw error;
   }
 
-  try {
-    await userService.signUp(email, password, phoneNumber, nickName, image);
-    return res.status(201).json({ message: 'SUCCESS_CREATE_USER' });
-  } catch (err) {
-    deleteImage(image.key);
-    throw err;
-  }
+  await userService.signUp(email, password, phoneNumber, nickName, image);
+  return res.status(201).json({ message: 'SUCCESS_CREATE_USER' });
 });
 
 const signIn = catchAsync(async (req, res) => {
