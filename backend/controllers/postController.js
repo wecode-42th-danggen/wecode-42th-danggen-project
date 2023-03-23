@@ -1,10 +1,12 @@
 const postService = require('../services/postServices');
 const { catchAsync } = require('../utils/error');
-const { deleteImage } = require('../utils/imageUplodaer');
+const { deleteImage } = require('../utils/imageUploader');
 
 const createPost = catchAsync(async (req, res) => {
-  const image = req.file;
-  const postInfo = req.body;
+  const image = req.files;
+  const { title, price, description, categoryId, priceSuggestion, location } =
+    req.body;
+
   const userId = req.user;
 
   if (!image) {
@@ -14,7 +16,16 @@ const createPost = catchAsync(async (req, res) => {
   }
 
   try {
-    await postService.createPost(image, postInfo, userId);
+    await postService.createPost(
+      image,
+      title,
+      price,
+      description,
+      categoryId,
+      priceSuggestion,
+      location,
+      userId
+    );
 
     return res.status(201).json({ message: 'Post Created Successfully' });
   } catch (err) {
@@ -78,10 +89,10 @@ const deletePost = catchAsync(async (req, res) => {
 });
 
 const getPosts = catchAsync(async (req, res) => {
-  const { postId } = req.query;
+  const { postId, keyword } = req.query;
   const cookie = req.headers.cookie;
 
-  const data = await postService.getPosts(postId, cookie);
+  const data = await postService.getPosts(postId, keyword, cookie);
 
   return res.status(200).json({ data });
 });
@@ -103,6 +114,15 @@ const cancelLike = catchAsync(async (req, res) => {
   return res.status(200).json({ message: 'Like Deleted' });
 });
 
+const getLikeStatus = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { postId } = req.params;
+
+  const data = await postService.getLikeStatus(userId, postId);
+
+  return res.status(200).json({ data });
+});
+
 module.exports = {
   createPost,
   updatePost,
@@ -113,4 +133,5 @@ module.exports = {
   getPosts,
   createLike,
   cancelLike,
+  getLikeStatus,
 };

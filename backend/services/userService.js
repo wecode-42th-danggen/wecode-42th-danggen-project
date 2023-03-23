@@ -4,7 +4,11 @@ const jwt = require('jsonwebtoken');
 const userDao = require('../models/userDao');
 const validation = require('../utils/validation');
 
-const signUp = async (email, password, phoneNumber, nickName) => {
+const getUserImageByUserId = async (userId) => {
+  return await userDao.getUserImageByUserId(userId);
+};
+
+const signUp = async (email, password, phoneNumber, nickName, image) => {
   await validation.checkValidationEmail(email);
   await validation.checkValidationPassword(password);
   await validation.checkValdationPhoneNumber(phoneNumber);
@@ -39,7 +43,8 @@ const signUp = async (email, password, phoneNumber, nickName) => {
       email,
       hashedPassword,
       phoneNumber,
-      nickName
+      nickName,
+      image
     );
     return createUser;
   }
@@ -86,4 +91,4 @@ const signIn = async (email, password) => {
   return accessToken(userId);
 };
 
-module.exports = { signUp, signIn };
+module.exports = { getUserImageByUserId, signUp, signIn };

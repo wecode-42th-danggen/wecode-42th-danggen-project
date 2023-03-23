@@ -1,7 +1,19 @@
 const cmpostDao = require('../models/cmpostDao');
 
-const createCmpost = async (imageUrl, cmpostInfo) => {
-  return cmpostDao.createCmpost(imageUrl, cmpostInfo);
+const createCmpost = async (
+  imageUrl,
+  title,
+  description,
+  categoryId,
+  userId
+) => {
+  return cmpostDao.createCmpost(
+    imageUrl,
+    title,
+    description,
+    categoryId,
+    userId
+  );
 };
 
 const updateCmpost = async (
@@ -31,4 +43,18 @@ const deleteCmpost = async (postId) => {
   return cmpostDao.deleteCmpost(postId);
 };
 
-module.exports = { createCmpost, updateCmpost, deleteCmpost };
+const getCmpost = async (categoryId) => {
+  return cmpostDao.getCmpost(categoryId);
+};
+
+const getCmpostDetail = async (cmpostId) => {
+  return cmpostDao.getCmpostDetail(cmpostId);
+};
+
+module.exports = {
+  createCmpost,
+  updateCmpost,
+  deleteCmpost,
+  getCmpost,
+  getCmpostDetail,
+};
