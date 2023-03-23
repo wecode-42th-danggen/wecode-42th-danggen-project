@@ -19,6 +19,9 @@ export default function ProductList() {
         >
           + 글쓰기
         </button>
+        {/* {searchData.length === 0 ? ( */}
+        <div className="pt-96">검색된 상품이 없습니다</div>
+        {/* ) : ( */}
         <div className="grid grid-cols-4 gap-12 max-md:grid-cols-2">
           {searchData.map(data => {
             return (
@@ -45,6 +48,7 @@ export default function ProductList() {
             );
           })}
         </div>
+        {/* )} */}
       </div>
     </section>
   );
