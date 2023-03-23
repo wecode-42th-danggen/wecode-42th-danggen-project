@@ -17,7 +17,7 @@ import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
 import Table from './pages/AdminProject/Table';
-import { MenuProvider } from './components/MenuProvider';
+import { MenuProvider } from './components/Nav/MenuProvider';
 
 const Router = () => {
   return (
