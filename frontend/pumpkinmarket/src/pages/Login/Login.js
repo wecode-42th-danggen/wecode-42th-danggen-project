@@ -12,7 +12,7 @@ export default function Login() {
 
   const goToMain = e => {
     e.preventDefault();
-    fetch('http://192.168.0.195:3000/users/signin', {
+    fetch('http://192.168.0.194:4000/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -51,15 +51,17 @@ export default function Login() {
             placeholder="email"
             type="email"
             name="email"
-            className="ml-7 mb-7"
+            className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md"
             onChange={getUserInfo}
+            autoComplete="on"
           />
           <input
             placeholder="password"
             type="password"
             name="password"
-            className="mb-7"
+            className="mb-7 border-solid border-2 border-slate-100 rounded-md"
             onChange={getUserInfo}
+            autoComplete="on"
           />
 
           <button

@@ -44,7 +44,7 @@ export default function Footer() {
         <div className="flex ml-5 ">
           <img
             className="w-5 h-5"
-            src="images/Footer/internet.png"
+            src="/images/Footer/internet.png"
             alt="internet"
           />
           <p className="text-gray-500 ml-2 text-sm">한국어</p>
@@ -55,9 +55,9 @@ export default function Footer() {
 }
 
 const FOOTER_IMG = [
-  { id: 1, img: 'images/Footer/facebook.png', alt: 'facebook' },
-  { id: 2, img: 'images/Footer/instagram.png', alt: 'instagram' },
-  { id: 3, img: 'images/Footer/youtube.png', alt: 'youtube' },
+  { id: 1, img: '/images/Footer/facebook.png', alt: 'facebook' },
+  { id: 2, img: '/images/Footer/instagram.png', alt: 'instagram' },
+  { id: 3, img: '/images/Footer/youtube.png', alt: 'youtube' },
 ];
 
 const REFERENCE_INFO = [
