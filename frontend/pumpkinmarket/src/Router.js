@@ -16,8 +16,6 @@ import SignUp from './pages/SignUp/SignUp';
 import Community from './pages/AdminProject/Community';
 import Dealings from './pages/AdminProject/Dealings';
 import Member from './pages/AdminProject/Member';
-import Table from './pages/AdminProject/Table';
-
 const Router = () => {
   return (
     <BrowserRouter>
@@ -37,7 +35,6 @@ const Router = () => {
         <Route path="/community" element={<Community />} />
         <Route path="/dealings" element={<Dealings />} />
         <Route path="/member" element={<Member />} />
-        <Route path="/table" element={<Table />} />
       </Routes>
       <Footer />
     </BrowserRouter>
