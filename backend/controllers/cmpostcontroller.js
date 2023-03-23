@@ -54,4 +54,18 @@ const getCmpost = catchAsync(async (req, res) => {
   return res.status(200).json({ data });
 });
 
-module.exports = { createCmpost, updateCmpost, deleteCmpost, getCmpost };
+const getCmpostDetail = catchAsync(async (req, res) => {
+  const { cmpostId } = req.params;
+
+  const data = await cmpostService.getCmpostDetail(cmpostId);
+
+  return res.status(200).json({ data });
+});
+
+module.exports = {
+  createCmpost,
+  updateCmpost,
+  deleteCmpost,
+  getCmpost,
+  getCmpostDetail,
+};
