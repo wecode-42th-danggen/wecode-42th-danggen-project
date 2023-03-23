@@ -4,15 +4,17 @@ import Moment from 'react-moment';
 import 'moment/locale/ko';
 
 export default function Product() {
-  const [clickedLikeBtn, setClickedLikeBtn] = useState(false);
+  const [isClickedLikeBtn, setClickedLikeBtn] = useState(null);
   const [productData, setProductData] = useState([]);
-  // console.log(clickedLikeBtn);
+  const [addLike, setAddLike] = useState({});
   const params = useParams();
 
   const startTime = new Date(productData[0]?.postInfo[0].createdTime);
 
-  const AaddLike = e => {
-    setClickedLikeBtn(!clickedLikeBtn);
+  const handleAddLike = e => {
+    const updateBtn = addLike === true ? false : true;
+    setAddLike(updateBtn);
+    setClickedLikeBtn(!isClickedLikeBtn);
   };
 
   const heart = '/images/Product/heart.png';
@@ -48,6 +50,61 @@ export default function Product() {
       });
   }, [params.id]);
 
+  // TOFIX: addLike API 연결 시 동작할 코드
+  useEffect(() => {
+    fetch(`http://192.168.0.194:4000/posts/likes/${params.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: Token,
+      },
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        setAddLike(data.data);
+      });
+  }, [params.id]);
+
+  // TOFIX: addLike API 연결 시 동작할 코드
+  useEffect(() => {
+    if (isClickedLikeBtn && addLike)
+      fetch(`http://192.168.0.194:4000/posts/likes/${params.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          Authorization: Token,
+        },
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          data.message === 'Like Created' &&
+            alert('관심상품으로 등록되었습니다!');
+          // setAddLike(data.data);
+        });
+  }, [params.id, isClickedLikeBtn, addLike]);
+
+  useEffect(() => {
+    if (isClickedLikeBtn !== null && !addLike)
+      fetch(`http://192.168.0.194:4000/posts/likes/${params.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          Authorization: Token,
+        },
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          data.message === 'Like Deleted' &&
+            alert('관심상품 목록에서 삭제되었습니다!');
+        });
+  }, [params.id, addLike]);
+
   return (
     <section className="py-32 flex flex-col m-auto w-[32rem]">
       <img
@@ -70,13 +127,30 @@ export default function Product() {
             {productData[0]?.postInfo[0].nickname}
           </p>
         </div>
+        {/* {addLike ? (
+          <button
+            className="flex flex-col items-center text-xs text-gray-500"
+            onClick={handleAddLike}
+          >
+            <img className="w-4" src={colorHeart} alt="likeBtn" />
+            좋아요
+          </button>
+        ) : (
+          <button
+            className="flex flex-col items-center text-xs text-gray-500"
+            onClick={handleAddLike}
+          >
+            <img className="w-4" src={heart} alt="likeBtn" />
+            좋아요
+          </button>
+        )} */}
         <button
           className="flex flex-col items-center text-xs text-gray-500"
-          onClick={AaddLike}
+          onClick={handleAddLike}
         >
           <img
             className="w-4"
-            src={clickedLikeBtn ? colorHeart : heart}
+            src={addLike ? colorHeart : heart}
             alt="likeBtn"
           />
           좋아요
