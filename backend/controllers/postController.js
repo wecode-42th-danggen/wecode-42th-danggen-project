@@ -90,7 +90,6 @@ const deletePost = catchAsync(async (req, res) => {
 
 const getPosts = catchAsync(async (req, res) => {
   const { postId, keyword } = req.query;
-  console.log(keyword);
   const cookie = req.headers.cookie;
 
   const data = await postService.getPosts(postId, keyword, cookie);
