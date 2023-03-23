@@ -115,6 +115,15 @@ const cancelLike = catchAsync(async (req, res) => {
   return res.status(200).json({ message: 'Like Deleted' });
 });
 
+const getLikeStatus = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { postId } = req.params;
+
+  const data = await postService.getLikeStatus(userId, postId);
+
+  return res.status(200).json({ data });
+});
+
 module.exports = {
   createPost,
   updatePost,
@@ -125,4 +134,5 @@ module.exports = {
   getPosts,
   createLike,
   cancelLike,
+  getLikeStatus,
 };

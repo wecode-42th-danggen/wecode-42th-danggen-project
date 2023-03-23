@@ -88,6 +88,10 @@ const cancelLike = async (userId, postId) => {
   return await postDao.cancelLike(userId, postId);
 };
 
+const getLikeStatus = async (userId, postId) => {
+  return await postDao.getLikeStatus(userId, postId);
+};
+
 module.exports = {
   createPost,
   updatePost,
@@ -98,4 +102,5 @@ module.exports = {
   getPosts,
   createLike,
   cancelLike,
+  getLikeStatus,
 };

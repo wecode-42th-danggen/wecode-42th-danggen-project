@@ -184,6 +184,19 @@ const cancelLike = async (userId, postId) => {
   );
 };
 
+const getLikeStatus = async (userId, postId) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+      SELECT id FROM likes WHERE user_id=? AND post_id=?
+    ) AS isliked
+    `,
+    [userId, postId]
+  );
+
+  return !!parseInt(result.isliked);
+};
+
 const getPosts = async (postId, keyword) => {
   const queryBuilder = new QueryBuilder(postId, keyword);
   const query = queryBuilder.buildQuery();
@@ -257,4 +270,5 @@ module.exports = {
   cancelLike,
   getPostViewsByPostId,
   addPostViewCount,
+  getLikeStatus,
 };
