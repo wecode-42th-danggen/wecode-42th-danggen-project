@@ -153,9 +153,9 @@ const getCmpostDetail = async (cmpostId) => {
         JSON_ARRAYAGG(
           JSON_OBJECT(
             "commentId", cm.id,
-            "commentUserId", u.id,
-            "commentNickname", u.nickname,
-            "commentUserProfileImageUrl", u.profile_image_url,
+            "commentUserId", cm.user_id,
+            "commentNickname", cu.nickname,
+            "commentUserProfileImageUrl", cu.profile_image_url,
             "commentContent", cm.content
           )
         ) AS commentInfo
@@ -173,8 +173,12 @@ const getCmpostDetail = async (cmpostId) => {
       community_comments cm
     ON
       cm.community_post_id = cp.id
+    LEFT JOIN
+      users cu
+    ON
+      cu.id = cm.user_id
     WHERE
-      cp.id=6
+      cp.id=?
     GROUP BY
       cp.id
   `,
