@@ -5,12 +5,11 @@ export default function CommunityPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://192.168.219.104:3000/admin/cmpost`, {
+    fetch(`http://192.168.0.195:3000/admin/cmpost`, {
       method: 'GET',
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setData(data.data);
       });
   }, []);

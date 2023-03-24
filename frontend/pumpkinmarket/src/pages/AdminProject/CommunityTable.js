@@ -3,6 +3,7 @@ import './pagingCss.css';
 
 function CommunityTable() {
   const [Data, setData] = useState([]);
+
   useEffect(() => {
     fetch(`http://192.168.0.195:3000/admin/cmpost`, {
       method: 'GET',
@@ -12,6 +13,18 @@ function CommunityTable() {
         setData(data.data);
       });
   }, []);
+
+  const deleteBtn = id => {
+    fetch(`http://192.168.0.195:3000/admin/cmpost/${id}`, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(del => {
+        console.log(del);
+        setData(Data.filter(user => user.id !== id));
+      });
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
@@ -19,9 +32,10 @@ function CommunityTable() {
   const records = Data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(Data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
+
   return (
-    <div className="pl-72 pr-20 flex flex-col items-center max-w-5xl">
-      <table className="border-spacing-0 border-solid border-2">
+    <div className="pl-72 pr-28 flex flex-col items-center justify-center max-w-5xl">
+      <table className="border-spacing-0 border-solid border-2 w-[64rem] mr-96">
         <thead className="pt-52">
           <tr>
             <th className="border-r-2 border-b-2">userId</th>
@@ -30,6 +44,7 @@ function CommunityTable() {
             <th className="border-r-2 border-b-2">description</th>
             <th className="border-r-2 border-b-2">view_cnt</th>
             <th className="border-r-2 border-b-2">caregory_id</th>
+            <th className="border-r-2 border-b-2">delete_btn</th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +58,14 @@ function CommunityTable() {
               <td className="p-1 border-r-2 border-b-2">{user.description}</td>
               <td className="p-1 border-r-2 border-b-2">{user.viewCount}</td>
               <td className="p-1 border-r-2 border-b-2">{user.categoryId}</td>
+              <td className="p-1 border-r-2 border-b-2">
+                <button
+                  className="bg-red-600 text-white rounded-md p-2 h-full w-full"
+                  onClick={() => deleteBtn(user.id)}
+                >
+                  삭제하기
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
