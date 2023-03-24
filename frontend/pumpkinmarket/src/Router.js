@@ -16,6 +16,7 @@ import Posting from './pages/Posting/Posting';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
+import Table from './pages/AdminProject/Table';
 import { MenuProvider } from './components/Nav/MenuProvider';
 
 const Router = () => {
@@ -26,8 +27,8 @@ const Router = () => {
         <Routes>
           <Route path="/main" element={<Main />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Product />} />
-          <Route path="/product-list" element={<ProductList />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/" element={<ProductList />} />
           <Route path="/posting" element={<Posting />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/sign-up" element={<SignUp />} />
@@ -41,6 +42,7 @@ const Router = () => {
           <Route path="/community" element={<Community />} />
           <Route path="/dealings" element={<Dealings />} />
           <Route path="/member" element={<Member />} />
+          <Route path="/table" element={<Table />} />
         </Routes>
         <Footer />
       </BrowserRouter>
