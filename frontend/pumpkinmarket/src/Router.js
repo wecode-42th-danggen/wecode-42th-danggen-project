@@ -16,7 +16,6 @@ import Posting from './pages/Posting/Posting';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
-import Table from './pages/AdminProject/Table';
 import { MenuProvider } from './components/Nav/MenuProvider';
 
 const Router = () => {
@@ -42,7 +41,6 @@ const Router = () => {
           <Route path="/community" element={<Community />} />
           <Route path="/dealings" element={<Dealings />} />
           <Route path="/member" element={<Member />} />
-          <Route path="/table" element={<Table />} />
         </Routes>
         <Footer />
       </BrowserRouter>

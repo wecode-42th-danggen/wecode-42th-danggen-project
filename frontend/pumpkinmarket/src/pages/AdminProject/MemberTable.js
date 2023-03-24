@@ -20,8 +20,8 @@ function MemberTable() {
   const npage = Math.ceil(Data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
   return (
-    <div className="pl-72 pr-28 flex flex-col items-center max-w-5xl">
-      <table className="border-spacing-0 border-solid border-2">
+    <div className="pl-72 pr-28 flex flex-col items-center justify-center max-w-5xl h-auto">
+      <table className="border-spacing-0 border-solid border-2 w-[64rem] mr-96">
         <thead className="pt-52">
           <tr>
             <th className="border-r-2 border-b-2">id</th>
