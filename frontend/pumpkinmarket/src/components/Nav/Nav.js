@@ -92,7 +92,7 @@ export default function Nav() {
             💝 문情
           </Link>
           <Link to="/" className="ml-10 text-lg">
-            중고거래
+            문정마켓
           </Link>
           <Link to="/neighborinfo-list" className="ml-10 text-lg">
             동네정보
@@ -111,11 +111,11 @@ export default function Nav() {
           />
         </div>
         {Token ? (
-          <div className="flex items-center ">
-            <button className="hidden mr-3 max-md:block">
+          <div className="flex items-center">
+            <button className="hidden mr-3 max-md:block" onClick={searchBtn}>
               <img
                 className="w-4"
-                src="/images/Nav/search.png"
+                src="./images/Nav/search.png"
                 alt="searchBtn"
               />
             </button>

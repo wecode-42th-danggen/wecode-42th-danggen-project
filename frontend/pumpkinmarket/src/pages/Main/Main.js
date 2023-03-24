@@ -16,14 +16,14 @@ export default function Main() {
               이웃간에 따뜻한 정을 느껴보아요.
             </p>
           </div>
-          <img className="pl-56" src="images/Main/map.png" alt="mapImg" />
+          <img className="pl-56" src="/images/Main/map.png" alt="mapImg" />
         </div>
       </section>
       <section className="w-screen bg-white-50 h-screen flex items-center max-md:overflow-x-scroll">
         <div className="m-auto flex items-center">
           <img
             className="max-md: pr-20"
-            src="images/Main/chatting.png"
+            src="/images/Main/chatting.png"
             alt="chattingImg"
           />
           <div className="pl-56">
@@ -51,7 +51,7 @@ export default function Main() {
             <div className="pr-32 max-md: pb-8">
               <img
                 className="w-20 pb-6"
-                src="images/Main/meeting.png"
+                src="/images/Main/meeting.png"
                 alt="meetingImg"
               />
               <h2 className="font-semibold  pb-2 text-lg">문情 생활 정보</h2>
@@ -69,7 +69,7 @@ export default function Main() {
             <div className="max-md:pb-8">
               <img
                 className="w-20 pb-6"
-                src="images/Main/information.png"
+                src="/images/Main/information.png"
                 alt="informationImg"
               />
               <h2 className="font-semibold pb-2 text-lg">문情 생활 즐기기</h2>
