@@ -16,29 +16,35 @@ import Posting from './pages/Posting/Posting';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
+import { MenuProvider } from './components/Nav/MenuProvider';
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/product-list" element={<ProductList />} />
-        <Route path="/posting" element={<Posting />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/neighborinfo" element={<NeighborInfo />} />
-        <Route path="/neighborinfo-list" element={<NeighborInfoList />} />
-        <Route path="/neighborinfo-posting" element={<NeighborInfoPosting />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/dealings" element={<Dealings />} />
-        <Route path="/member" element={<Member />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <MenuProvider>
+      <BrowserRouter>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/product-list" element={<ProductList />} />
+          <Route path="/posting" element={<Posting />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/neighborinfo" element={<NeighborInfo />} />
+          <Route path="/neighborinfo-list" element={<NeighborInfoList />} />
+          <Route
+            path="/neighborinfo-posting"
+            element={<NeighborInfoPosting />}
+          />
+          <Route path="/community" element={<Community />} />
+          <Route path="/dealings" element={<Dealings />} />
+          <Route path="/member" element={<Member />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </MenuProvider>
   );
 };
 
