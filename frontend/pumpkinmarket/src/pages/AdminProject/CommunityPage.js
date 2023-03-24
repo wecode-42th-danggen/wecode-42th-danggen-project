@@ -16,7 +16,7 @@ export default function CommunityPage() {
   }, []);
 
   return (
-    <div className="pt-32 h-screen flex align py-12 max-w-5xl">
+    <div className="h-screen flex align py-12 max-w-5xl">
       <CommunityTable data={data} />
     </div>
   );

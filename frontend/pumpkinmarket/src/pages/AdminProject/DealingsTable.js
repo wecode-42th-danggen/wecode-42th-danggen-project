@@ -14,14 +14,14 @@ function DealingsTable() {
       });
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
+  const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = Data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(Data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
   return (
-    <div className="pl-72 pr-28 flex flex-col items-center justify-center max-w-5xl">
+    <div className="pl-72 pr-28 flex flex-col items-center  max-w-5xl">
       <table className="border-spacing-0, border-solid, border-2">
         <thead className="pt-52">
           <tr>
