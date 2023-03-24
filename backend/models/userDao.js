@@ -66,6 +66,7 @@ const getUserImageByUserId = async (userId) => {
     `
     SELECT
       u.id,
+      u.nickname,
       u.profile_image_url AS profileImageUrl
     FROM
       users u

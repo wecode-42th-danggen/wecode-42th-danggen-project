@@ -31,17 +31,50 @@ const getCmpost = async () => {
 };
 
 const deleteCmpost = async (cmpostId) => {
-  const result = await appDataSource.query(
-    `
-    DELETE FROM
-      community_posts
-    WHERE
-      id=?
-    `,
-    [cmpostId]
-  );
-  return result;
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+  try {
+    await queryRunner.query(
+      `
+      DELETE FROM
+        community_comments
+      WHERE
+        community_post_id=?
+      `,
+      [cmpostId]
+    );
+
+    await queryRunner.query(
+      `
+      DELETE FROM
+        community_posts
+      WHERE
+        id=?
+      `,
+      [cmpostId]
+    );
+    await queryRunner.commitTransaction();
+  } catch (err) {
+    await queryRunner.rollbackTransaction();
+    throw err;
+  } finally {
+    await queryRunner.release();
+  }
 };
+
+// const deleteCmpost = async(cmpostId)=>{
+//   const result = await appDataSource.query(
+//     `
+//     DELETE FROM
+//       community_posts
+//     WHERE
+//       id=?
+//     `,
+//     [cmpostId]
+//   );
+//   return result;
+// }
 
 const checkRegistCmpostId = async (cmpostId) => {
   const [result] = await appDataSource.query(
