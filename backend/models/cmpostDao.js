@@ -132,10 +132,62 @@ const getCmpost = async (categoryId) => {
   return data;
 };
 
+const getCmpostDetail = async (cmpostId) => {
+  const data = await appDataSource.query(
+    `
+    SELECT
+      cp.id AS cmpostId,
+          JSON_OBJECT(
+            "postId", cp.id,
+            "postUserId", cp.user_id,
+            "postImageUrl", cp.image_url,
+            "postDescription", cp.description,
+            "postViewCount", cp.view_count,
+            "postCategoryId", cp.category_id,
+            "postCategoryName", cc.name,
+            "postUserNickname", u.nickname,
+            "postCreateTime", cp.created_at,
+            "postUpateTime", cp.updated_at,
+            "likes", (SELECT COUNT(cl.id) FROM community_likes cl WHERE cp.id=cl.community_post_id)
+        ) AS cmpostInfo,
+        JSON_ARRAYAGG(
+          JSON_OBJECT(
+            "commentId", cm.id,
+            "commentUserId", u.id,
+            "commentNickname", u.nickname,
+            "commentUserProfileImageUrl", u.profile_image_url,
+            "commentContent", cm.content
+          )
+        ) AS commentInfo
+    FROM
+      community_posts cp
+    LEFT JOIN
+      community_categories cc
+    ON
+      cc.id = cp.category_id
+    LEFT JOIN
+      users u
+    ON
+      u.id = cp.user_id
+    LEFT JOIN
+      community_comments cm
+    ON
+      cm.community_post_id = cp.id
+    WHERE
+      cp.id=6
+    GROUP BY
+      cp.id
+  `,
+    [cmpostId]
+  );
+  return data;
+};
+
 module.exports = {
   createCmpost,
   updateCmpost,
   deleteCmpost,
   checkCmpostId,
   getCmpost,
+  getCmpostDetail,
 };
