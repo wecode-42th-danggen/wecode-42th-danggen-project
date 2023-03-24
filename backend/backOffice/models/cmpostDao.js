@@ -63,19 +63,6 @@ const deleteCmpost = async (cmpostId) => {
   }
 };
 
-// const deleteCmpost = async(cmpostId)=>{
-//   const result = await appDataSource.query(
-//     `
-//     DELETE FROM
-//       community_posts
-//     WHERE
-//       id=?
-//     `,
-//     [cmpostId]
-//   );
-//   return result;
-// }
-
 const checkRegistCmpostId = async (cmpostId) => {
   const [result] = await appDataSource.query(
     `

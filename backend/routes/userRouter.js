@@ -8,5 +8,7 @@ const { upload } = require('../utils/imageUploader');
 router.get('/image', checkValidationToken, userController.getUserImageByUserId);
 router.post('/signup', upload.single('image'), userController.signUp);
 router.post('/signin', userController.signIn);
+router.post('/waemsignin', userController.waemSignIn);
+router.post('/waemsignout', userController.waemSignOut);
 
 module.exports = { router };
