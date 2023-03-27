@@ -5,6 +5,7 @@ import { MenuContext } from '../../components/Nav/MenuProvider';
 export default function ProductList() {
   const [searchData, setSearchData] = useContext(MenuContext);
   const [page, setPage] = useState(1);
+
   const navigate = useNavigate();
   const goToPosting = () => {
     navigate('/posting');

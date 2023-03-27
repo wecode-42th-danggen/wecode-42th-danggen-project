@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 
@@ -7,7 +7,13 @@ export default function Product() {
   const [isClickedLikeBtn, setClickedLikeBtn] = useState(null);
   const [productData, setProductData] = useState([]);
   const [addLike, setAddLike] = useState({});
+
   const params = useParams();
+  const navigate = useNavigate();
+
+  const goToPosting = () => {
+    navigate('/chat');
+  };
 
   const startTime = new Date(productData[0]?.postInfo[0].createdTime);
 
@@ -107,6 +113,12 @@ export default function Product() {
 
   return (
     <section className="py-32 flex flex-col m-auto w-[32rem]">
+      <button
+        className="text-lg rounded-full p-1.5 bg-green-500 text-white text-sm w-20 fixed bottom-28 right-40 max-md:right-12"
+        onClick={goToPosting}
+      >
+        + 채팅하기
+      </button>
       <img
         className="object-cover w-[32rem] h-96 rounded-lg"
         src={productData[0]?.postInfo[0].imageUrl}
@@ -127,23 +139,6 @@ export default function Product() {
             {productData[0]?.postInfo[0].nickname}
           </p>
         </div>
-        {/* {addLike ? (
-          <button
-            className="flex flex-col items-center text-xs text-gray-500"
-            onClick={handleAddLike}
-          >
-            <img className="w-4" src={colorHeart} alt="likeBtn" />
-            좋아요
-          </button>
-        ) : (
-          <button
-            className="flex flex-col items-center text-xs text-gray-500"
-            onClick={handleAddLike}
-          >
-            <img className="w-4" src={heart} alt="likeBtn" />
-            좋아요
-          </button>
-        )} */}
         <button
           className="flex flex-col items-center text-xs text-gray-500"
           onClick={handleAddLike}
