@@ -3,6 +3,8 @@ const { catchAsync } = require('../utils/error');
 
 const socketMessage = (io, userId) => {
   io.on('connection', (socket) => {
+    // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    // console.log(ip);
     console.log('A User Connected.');
 
     socket.on(
@@ -29,7 +31,7 @@ const socketMessage = (io, userId) => {
     });
 
     socket.on('disconnect', () => {
-      console.log('접속이 해제되었습니다', ip, socket.id);
+      console.log('접속이 해제되었습니다', socket.id);
       clearInterval(socket.interval);
     });
 
@@ -46,7 +48,7 @@ const socketMessage = (io, userId) => {
 
     socket.interval = setInterval(() => {
       socket.emit('news', 'Hello Socket.IO');
-    }, process.env.SOCKET_PORT);
+    }, process.env.SOCKET_INTERVAL || 1000);
   });
 };
 
