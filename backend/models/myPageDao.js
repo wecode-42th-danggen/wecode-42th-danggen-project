@@ -30,13 +30,13 @@ const getUserLikesByUserId = async (userId) => {
     FROM likes l
     INNER JOIN (
       SELECT
+        p.id,
         p.user_id,
         p.title,
         pi.image_url
       FROM posts p
       INNER JOIN post_images pi ON pi.post_id=p.id
-      WHERE p.user_id=?
-    ) as post
+    ) as post ON post.id=l.post_id
     WHERE l.user_id=?
     `,
     [userId, userId]

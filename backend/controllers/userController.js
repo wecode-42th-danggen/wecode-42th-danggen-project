@@ -1,6 +1,5 @@
 const userService = require('../services/userService');
 const { catchAsync } = require('../utils/error');
-const { deleteImage } = require('../utils/imageUploader');
 
 const getUserImageByUserId = catchAsync(async (req, res) => {
   const userId = req.user;
@@ -12,10 +11,6 @@ const getUserImageByUserId = catchAsync(async (req, res) => {
 const signUp = catchAsync(async (req, res) => {
   let image = req.file;
   const { email, password, phoneNumber, nickName } = req.body;
-
-  // if (!image) {
-  //   image = null;
-  // }
 
   if (!email || !password || !phoneNumber || !nickName) {
     const error = new Error('KEY_ERROR');
