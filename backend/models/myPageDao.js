@@ -6,6 +6,7 @@ const getUserPostsByUserId = async (userId) => {
     SELECT
       p.id as postId,
       p.title as postTitle,
+      p.description as postDescription,
       u.nickname as userNickname,
       u.profile_image_url as profileImageUrl,
       pi.image_url as postImageUrl
