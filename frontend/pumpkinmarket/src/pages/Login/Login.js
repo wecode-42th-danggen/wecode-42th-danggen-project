@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
 
 export default function Login() {
   const [formData, setFormData] = useState({ id: '', password: '' });
@@ -11,7 +14,15 @@ export default function Login() {
   };
 
   const goToMain = e => {
+    cookies.set('my-cookie', 'hello', {
+      maxAge: 60000000,
+      secure: true,
+      httpOnly: false,
+      sameSite: 'none',
+    });
+
     e.preventDefault();
+
     fetch('http://192.168.0.194:4000/users/signin', {
       method: 'POST',
       headers: {
@@ -24,7 +35,6 @@ export default function Login() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data.accessToken);
         if (data.accessToken == null) {
           alert('아이디 혹은 비밀번호 확인해주세요.');
         } else {
