@@ -1,14 +1,14 @@
-const chatService = require('../services/chatService');
+const chatDao = require('../models/chatDao');
 const { catchAsync } = require('../utils/error');
 
-const socketMessage = (io) => {
+const socketMessage = (io, userId) => {
   io.on('connection', (socket) => {
     console.log('A User Connected.');
 
     socket.on(
       'create_room',
-      catchAsync(async (userId, postId, callback) => {
-        const room = await chatService.createRoom(userId, postId);
+      catchAsync(async (postId, callback) => {
+        const room = await chatDao.createRoom(userId, postId);
         socket.join(room.raw.insertId);
         callback(room.raw.insertId);
       })
@@ -22,8 +22,8 @@ const socketMessage = (io) => {
       })
     );
 
-    socket.on('new_text', async (userId, content, roomId, callback) => {
-      const chat = await chatService.createChat(userId, content, roomId);
+    socket.on('new_text', async (content, roomId, callback) => {
+      await chatDao.createChat(userId, content, roomId);
       socket.to(roomId).emit('new_text', content);
       callback(content);
     });
