@@ -9,6 +9,7 @@ export const API = {
   COMMUNITY: `${BASE_URl}/communityposts`,
   ADMIN: `${BASE_URl}/admin`,
   CHATS: `${BASE_URl}/chats`,
+  MYPAGE: `${BASE_URl}/mypage`,
 };
 
 export default API;
