@@ -5,9 +5,12 @@ module.exports = {
     extend: {
       width: {
         128: '32rem',
-        256: '64rem',
+        144: '36rem',
+        160: '40rem',
+        176: '44rem',
+        224: '56rem',
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };
