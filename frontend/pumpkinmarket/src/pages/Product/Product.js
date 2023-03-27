@@ -7,7 +7,7 @@ export default function Product() {
   const [isClickedLikeBtn, setClickedLikeBtn] = useState(null);
   const [productData, setProductData] = useState([]);
   const [addLike, setAddLike] = useState({});
-  console.log(productData);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -51,7 +51,6 @@ export default function Product() {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: Token,
-        credentials: 'include',
         headers: cookies,
       },
     })
