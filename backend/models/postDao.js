@@ -1,5 +1,6 @@
 const { appDataSource } = require('../models');
 const QueryBuilder = require('./queryBuilder');
+const { deleteImage } = require('../utils/imageUploader');
 
 const createPost = async (
   image,
@@ -153,6 +154,20 @@ const deletePost = async (userId, postId) => {
   await queryRunner.startTransaction();
 
   try {
+    const [post] = await appDataSource.query(
+      `
+      SELECT
+        post_id,
+        image_url as imageUrl
+      FROM post_images
+      WHERE post_id=?
+      `,
+      [postId]
+    );
+    const imageFileName = post.imageUrl.split('com/')[1];
+
+    deleteImage(imageFileName);
+
     await queryRunner.query(
       `
       DELETE
