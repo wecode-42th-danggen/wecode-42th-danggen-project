@@ -10,9 +10,19 @@ const startServer = async () => {
   await appDataSource
     .initialize()
     .then(() => {
-      app.listen(PORT, () => {
+      const server = app.listen(PORT, () => {
         console.log(`🟢server is listening on ${PORT}🟢`);
       });
+
+      const io = require('socket.io')(server, {
+        cors: {
+          origin: true,
+          credentials: true,
+        },
+      });
+      const { socketMessage } = require('./middlewares/socket.io');
+
+      socketMessage(io);
     })
     .catch((err) => {
       console.log(`❌Failed server connect❌`);
