@@ -7,13 +7,18 @@ export default function Product() {
   const [isClickedLikeBtn, setClickedLikeBtn] = useState(null);
   const [productData, setProductData] = useState([]);
   const [addLike, setAddLike] = useState({});
-
+  console.log(productData);
   const params = useParams();
   const navigate = useNavigate();
 
   const goToPosting = () => {
     navigate('/chat');
   };
+
+  const cookies = document.cookie;
+
+  const headers = new Headers();
+  headers.append('cookie', cookies);
 
   const startTime = new Date(productData[0]?.postInfo[0].createdTime);
 
@@ -46,6 +51,8 @@ export default function Product() {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: Token,
+        credentials: 'include',
+        headers: cookies,
       },
     })
       .then(res => {
