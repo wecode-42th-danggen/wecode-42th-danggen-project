@@ -12,8 +12,13 @@ const createApp = () => {
 
   app.use(express.json());
   app.use(morgan('dev'));
-  app.use(cors());
-  app.use(cookieParser(process.env.COOKIE_SECRET));
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
+    })
+  );
+  app.use(cookieParser());
   app.use(routes);
   app.use(adminRoutes);
 
