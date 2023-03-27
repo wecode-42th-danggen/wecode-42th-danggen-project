@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UploadForm from './UploadForm';
+import { API } from '../../config/config';
 
 export default function Posting() {
   const [ischecked, setIsChecked] = useState(false);
@@ -75,7 +76,7 @@ export default function Posting() {
   const onSubmit = e => {
     e.preventDefault();
 
-    fetch(`http://192.168.0.192:4000/posts`, {
+    fetch(`${API.POSTS}`, {
       method: 'POST',
       headers: {
         enctype: 'multipart/form-data',
