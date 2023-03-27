@@ -47,7 +47,8 @@ const getCommunityPostsByUserId = async (userId) => {
   return await appDataSource.query(
     `
     SELECT
-      cp.user_id,
+      cp.user_id as userId,
+      cp.id as postId,
       cp.title,
       cp.description,
       cp.image_url
