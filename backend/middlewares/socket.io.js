@@ -1,10 +1,26 @@
+const jwt = require('jsonwebtoken');
+
 const chatDao = require('../models/chatDao');
 const { catchAsync } = require('../utils/error');
 
-const socketMessage = (io, userId) => {
+const socketMessage = (io) => {
+  io.use((socket, next) => {
+    const token = socket.handshake.headers.authorization;
+    if (!token) {
+      return next(new Error('Authentication error'));
+    }
+
+    jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
+      if (err) {
+        return next(new Error('Authentication error'));
+      }
+
+      userId = decoded.userId;
+      next();
+    });
+  });
+
   io.on('connection', (socket) => {
-    // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    // console.log(ip);
     console.log('A User Connected.');
 
     socket.on(
