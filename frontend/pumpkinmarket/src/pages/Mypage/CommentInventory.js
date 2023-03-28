@@ -31,7 +31,7 @@ export default function CommentInventory() {
     <>
       <div className="flex justify-center">
         {commentInventory.length === 0 ? (
-          <div className="flex justify-center items-center pt-10">
+          <div className="flex justify-center items-center pt-10 max-md:h-screen">
             <img
               className="w-7"
               src="/images/Mypage/noposting.png"

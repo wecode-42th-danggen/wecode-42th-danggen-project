@@ -31,7 +31,7 @@ export default function LikeInventory() {
           <div>좋아요한 게시글이 없습니다.</div>
         </div>
       ) : (
-        <div className="grid grid-cols-4 p-12">
+        <div className="grid grid-cols-4 gap-10 max-md:grid-cols-2 gap-12">
           {likeInventory.map(list => {
             return (
               <Link
@@ -39,7 +39,7 @@ export default function LikeInventory() {
                 to={`${process.env.PUBLIC_URL}/product/${list.post_id}`}
               >
                 <img
-                  className="w-52 h-52 rounded-lg object-cover"
+                  className="object-cover w-52 h-52 rounded-lg"
                   src={list.postImageUrl}
                   alt="liked inventory"
                 />

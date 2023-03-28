@@ -5,7 +5,7 @@ import { API } from '../../config/config';
 export default function ChattingInventory() {
   const [chattingInventory, setChattingInventory] = useState([]);
   const [deleteModal, setDeletModal] = useState(false);
-  console.log(chattingInventory);
+
   // const Token = localStorage.getItem('accessToken');
 
   const deleteBtn = () => {
@@ -31,7 +31,7 @@ export default function ChattingInventory() {
     <>
       <div className="flex justify-center">
         {chattingInventory.length === 0 ? (
-          <div className="flex justify-center items-center pt-10">
+          <div className="flex justify-center items-center pt-10 max-md:h-screen">
             <img
               className="w-7"
               src="/images/Mypage/noposting.png"
