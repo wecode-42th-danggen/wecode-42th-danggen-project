@@ -153,9 +153,24 @@ const waemSignIn = async (email) => {
 
   return accessToken(userId);
 };
+// const waemSignOut = async (userId) => {
+//   const getUserByUserId = await userDao.getUserByUserId(userId);
+//   const email = getUserByUserId.email;
+//   const logout = await axios.post(
+//     `https://livecertcew.waem.kr:39401/live/client/logout`,
+//     {
+//       req_id: email,
+//       site_code: siteCode,
+//       site_usr_id: email,
+//     }
+//   );
+//   console.log(`logout : `, logout);
+//   return await userDao.waemSignOut(email);
+// };
 module.exports = {
   getUserImageByUserId,
   signUp,
   signIn,
   waemSignIn,
+  //waemSignOut,
 };

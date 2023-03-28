@@ -55,9 +55,20 @@ const waemSignIn = catchAsync(async (req, res) => {
   return res.status(200).json({ accessToken });
 });
 
+// const waemSignOut = catchAsync(async (req, res) => {
+//   const userId = req.user;
+//   if (!userId) {
+//     const error = new Error('NOT_EXIST_USER');
+//     error.statusCode = 400;
+//     throw error;
+//   }
+//   await userService.waemSignOut(userId);
+// });
+
 module.exports = {
   getUserImageByUserId,
   signUp,
   signIn,
   waemSignIn,
+  //waemSignOut,
 };
