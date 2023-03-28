@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { API } from '../../config/config';
 
 export default function CommunityInventory() {
@@ -66,29 +67,35 @@ export default function CommunityInventory() {
           <ul>
             {communityInventory.map(list => {
               return (
-                <li key={list.id} className="flex justify-between">
-                  <div className="p-5">
-                    <hr className="pb-7" />
-                    <h1 className="font-bold pb-3 pl-2">{list.title}</h1>
-                    <div className="flex items-center">
-                      <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-[44rem] h-12 pl-2">
-                        {list.description}
-                      </p>
-                      <img
-                        className="w-20 h-20 rounded-lg object-cover mx-7"
-                        src={list.image_url}
-                        alt="inventory title img"
-                      />
-                      <button type="button" onClick={deleteBtn}>
-                        <img
-                          className="w-4 h-4"
-                          src="/images/Mypage/wastebasket.png"
-                          alt="delete inventory"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </li>
+                <div
+                  key={list.id}
+                  className="flex border-t border-solid border-slate-200"
+                >
+                  <Link>
+                    <li className="flex justify-between">
+                      <div className="p-5">
+                        <h1 className="font-bold pb-3 pl-2">{list.title}</h1>
+                        <div className="flex items-center">
+                          <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-[44rem] h-12 pl-2 mr-5">
+                            {list.description}
+                          </p>
+                          <img
+                            className="w-20 h-20 rounded-lg object-cover max-md:hidden mr-5"
+                            src={list.image_url}
+                            alt="inventory title img"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
+                  <button type="button" onClick={deleteBtn}>
+                    <img
+                      className="w-4 h-4"
+                      src="/images/Mypage/wastebasket.png"
+                      alt="delete inventory"
+                    />
+                  </button>
+                </div>
               );
             })}
           </ul>

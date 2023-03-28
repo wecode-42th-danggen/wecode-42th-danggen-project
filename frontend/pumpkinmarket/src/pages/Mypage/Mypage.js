@@ -45,7 +45,7 @@ export default function Mypage() {
   }, []);
 
   return (
-    <div className="pt-32 p-64">
+    <div className="pt-32 p-72 max-md:p-20">
       <h1 className="font-bold text-2xl">마이페이지</h1>
       <div className="flex flex-col items-center">
         <img

@@ -78,11 +78,13 @@ export default function DealingsInventory() {
           <ul>
             {dealingsInventory.map(list => {
               return (
-                <div className="flex" key={list.postId}>
+                <div
+                  className="flex border-t border-solid border-slate-200 p-5"
+                  key={list.postId}
+                >
                   <Link to={`${process.env.PUBLIC_URL}/product/${list.postId}`}>
                     <li className="flex justify-between">
-                      <div className="p-5">
-                        <hr className="pb-7" />
+                      <div>
                         <h1 className="font-bold pb-2 pl-2 text-lg">
                           {list.postTitle}
                         </h1>
@@ -91,7 +93,7 @@ export default function DealingsInventory() {
                             {list.postDescription}
                           </p>
                           <img
-                            className="w-20 h-20 rounded-lg object-cover mx-7"
+                            className="w-20 h-20 rounded-lg object-cover mr-8 max-md:hidden"
                             src={list.postImageUrl}
                             alt="inventory title img"
                           />
