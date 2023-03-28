@@ -71,7 +71,7 @@ const signIn = async (email, password) => {
   await validation.checkValidationEmail(email);
   await validation.checkValidationPassword(password);
 
-  const getUserByEmail = userDao.getUserByEmail(email);
+  const getUserByEmail = await userDao.getUserByEmail(email);
   if (!getUserByEmail) {
     const error = new Error('NOT_EXIST_USER');
     error.statusCode = 400;
