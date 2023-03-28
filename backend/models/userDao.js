@@ -186,7 +186,7 @@ const checkRegisterUserId = async (userId) => {
     ) AS userIdRegisted`,
     [userId]
   );
-  return !!parseInt(result.registed);
+  return !!parseInt(result.userIdRegisted);
 };
 
 const getEmailByUserId = async (userId) => {
