@@ -259,26 +259,6 @@ const waemSignIn = async (email, otp, otpKey) => {
   }
 };
 
-const waemSignOut = async (email) => {
-  try {
-    await appDataSource.query(
-      `
-      UPDATE
-        users
-      SET
-        otp=null,
-        otp_key=null
-      WHERE
-        email=?
-      `
-    );
-  } catch (err) {
-    const error = new Error('FAIL_WAEM_SIGN_OUT');
-    error.statusCode = 400;
-    throw error;
-  }
-};
-
 module.exports = {
   createUser,
   getUserByEmail,
@@ -290,5 +270,4 @@ module.exports = {
   getEmailByUserId,
   checkRegisterUserEmail,
   waemSignIn,
-  waemSignOut,
 };

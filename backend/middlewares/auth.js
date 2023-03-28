@@ -17,7 +17,7 @@ const checkValidationToken = catchAsync(async (req, res, next) => {
   const user = await userDao.checkRegisterUserId(decoded.userId);
 
   if (!user) {
-    const error = new Error('INVALID_TOKEN');
+    const error = new Error('NOT_EXIST_USER');
     error.statusCode = 400;
     throw error;
   }

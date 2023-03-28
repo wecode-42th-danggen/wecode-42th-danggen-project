@@ -94,7 +94,6 @@ const signIn = async (email, password) => {
 
 reqId = Math.random().toString(36).substring(2, 11);
 siteCode = process.env.WAEM_SIGNIN_SITE_CODE;
-sync = true;
 clientIp = process.env.WAEM_SIGNIN_CLIENT_IP;
 
 const waemSignIn = async (email) => {
@@ -116,35 +115,47 @@ const waemSignIn = async (email) => {
   const otpKey = loginSync.data.site_otp_key;
   await userDao.waemSignIn(email, otp, otpKey);
 
+  const login = await axios.post(
+    `https://livecertcew.waem.kr:39401/live/client/login`,
+    {
+      req_id: reqId,
+      site_code: siteCode,
+      site_usr_id: email,
+      site_otp: otp,
+      site_otp_key: otpKey,
+    },
+    {
+      'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    }
+  );
+
   const otpOk = await axios.post(
     `https://livecertcew.waem.kr:39401/live/client/otp_ok`,
     {
       req_id: reqId,
       site_code: siteCode,
       site_usr_id: email,
-      sync: sync,
+      sync: true,
       site_otp: otp,
       site_otp_key: otpKey,
-    }
-  );
-};
-
-const waemSignOut = async () => {
-  const logout = await axios.post(
-    `https://livecertcew.waem.kr:39401/live/client/logout`,
+    },
     {
-      req_id: email,
-      site_code: siteCode,
-      site_usr_id: email,
+      'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
     }
   );
-  const email = await userDao.waemSignOut();
-  console.log(logout);
+  const getUserByEmail = await userDao.getUserByEmail(email);
+  if (!getUserByEmail) {
+    const error = new Error('NOT_EXIST_USER');
+    error.statusCode = 400;
+    throw error;
+  }
+  const userId = getUserByEmail.id;
+
+  return accessToken(userId);
 };
 module.exports = {
   getUserImageByUserId,
   signUp,
   signIn,
   waemSignIn,
-  waemSignOut,
 };
