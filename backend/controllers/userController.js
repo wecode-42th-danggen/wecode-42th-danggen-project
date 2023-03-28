@@ -43,4 +43,25 @@ const signIn = catchAsync(async (req, res) => {
     .json({ accessToken });
 });
 
-module.exports = { getUserImageByUserId, signUp, signIn };
+const waemSignIn = catchAsync(async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    const error = new Error('KEY_ERROR');
+    error.statusCode = 400;
+    throw error;
+  }
+  await userService.waemSignIn(email);
+  return res.status(200).json({ message: `WAEM_SIGNIN_SUCCESS` });
+});
+
+const waemSignOut = catchAsync(async (req, res) => {
+  await userService.waemSignOut();
+});
+
+module.exports = {
+  getUserImageByUserId,
+  signUp,
+  signIn,
+  waemSignIn,
+  waemSignOut,
+};

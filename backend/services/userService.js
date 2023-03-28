@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 const userDao = require('../models/userDao');
 const validation = require('../utils/validation');
@@ -70,8 +71,8 @@ const signIn = async (email, password) => {
   await validation.checkValidationEmail(email);
   await validation.checkValidationPassword(password);
 
-  const checkUserInfo = await userDao.getUserByEmail(email);
-  if (!checkUserInfo) {
+  const checkUserByEmail = userDao.checkRegisterUserEmail(email);
+  if (!checkUserByEmail) {
     const error = new Error('NOT_EXIST_USER');
     error.statusCode = 400;
     throw error;
@@ -91,4 +92,59 @@ const signIn = async (email, password) => {
   return accessToken(userId);
 };
 
-module.exports = { getUserImageByUserId, signUp, signIn };
+reqId = Math.random().toString(36).substring(2, 11);
+siteCode = process.env.WAEM_SIGNIN_SITE_CODE;
+sync = true;
+clientIp = process.env.WAEM_SIGNIN_CLIENT_IP;
+
+const waemSignIn = async (email) => {
+  const loginSync = await axios.post(
+    `https://livecertcew.waem.kr:39401/live/client/login_sync`,
+    {
+      req_id: reqId,
+      site_code: siteCode,
+      site_usr_id: email,
+      sync: true,
+      usr_id: 'zeler1004@naver.com',
+      client_ip: clientIp,
+    },
+    {
+      'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    }
+  );
+  const otp = loginSync.data.site_otp;
+  const otpKey = loginSync.data.site_otp_key;
+  await userDao.waemSignIn(email, otp, otpKey);
+
+  const otpOk = await axios.post(
+    `https://livecertcew.waem.kr:39401/live/client/otp_ok`,
+    {
+      req_id: reqId,
+      site_code: siteCode,
+      site_usr_id: email,
+      sync: sync,
+      site_otp: otp,
+      site_otp_key: otpKey,
+    }
+  );
+};
+
+const waemSignOut = async () => {
+  const logout = await axios.post(
+    `https://livecertcew.waem.kr:39401/live/client/logout`,
+    {
+      req_id: email,
+      site_code: siteCode,
+      site_usr_id: email,
+    }
+  );
+  const email = await userDao.waemSignOut();
+  console.log(logout);
+};
+module.exports = {
+  getUserImageByUserId,
+  signUp,
+  signIn,
+  waemSignIn,
+  waemSignOut,
+};
