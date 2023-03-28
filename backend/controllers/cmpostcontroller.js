@@ -6,7 +6,7 @@ const createCmpost = catchAsync(async (req, res) => {
   const { title, description, categoryId } = req.body;
   const userId = req.user;
 
-  if (!imageUrl || !categoryId || !title || !description) {
+  if (!categoryId || !title || !description) {
     const error = new Error('KEY_ERROR');
     error.statusCode = 400;
     throw error;

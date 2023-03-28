@@ -1,7 +1,11 @@
 const { appDataSource } = require('./index');
 
 const createCmpost = async (image, title, description, categoryId, userId) => {
-  const { imageUrl } = image;
+  let location;
+  if (image) {
+    location = image.location;
+  }
+
   try {
     const cmpost = await appDataSource.query(
       `
@@ -16,7 +20,7 @@ const createCmpost = async (image, title, description, categoryId, userId) => {
       VALUES
         (?,?,?,?,?)
       `,
-      [userId, title, image.location, description, categoryId]
+      [userId, title, location, description, categoryId]
     );
     return cmpost;
   } catch (err) {
