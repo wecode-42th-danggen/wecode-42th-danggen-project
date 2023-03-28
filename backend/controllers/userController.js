@@ -35,7 +35,7 @@ const signIn = catchAsync(async (req, res) => {
   res
     .cookie('count', 'viewCount', {
       maxAge: 60000000,
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: 'None',
     })
@@ -50,12 +50,9 @@ const waemSignIn = catchAsync(async (req, res) => {
     error.statusCode = 400;
     throw error;
   }
-  await userService.waemSignIn(email);
-  return res.status(200).json({ message: `WAEM_SIGNIN_SUCCESS` });
-});
+  const accessToken = await userService.waemSignIn(email);
 
-const waemSignOut = catchAsync(async (req, res) => {
-  await userService.waemSignOut();
+  return res.status(200).json({ accessToken });
 });
 
 module.exports = {
@@ -63,5 +60,4 @@ module.exports = {
   signUp,
   signIn,
   waemSignIn,
-  waemSignOut,
 };
