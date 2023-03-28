@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CommunityInventory from './CommunityInventory';
 import ChattingInventory from './ChattingInventory';
@@ -8,6 +8,9 @@ import CommentInventory from './CommentInventory';
 
 export default function Mypage() {
   const [navigate, setNavigate] = useState('문정마켓 게시글');
+  const [userInfo, setUserInfo] = useState([]);
+
+  const Token = localStorage.getItem('accessToken');
 
   const onClick = category => {
     setNavigate(category);
@@ -27,22 +30,44 @@ export default function Mypage() {
     }
   };
 
+  useEffect(() => {
+    fetch(`http://192.168.0.194:4000/users/image`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: Token,
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUserInfo(data);
+      });
+  }, []);
+
   return (
     <div className="pt-32 p-64">
       <h1 className="font-bold text-2xl">마이페이지</h1>
       <div className="flex flex-col items-center">
         <img
-          className="w-32 pb-2"
-          src="/images/Nav/profile.png"
-          alt="usr profile img"
+          className="w-32 mb-2 rounded-full"
+          src={userInfo.profileImageUrl}
+          alt="user profile img"
         />
-        <h2 className="font-medium text-gray-600">닉네임</h2>
+        <h2 className="font-medium text-gray-600">{userInfo.nickname}</h2>
       </div>
       <nav>
         <ul className="flex justify-between p-8">
           {MYPAGE_CATEROTY.map(category => {
             return (
-              <Link key={category.id} onClick={() => onClick(category.title)}>
+              <Link
+                className={
+                  navigate === category.title
+                    ? 'visited: border-b-2 border-green-500'
+                    : ''
+                }
+                key={category.id}
+                onClick={() => onClick(category.title)}
+              >
                 <li>{category.title}</li>
               </Link>
             );
