@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const { createApp } = require('./app');
 const { appDataSource } = require('./models/index');
+const { socketMessage } = require('./middlewares/socket.io');
 
 const startServer = async () => {
   const app = createApp();
@@ -15,12 +16,13 @@ const startServer = async () => {
       });
 
       const io = require('socket.io')(server, {
+        path: '/socket.io',
         cors: {
           origin: true,
           credentials: true,
         },
       });
-      const { socketMessage } = require('./middlewares/socket.io');
+      app.set('io', io);
 
       socketMessage(io);
     })

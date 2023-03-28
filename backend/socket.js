@@ -1,5 +1,3 @@
-const jwt = require('jsonwebtoken');
-
 const chatDao = require('../models/chatDao');
 const { catchAsync } = require('../utils/error');
 
@@ -16,47 +14,39 @@ const socketMessage = (io) => {
 
   chat.on('connection', (socket) => {
     console.log('chat 네임스페이스에 접속');
-    const roomId = 1;
-    const userToken = socket.request.headers.authorization;
-
-    const decoded = jwt.verify(userToken, process.env.SECRET_KEY);
-    const userId = decoded.userId;
-
-    console.log(userId);
 
     socket.on('join', (data) => {
       socket.join(data);
       socket.to(data).emit('join', {
         user: 'system',
-        chat: `userID: ${userId}}님이 입장하셨습니다.`,
+        chat: `${socket.request.session.color}님이 입장하셨습니다.`,
       });
     });
 
     socket.on('disconnect', async () => {
       console.log('chat 네임스페이스 접속 해제');
-      socket.to(roomId).emit('exit', {
-        user: 'system',
-        chat: `userID: ${userId}}님이 퇴장하셨습니다.`,
-      });
+      const { referer } = socket.request.headers; // 브라우저 주소가 들어있음
+      const roomId = new URL(referer).pathname.split('/').at(-1);
+      const currentRoom = chat.adapter.rooms.get(roomId);
+      const userCount = currentRoom?.size || 0;
+      if (userCount === 0) {
+        // 유저가 0명이면 방 삭제
+        await removeRoom(roomId); // 컨트롤러 대신 서비스를 사용
+        room.emit('removeRoom', roomId);
+        console.log('방 제거 요청 성공');
+      } else {
+        socket.to(roomId).emit('exit', {
+          user: 'system',
+          chat: `${socket.request.session.color}님이 퇴장하셨습니다.`,
+        });
+      }
     });
   });
-
-  // console.log('-------------절취선-----------------');
-
-  const userId = 19;
 
   io.on('connection', (socket) => {
     const req = socket.request;
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     console.log('새로운 유저 접속!', '[ip:]', ip, '[소켓 아이디:]', socket.id);
-
-    socket.on('join', (data) => {
-      socket.join(data);
-      socket.to(data).emit('join', {
-        user: 'system',
-        chat: `${socket.request}님이 입장하셨습니다.`,
-      });
-    });
 
     socket.on(
       'create_room',

@@ -55,6 +55,7 @@ const checkRegisterCommentId = async (commentId) => {
     ) as registed`,
       [commentId]
     );
+
     return !!parseInt(result.registed);
   } catch (err) {
     err.statusCode = 400;

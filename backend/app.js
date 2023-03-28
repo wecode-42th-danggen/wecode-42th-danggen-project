@@ -32,6 +32,10 @@ const createApp = () => {
     next(err);
   });
 
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('서버 에러');
+  });
   app.use(globalErrorHandler);
 
   return app;
