@@ -71,8 +71,8 @@ const signIn = async (email, password) => {
   await validation.checkValidationEmail(email);
   await validation.checkValidationPassword(password);
 
-  const checkUserByEmail = userDao.checkRegisterUserEmail(email);
-  if (!checkUserByEmail) {
+  const getUserByEmail = userDao.getUserByEmail(email);
+  if (!getUserByEmail) {
     const error = new Error('NOT_EXIST_USER');
     error.statusCode = 400;
     throw error;
@@ -87,7 +87,7 @@ const signIn = async (email, password) => {
     throw error;
   }
 
-  const userId = checkUserInfo.id;
+  const userId = getUserByEmail.id;
 
   return accessToken(userId);
 };
