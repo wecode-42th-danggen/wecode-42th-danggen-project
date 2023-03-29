@@ -107,6 +107,7 @@ const getCmpost = async (categoryId) => {
           JSON_OBJECT(
             "postId", cp.id,
             "postUserId", cp.user_id,
+            "postTitle", cp.title,
             "postImageUrl", cp.image_url,
             "postDescription", cp.description,
             "postViewCount", cp.view_count,
@@ -144,6 +145,7 @@ const getCmpostDetail = async (cmpostId) => {
           JSON_OBJECT(
             "postId", cp.id,
             "postUserId", cp.user_id,
+            "postTitle", cp.title,
             "postImageUrl", cp.image_url,
             "postDescription", cp.description,
             "postViewCount", cp.view_count,
