@@ -11,8 +11,6 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [roomId, setRoomId] = useState([]);
 
-  // console.log('productData::', productData);
-
   const params = useParams();
   const Token = localStorage.getItem('accessToken');
 
@@ -30,14 +28,6 @@ const Chat = () => {
   socket.on('disconnect', () => {
     console.log('Disconnected from server');
   });
-  // socket.on('connection', () => {
-  //   console.log('Connected to server');
-  // });
-  // if (socket.connected) {
-  //   console.log('소켓이 연결되었습니다.');
-  // } else {
-  //   console.log('소켓이 연결되지 않았습니다.');
-  // }
 
   if (!Token) {
     console.error('Access token not found.');
@@ -50,12 +40,6 @@ const Chat = () => {
   socket.on('disconnect', () => {
     console.log('Disconnected from server');
   });
-
-  // console.log('searchId: ', searchId);
-
-  // const searchData = searchId.map(item => item.id);
-  // console.log('searchData:', searchData);
-  // console.log('postId:', postId);
 
   const addMessage = message => {
     setMessages([...messages, message]);
@@ -71,9 +55,6 @@ const Chat = () => {
     setRoomId(roomId);
     console.log('룸아이디:', roomId);
   });
-  // // const sendMessage = () => {
-  // //   socket.emit('create_room', { message: 'Hello' });
-  // // };
 
   const handleJoinRoom = roomId => {
     socket.emit('enter_room', roomId, roomId => {
