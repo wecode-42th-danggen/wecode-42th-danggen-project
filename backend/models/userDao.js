@@ -1,5 +1,25 @@
 const { appDataSource } = require('./index');
 
+// const getUserByUserId = async (userId) => {
+//   const userInfo = await appDataSource.query(
+//     `
+//     SELECT
+//       u.id,
+//       u.social_id AS socialId,
+//       u.email,
+//       u.password,
+//       u.phone_number AS PhoneNumber,
+//       u.nickname AS nickName,
+//       u.user_status_id AS userStatusId
+//     FROM
+//       users u
+//     WHERE
+//       u.id=?
+//     `,
+//     [userId]
+//   );
+//   return userInfo[0];
+// };
 const getUserByEmail = async (email) => {
   const userEmail = await appDataSource.query(
     `
@@ -79,6 +99,18 @@ const getUserImageByUserId = async (userId) => {
   return userImage;
 };
 
+const defaultUserSocialType = Object.freeze({
+  itself: 1,
+  waem: 2,
+});
+
+const defaultUserStatusType = Object.freeze({
+  activity: 1,
+  reporting: 2,
+  stopActivity: 3,
+  leave: 4,
+});
+
 const createUser = async (email, password, phoneNumber, nickName, image) => {
   let imageUrl = null;
 
@@ -86,17 +118,6 @@ const createUser = async (email, password, phoneNumber, nickName, image) => {
     imageUrl = image.location;
   }
 
-  const defaultUserSocialType = Object.freeze({
-    itself: 1,
-    waem: 2,
-  });
-
-  const defaultUserStatusType = Object.freeze({
-    activity: 1,
-    reporting: 2,
-    stopActivity: 3,
-    leave: 4,
-  });
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
   await queryRunner.startTransaction();
@@ -147,9 +168,11 @@ const createUser = async (email, password, phoneNumber, nickName, image) => {
     await queryRunner.release();
   } catch (err) {
     await queryRunner.rollbackTransaction();
+    const error = new Error('Failed To Create User');
+    error.statusCode = 400;
+    throw error;
+  } finally {
     await queryRunner.release();
-
-    throw new Error('Failed To Create User');
   }
 };
 
@@ -180,12 +203,102 @@ const checkRegisterUserId = async (userId) => {
         users
       WHERE
         id=?
-    ) AS registed`,
+    ) AS userIdRegisted`,
     [userId]
+  );
+  return !!parseInt(result.userIdRegisted);
+};
+
+const getEmailByUserId = async (userId) => {
+  const result = await appDataSource.query(
+    `
+    SELECT
+      u.email
+    FROM
+     users u
+    WHERE
+     u.id=?
+    `,
+    [userId]
+  );
+  return result;
+};
+
+const checkRegisterUserEmail = async (email) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+      SELECT
+        email
+      FROM
+        users
+      WHERE
+        email=?
+    ) AS emailRegisted`,
+    [email]
   );
   return !!parseInt(result.registed);
 };
 
+const waemSignIn = async (email, otp, otpKey) => {
+  try {
+    if (email) {
+      await appDataSource.query(
+        `
+        UPDATE
+          users
+        SET
+          otp=?,
+          otp_key=?
+        WHERE
+          email=?
+        `,
+        [otp, otpKey, email]
+      );
+    } else {
+      await appDataSource.query(
+        `
+      INSERT INTO
+        users(
+          email,
+          otp,
+          otp_key,
+          user_status_id
+          )
+      VALUES
+        (?,?,?,?)
+    `,
+        [email, otp, otpKey, defaultUserStatusType.activity]
+      );
+    }
+  } catch (err) {
+    console.error(err);
+    const error = new Error('FAILED_WAEM_SIGN_IN');
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+// const waemSignOut = async (email) => {
+//   try {
+//     await appDataSource.query(
+//       `
+//       UPDATE
+//         users
+//       SET
+//         otp=null,
+//         otp_key=null
+//       WHERE
+//         email=?
+//       `,
+//       [email]
+//     );
+//   } catch (err) {
+//     const error = new Error('FAIL_WAEM_SIGN_OUT');
+//     error.statusCode = 400;
+//     throw error;
+//   }
+// };
 module.exports = {
   createUser,
   getUserByEmail,
@@ -194,4 +307,9 @@ module.exports = {
   getUserImageByUserId,
   getPasswordByEmail,
   checkRegisterUserId,
+  getEmailByUserId,
+  checkRegisterUserEmail,
+  waemSignIn,
+  // waemSignOut,
+  // getUserByUserId,
 };

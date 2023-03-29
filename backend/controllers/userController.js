@@ -1,6 +1,5 @@
 const userService = require('../services/userService');
 const { catchAsync } = require('../utils/error');
-const { deleteImage } = require('../utils/imageUploader');
 
 const getUserImageByUserId = catchAsync(async (req, res) => {
   const userId = req.user;
@@ -12,10 +11,6 @@ const getUserImageByUserId = catchAsync(async (req, res) => {
 const signUp = catchAsync(async (req, res) => {
   let image = req.file;
   const { email, password, phoneNumber, nickName } = req.body;
-
-  // if (!image) {
-  //   image = null;
-  // }
 
   if (!email || !password || !phoneNumber || !nickName) {
     const error = new Error('KEY_ERROR');
@@ -37,16 +32,43 @@ const signIn = catchAsync(async (req, res) => {
   }
 
   const accessToken = await userService.signIn(email, password);
-
   res
-    .status(200)
-    .cookie('Count', 'count', {
-      expires: new Date(Date.now() + 3600000),
+    .cookie('count', 'viewCount', {
+      maxAge: 60000000,
       httpOnly: true,
-      secure: false,
-      signed: process.env.COOKIE_SECRET,
+      secure: true,
+      sameSite: 'None',
     })
+    .status(200)
     .json({ accessToken });
 });
 
-module.exports = { getUserImageByUserId, signUp, signIn };
+const waemSignIn = catchAsync(async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    const error = new Error('KEY_ERROR');
+    error.statusCode = 400;
+    throw error;
+  }
+  const accessToken = await userService.waemSignIn(email);
+
+  return res.status(200).json({ accessToken });
+});
+
+// const waemSignOut = catchAsync(async (req, res) => {
+//   const userId = req.user;
+//   if (!userId) {
+//     const error = new Error('NOT_EXIST_USER');
+//     error.statusCode = 400;
+//     throw error;
+//   }
+//   await userService.waemSignOut(userId);
+// });
+
+module.exports = {
+  getUserImageByUserId,
+  signUp,
+  signIn,
+  waemSignIn,
+  //waemSignOut,
+};

@@ -13,7 +13,7 @@ export default function ProductList() {
   };
 
   return (
-    <section className="h-sreen py-32 ">
+    <section className="h-sreen py-32">
       <div className="pt-14 flex flex-col items-center re">
         <h1 className="text-3xl font-semibold pb-20">문정마켓 매물</h1>
         <button

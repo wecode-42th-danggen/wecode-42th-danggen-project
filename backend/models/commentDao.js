@@ -36,7 +36,7 @@ const deleteComment = async (commentId) => {
       [commentId]
     );
   } catch (err) {
-    err.statuscode = 400;
+    err.statusCode = 400;
     throw err;
   }
 };
@@ -52,14 +52,48 @@ const checkRegisterCommentId = async (commentId) => {
         community_comments cc
       WHERE
         cc.id=?
-    ) as regited`,
+    ) as registed`,
       [commentId]
     );
-    return !!parseInt(result);
+    return !!parseInt(result.registed);
   } catch (err) {
     err.statusCode = 400;
     throw err;
   }
 };
 
-module.exports = { createComment, deleteComment, checkRegisterCommentId };
+const getComment = async (cmpostId) => {
+  try {
+    const data = await appDataSource.query(
+      `
+      SELECT
+        cc.id AS commentId,
+        cc.user_id AS commentUserId,
+        cc.community_post_id AS cmpostId,
+        cc.content AS commentContent,
+        u.nickname AS userNickname,
+        u.profile_image_url AS userProfileImage
+      FROM
+        community_comments cc
+      INNER JOIN
+        users u
+      ON
+        u.id = cc.user_id
+      WHERE
+        cc.community_post_id=?
+      `,
+      [cmpostId]
+    );
+    return data;
+  } catch (err) {
+    err.statusCode = 400;
+    throw err;
+  }
+};
+
+module.exports = {
+  createComment,
+  deleteComment,
+  checkRegisterCommentId,
+  getComment,
+};

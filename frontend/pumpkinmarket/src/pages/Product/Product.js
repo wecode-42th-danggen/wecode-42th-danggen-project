@@ -15,6 +15,11 @@ export default function Product() {
     navigate(`/chat/${params.id}`);
   };
 
+  const cookies = document.cookie;
+
+  const headers = new Headers();
+  headers.append('cookie', cookies);
+
   const startTime = new Date(productData[0]?.postInfo[0].createdTime);
 
   const handleAddLike = e => {
@@ -46,6 +51,7 @@ export default function Product() {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: Token,
+        headers: cookies,
       },
     })
       .then(res => {

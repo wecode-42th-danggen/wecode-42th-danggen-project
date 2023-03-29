@@ -6,6 +6,7 @@ const getUserPostsByUserId = async (userId) => {
     SELECT
       p.id as postId,
       p.title as postTitle,
+      p.description as postDescription,
       u.nickname as userNickname,
       u.profile_image_url as profileImageUrl,
       pi.image_url as postImageUrl
@@ -29,13 +30,13 @@ const getUserLikesByUserId = async (userId) => {
     FROM likes l
     INNER JOIN (
       SELECT
+        p.id,
         p.user_id,
         p.title,
         pi.image_url
       FROM posts p
       INNER JOIN post_images pi ON pi.post_id=p.id
-      WHERE p.user_id=?
-    ) as post
+    ) as post ON post.id=l.post_id
     WHERE l.user_id=?
     `,
     [userId, userId]
@@ -46,7 +47,8 @@ const getCommunityPostsByUserId = async (userId) => {
   return await appDataSource.query(
     `
     SELECT
-      cp.user_id,
+      cp.user_id as userId,
+      cp.id as postId,
       cp.title,
       cp.description,
       cp.image_url
@@ -61,6 +63,7 @@ const getCommunityCommentsByUserId = async (userId) => {
   return await appDataSource.query(
     `
     SELECT
+      cc.id,
       cc.user_id,
       cc.content
     FROM community_comments cc

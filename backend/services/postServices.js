@@ -1,5 +1,7 @@
 const postDao = require('../models/postDao');
 
+const viewObj = new Object();
+
 const createPost = async (
   image,
   title,
@@ -60,18 +62,19 @@ const deletePost = async (userId, postId) => {
 
 const getPosts = async (postId, keyword, cookie) => {
   if (cookie && postId) {
-    const viewObj = new Object();
     const [currentViews] = await postDao.getPostViewsByPostId(postId);
     let updatedViews = currentViews.viewCount;
 
     if (postId) {
       if (!viewObj[postId]) {
         viewObj[postId] = [];
+        console.log('뷰오브젝트: ', viewObj);
       }
 
       if (viewObj[postId].indexOf(cookie) == -1) {
         viewObj[postId].push(cookie);
         updatedViews += 1;
+
         await postDao.addPostViewCount(updatedViews, postId);
       }
     }

@@ -15,4 +15,6 @@ router.delete(
   commentController.deleteComment
 );
 
+router.get('/:cmpostId', commentController.getComment);
+
 module.exports = { router };
