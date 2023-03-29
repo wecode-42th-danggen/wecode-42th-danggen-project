@@ -13,7 +13,11 @@ const deleteComment = async (commentId) => {
     throw error;
   }
 
-  return commentDao.deleteComment(commentId);
+  return await commentDao.deleteComment(commentId);
 };
 
-module.exports = { createComment, deleteComment };
+const getComment = async (cmpostId) => {
+  return commentDao.getComment(cmpostId);
+};
+
+module.exports = { createComment, deleteComment, getComment };

@@ -27,4 +27,11 @@ const deleteComment = catchAsync(async (req, res) => {
   return res.status(200).json({ message: `DELETE_COMMENT` });
 });
 
-module.exports = { createComment, deleteComment };
+const getComment = catchAsync(async (req, res) => {
+  const { cmpostId } = req.params;
+  const data = await commentService.getComment(cmpostId);
+
+  res.status(200).json({ data });
+});
+
+module.exports = { createComment, deleteComment, getComment };
