@@ -62,10 +62,37 @@ const getCmpostDetail = catchAsync(async (req, res) => {
   return res.status(200).json({ data });
 });
 
+const createLike = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { cmpostId } = req.params;
+  await cmpostService.createLike(userId, cmpostId);
+
+  return res.status(200).json({ message: 'CREATED_LIKE' });
+});
+
+const cancelLike = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { cmpostId } = req.params;
+  await cmpostService.cancelLike(userId, cmpostId);
+
+  return res.status(200).json({ message: 'CANCELED_LIKE' });
+});
+
+const getLikeStatus = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { cmpostId } = req.params;
+  data = await cmpostService.getLikeStatus(userId, cmpostId);
+
+  return res.status(200).json({ data });
+});
+
 module.exports = {
   createCmpost,
   updateCmpost,
   deleteCmpost,
   getCmpost,
   getCmpostDetail,
+  createLike,
+  cancelLike,
+  getLikeStatus,
 };

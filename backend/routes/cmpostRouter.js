@@ -22,4 +22,20 @@ router.delete('/:postId', checkValidationToken, cmpostController.deleteCmpost);
 router.get('/', cmpostController.getCmpost);
 router.get('/:cmpostId', cmpostController.getCmpostDetail);
 
+router.post(
+  '/likes/:cmpostId',
+  checkValidationToken,
+  cmpostController.createLike
+);
+router.delete(
+  '/likes/:cmpostId',
+  checkValidationToken,
+  cmpostController.cancelLike
+);
+router.get(
+  '/likes/:cmpostId',
+  checkValidationToken,
+  cmpostController.getLikeStatus
+);
+
 module.exports = { router };
