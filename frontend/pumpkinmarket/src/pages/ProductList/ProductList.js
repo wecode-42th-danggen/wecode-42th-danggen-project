@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuContext } from '../../components/Nav/MenuProvider';
+import Chat from '../Chat/Chat';
 
 export default function ProductList() {
   const [searchData, setSearchData] = useContext(MenuContext);

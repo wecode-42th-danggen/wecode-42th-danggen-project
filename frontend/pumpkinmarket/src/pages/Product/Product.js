@@ -12,7 +12,7 @@ export default function Product() {
   const navigate = useNavigate();
 
   const goToPosting = () => {
-    navigate('/chat');
+    navigate(`/chat/${params.id}`);
   };
 
   const startTime = new Date(productData[0]?.postInfo[0].createdTime);
@@ -53,6 +53,7 @@ export default function Product() {
       })
       .then(data => {
         setProductData(data.data);
+        console.log(productData);
       });
   }, [params.id]);
 
