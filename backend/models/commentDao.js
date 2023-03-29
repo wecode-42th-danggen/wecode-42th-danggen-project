@@ -52,10 +52,10 @@ const checkRegisterCommentId = async (commentId) => {
         community_comments cc
       WHERE
         cc.id=?
-    ) as regited`,
+    ) as registed`,
       [commentId]
     );
-    return !!parseInt(result);
+    return !!parseInt(result.registed);
   } catch (err) {
     err.statusCode = 400;
     throw err;

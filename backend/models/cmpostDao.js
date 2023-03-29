@@ -193,6 +193,54 @@ const getCmpostDetail = async (cmpostId) => {
   return data;
 };
 
+const createLike = async (userId, cmpostId) => {
+  const result = await appDataSource.query(
+    `
+    INSERT INTO
+      community_likes(
+        user_id,
+        community_post_id
+      ) VALUES(
+        ?,
+        ?
+      )
+    `,
+    [userId, cmpostId]
+  );
+  return result;
+};
+
+const cancelLike = async (userId, cmpostId) => {
+  const result = await appDataSource.query(
+    `
+    DELETE FROM
+      community_likes
+    WHERE
+      user_id=? AND community_post_id=?
+    `,
+    [userId, cmpostId]
+  );
+  console.log(`좋아요 취소 : `, result);
+  return result;
+};
+
+const getLikeStatus = async (userId, cmpostId) => {
+  const [data] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+      SELECT
+        id
+      FROM
+       community_likes
+      WHERE
+        user_id=? AND community_post_id=?
+    ) AS isLike
+    `,
+    [userId, cmpostId]
+  );
+  return !!parseInt(data.isLike);
+};
+
 module.exports = {
   createCmpost,
   updateCmpost,
@@ -200,4 +248,7 @@ module.exports = {
   checkCmpostId,
   getCmpost,
   getCmpostDetail,
+  createLike,
+  cancelLike,
+  getLikeStatus,
 };
