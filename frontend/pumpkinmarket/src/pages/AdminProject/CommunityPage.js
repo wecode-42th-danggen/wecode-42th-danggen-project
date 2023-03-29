@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CommunityTable from './CommunityTable';
+import Chat from '../Chat/Chat';
 
 export default function CommunityPage() {
   const [data, setData] = useState([]);
@@ -17,6 +18,7 @@ export default function CommunityPage() {
   return (
     <div className="h-screen flex align py-12 max-w-5xl">
       <CommunityTable data={data} />
+      <Chat />
     </div>
   );
 }
