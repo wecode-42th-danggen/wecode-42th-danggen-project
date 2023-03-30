@@ -17,7 +17,6 @@ const socketMessage = (io) => {
       }
 
       socket.userId = decoded.userId;
-      console.log(socket.userId);
       next();
     });
   });
