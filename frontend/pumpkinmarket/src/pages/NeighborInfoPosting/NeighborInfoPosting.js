@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NeighborInfoUploadFrom from './NeighborInfoUploadFrom';
+import { API } from '../../config/config';
 
 export default function NeighborInfoPosting() {
   const [upload, setUpload] = useState({
     img: '',
     title: '',
     description: '',
-    categoryId: '',
+    categoryId: 0,
   });
-
+  console.log(upload);
   const navigate = useNavigate();
 
   const handleImg = e => {
@@ -27,7 +28,7 @@ export default function NeighborInfoPosting() {
   };
 
   const handleCategoryId = e => {
-    setUpload(prev => ({ ...prev, categoryId: e.target.value }));
+    setUpload(prev => ({ ...prev, categoryId: parseInt(e.target.value) }));
   };
 
   const uploadForm = new FormData();
@@ -36,25 +37,26 @@ export default function NeighborInfoPosting() {
   uploadForm.append('description', upload.description);
   uploadForm.append('categoryId', JSON.stringify(upload.categoryId));
 
+  const Token = localStorage.getItem('accessToken');
+
   const onSubmit = e => {
     e.preventDefault();
 
-    fetch(`http://192.168.0.195:3000/communityposts`, {
+    fetch(`${API.COMMUNITY}`, {
       method: 'POST',
       headers: {
         enctype: 'multipart/form-data',
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMyLCJpc3MiOiJ3YWVtLWRhbmdnZW4iLCJpYXQiOjE2Nzg5MDExMjksImV4cCI6MTQ1MDU3MDU3NTQ1NjAwfQ._4qf8g9kjpz2uFyyIEnpc_g4DoXlTIQ50E1JyB2Sed0',
+        authorization: Token,
       },
       body: uploadForm,
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === 'CREATE_COMMUNITY_POST') {
-          navigate('/neighborinfo-list');
-        } else {
-          alert('실패');
-        }
+        // if (data.message === 'CREATE_COMMUNITY_POST') {
+        navigate('/neighborinfo-list');
+        // } else {
+        //   alert('실패');
+        // }
       });
   };
 
