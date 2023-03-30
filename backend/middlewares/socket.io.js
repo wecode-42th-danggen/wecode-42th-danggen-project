@@ -1,8 +1,26 @@
+const jwt = require('jsonwebtoken');
+
 const chatDao = require('../models/chatDao');
 const { catchAsync } = require('../utils/error');
 
 const socketMessage = (io) => {
-  const userId = 18;
+  io.use((socket, next) => {
+    const token = socket.handshake.headers.authorization;
+
+    if (!token) {
+      return next(new Error('Authentication error'));
+    }
+
+    jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
+      if (err) {
+        return next(new Error('Authentication error'));
+      }
+
+      socket.userId = decoded.userId;
+      console.log(socket.userId);
+      next();
+    });
+  });
 
   io.on('connection', (socket) => {
     const req = socket.request;
@@ -20,6 +38,7 @@ const socketMessage = (io) => {
     socket.on(
       'create_room',
       catchAsync(async (postId, callback) => {
+        const userId = socket.userId;
         const room = await chatDao.createRoom(userId, postId);
         socket.join(room.raw.insertId);
         callback(room.raw.insertId);
@@ -36,6 +55,7 @@ const socketMessage = (io) => {
     );
 
     socket.on('new_text', async (content, roomId, callback) => {
+      const userId = socket.userId;
       await chatDao.createChat(userId, content, roomId);
       socket.to(roomId).emit('new_text', content);
       callback(content);
