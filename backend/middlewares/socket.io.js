@@ -1,27 +1,21 @@
-const jwt = require('jsonwebtoken');
-
 const chatDao = require('../models/chatDao');
 const { catchAsync } = require('../utils/error');
 
 const socketMessage = (io) => {
-  io.use((socket, next) => {
-    const token = socket.handshake.headers.authorization;
-    if (!token) {
-      return next(new Error('Authentication error'));
-    }
-
-    jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
-      if (err) {
-        return next(new Error('Authentication error'));
-      }
-
-      userId = decoded.userId;
-      next();
-    });
-  });
+  const userId = 18;
 
   io.on('connection', (socket) => {
-    console.log('A User Connected.');
+    const req = socket.request;
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    console.log('새로운 유저 접속!', '[ip:]', ip, '[소켓 아이디:]', socket.id);
+
+    socket.on('join', (data) => {
+      socket.join(data);
+      socket.to(data).emit('join', {
+        user: 'system',
+        chat: `${socket.request}님이 입장하셨습니다.`,
+      });
+    });
 
     socket.on(
       'create_room',
@@ -29,6 +23,7 @@ const socketMessage = (io) => {
         const room = await chatDao.createRoom(userId, postId);
         socket.join(room.raw.insertId);
         callback(room.raw.insertId);
+        socket.emit('create_room', room.raw.insertId);
       })
     );
 

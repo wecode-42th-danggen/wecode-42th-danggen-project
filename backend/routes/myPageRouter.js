@@ -24,6 +24,11 @@ router.get(
   checkValidationToken,
   myPageController.getCommunityCommentsByUserId
 );
+router.get(
+  '/chat-rooms',
+  checkValidationToken,
+  myPageController.getChatRoomsByUserId
+);
 router.get('/chats', checkValidationToken, myPageController.getChatsByUserId);
 
 module.exports = { router };

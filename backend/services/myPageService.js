@@ -16,6 +16,10 @@ const getCommunityCommentsByUserId = async (userId) => {
   return await myPageDao.getCommunityCommentsByUserId(userId);
 };
 
+const getChatRoomsByUserId = async (userId) => {
+  return await myPageDao.getChatRoomsByUserId(userId);
+};
+
 const getChatsByUserId = async (userId) => {
   return await myPageDao.getChatsByUserId(userId);
 };
@@ -25,5 +29,6 @@ module.exports = {
   getUserLikesByUserId,
   getCommunityPostsByUserId,
   getCommunityCommentsByUserId,
+  getChatRoomsByUserId,
   getChatsByUserId,
 };

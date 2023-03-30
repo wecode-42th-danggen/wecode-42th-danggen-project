@@ -29,6 +29,13 @@ const getCommunityCommentsByUserId = catchAsync(async (req, res) => {
   res.status(200).json({ data });
 });
 
+const getChatRoomsByUserId = catchAsync(async (req, res) => {
+  const userId = req.user;
+
+  const data = await myPageService.getChatRoomsByUserId(userId);
+  res.status(200).json({ data });
+});
+
 const getChatsByUserId = catchAsync(async (req, res) => {
   const userId = req.user;
 
@@ -41,5 +48,6 @@ module.exports = {
   getUserLikesByUserId,
   getCommunityPostsByUserId,
   getCommunityCommentsByUserId,
+  getChatRoomsByUserId,
   getChatsByUserId,
 };
