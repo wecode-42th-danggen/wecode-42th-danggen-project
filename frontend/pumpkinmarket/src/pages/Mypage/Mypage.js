@@ -53,17 +53,17 @@ export default function Mypage() {
           src={userInfo.profileImageUrl}
           alt="user profile img"
         />
-        <h2 className="font-medium text-gray-600">{userInfo.nickname}</h2>
+        <h2 className="font-semibold text-gray-600">{userInfo.nickname}</h2>
       </div>
-      <nav>
-        <ul className="flex justify-between p-8">
+      <nav className="pt-5">
+        <ul className="flex justify-between p-8 pb-24">
           {MYPAGE_CATEROTY.map(category => {
             return (
               <Link
                 className={
                   navigate === category.title
-                    ? 'visited: border-b-2 border-green-500'
-                    : ''
+                    ? 'visited: border-b-2 border-green-500 font-bold'
+                    : 'font-semibold'
                 }
                 key={category.id}
                 onClick={() => onClick(category.title)}

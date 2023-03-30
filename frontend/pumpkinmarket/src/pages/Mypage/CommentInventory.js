@@ -27,9 +27,31 @@ export default function CommentInventory() {
       });
   }, []);
 
+  const handleDeleteComment = id => {
+    const updateComment = commentInventory.filter(comment => comment.id !== id);
+    setCommentInventory(updateComment);
+    fetch(`${API.COMMENTS}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: Token,
+      },
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data.message === 'DELETE_COMMENT') {
+          setCommentInventory(updateComment);
+          alert('댓글이 삭제되었습니다!');
+        }
+      });
+    setDeletModal(prev => !prev);
+  };
+
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center min-h-[36rem]">
         {commentInventory.length === 0 ? (
           <div className="flex justify-center items-center pt-10 max-md:h-screen">
             <img
@@ -44,35 +66,22 @@ export default function CommentInventory() {
             {commentInventory.map(list => {
               return (
                 <div className="flex" key={list.postId}>
-                  <Link to={`${process.env.PUBLIC_URL}/product/${list.postId}`}>
+                  <Link
+                    to={`${process.env.PUBLIC_URL}/neighborinfo/${list.postId}`}
+                  >
                     <li className="flex justify-between">
                       <div className="p-5">
                         <hr className="pb-7" />
-                        <h1 className="font-bold pb-2 pl-2 text-lg">
-                          {list.postTitle}
-                        </h1>
                         <div className="flex items-center">
                           <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-[44rem] h-12 pl-2">
-                            {list.postDescription}
+                            👤 {list.content}
                           </p>
-                          <img
-                            className="w-20 h-20 rounded-lg object-cover mx-7"
-                            src={list.postImageUrl}
-                            alt="inventory title img"
-                          />
-                        </div>
-                        <div className="flex">
-                          <p>{list.userNickname}</p>
                         </div>
                       </div>
                     </li>
                   </Link>
                   <button type="button" onClick={deleteBtn}>
-                    <img
-                      className="w-4 h-4"
-                      src="/images/Mypage/wastebasket.png"
-                      alt="delete inventory"
-                    />
+                    ×
                   </button>
                 </div>
               );
@@ -95,7 +104,7 @@ export default function CommentInventory() {
               <button
                 type="button"
                 className="bg-green-500 w-16 h-8 rounded hover:bg-green-600"
-                // onClick={() => handleDeletBtn(commentInventory[0].postId)}
+                onClick={() => handleDeleteComment(commentInventory[0].id)}
               >
                 삭제
               </button>

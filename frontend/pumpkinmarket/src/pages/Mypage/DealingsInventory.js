@@ -51,20 +51,9 @@ export default function DealingsInventory() {
       });
   }, []);
 
-  // TOFIX: mockdata 연결 시 동작할 코드
-  // useEffect(() => {
-  //   fetch(`./data/dealingsdata.json`, {
-  //     method: 'GET',
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setDealingsInventory(data.data);
-  //     });
-  // }, []);
-
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center min-h-[32rem]">
         {dealingsInventory.length === 0 ? (
           <div className="flex justify-center items-center pt-10">
             <img
@@ -89,7 +78,7 @@ export default function DealingsInventory() {
                           {list.postTitle}
                         </h1>
                         <div className="flex items-center">
-                          <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-[44rem] h-12 pl-2">
+                          <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-[44rem] h-12 pl-2 mr-8">
                             {list.postDescription}
                           </p>
                           <img
@@ -98,23 +87,21 @@ export default function DealingsInventory() {
                             alt="inventory title img"
                           />
                         </div>
-                        <div className="flex">
+                        <div className="flex items-center">
                           <img
                             className="w-7 h-7 rounded-full mr-3"
                             src={list.profileImageUrl}
                             alt="user profile img"
                           />
-                          <p>{list.userNickname}</p>
+                          <p className="font-semibold text-gray-600">
+                            {list.userNickname}
+                          </p>
                         </div>
                       </div>
                     </li>
                   </Link>
                   <button type="button" onClick={deleteBtn}>
-                    <img
-                      className="w-4 h-4"
-                      src="/images/Mypage/wastebasket.png"
-                      alt="delete inventory"
-                    />
+                    ×
                   </button>
                 </div>
               );
