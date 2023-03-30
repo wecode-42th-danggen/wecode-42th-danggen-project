@@ -1,16 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuContext } from '../../components/Nav/MenuProvider';
-import Chat from '../Chat/Chat';
 
 export default function ProductList() {
   const [searchData, setSearchData] = useContext(MenuContext);
-  const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
   const goToPosting = () => {
     navigate('/posting');
   };
+
+  useEffect(() => {
+    fetch(`http://192.168.0.194:4000/posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: '',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setSearchData(data.data);
+      });
+  }, []);
 
   return (
     <section className="h-sreen py-32">
@@ -47,7 +59,7 @@ export default function ProductList() {
                         <div>
                           <h2 className="pb-1">{list.title}</h2>
                           <p className="text-sm font-bold pb-1">
-                            {list.price}원
+                            {list.price.toLocaleString()}원
                           </p>
                           <p className="text-xs text-zinc-500 pb-1">
                             좋아요 {list.likes}

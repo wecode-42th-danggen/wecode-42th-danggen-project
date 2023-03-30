@@ -87,6 +87,7 @@ export default function Posting() {
       .then(response => response.json())
       .then(data => {
         if (data.message === 'Post Created Successfully') {
+          alert('게시글이 작성되었습니다');
           navigate('/');
         } else {
           alert('실패');
