@@ -32,7 +32,7 @@ const Router = () => {
           <Route path="/chat/:id" element={<Chat />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/neighborinfo" element={<NeighborInfo />} />
+          <Route path="/neighborinfo/:cmpostId" element={<NeighborInfo />} />
           <Route path="/neighborinfo-list" element={<NeighborInfoList />} />
           <Route
             path="/neighborinfo-posting"

@@ -142,7 +142,7 @@ export default function Product() {
             }
             alt="userProfile"
           />
-          <p className="pl-2 text-sm ffont-normal">
+          <p className="pl-2 text-sm font-normal">
             {productData[0]?.postInfo[0].nickname}
           </p>
         </div>

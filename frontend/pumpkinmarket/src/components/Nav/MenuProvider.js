@@ -25,7 +25,6 @@ export const MenuProvider = props => {
         setSearchData(data.data);
       });
   }, []);
-
   const [searchData, setSearchData] = useState([]);
 
   return (
