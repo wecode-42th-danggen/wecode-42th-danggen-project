@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuContext } from '../Nav/MenuProvider';
+
 export default function Nav() {
   const [searchData, setSearchData] = useContext(MenuContext);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
+
   const searchBtn = () => {
     setIsClicked(prev => !prev);
   };
 
   const Token = localStorage.getItem('accessToken');
+
   const navigate = useNavigate();
 
   const productSearch = e => {
@@ -38,21 +41,6 @@ export default function Nav() {
     localStorage.removeItem('accessToken');
     navigate('/');
   };
-
-  // TOFIX: Mockdata 연결 시 동작할 코드
-  // useEffect(() => {
-  //   fetch('./data/data.json', {
-  //     method: 'GET',
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       searchKeyword
-  //         ? setSearchData(
-  //             data.data.filter(el => el.postInfo[0].title === searchKeyword)
-  //           )
-  //         : setSearchData(data.data);
-  //     });
-  // }, [searchKeyword]);
 
   // TOFIX: API 연결 시 동작할 코드
   useEffect(() => {

@@ -49,7 +49,7 @@ export default function UploadForm({
                 />
                 <div className="w-[32rem] h-96 border border-gray-300 bg-gray-50 hover:bg-gray-100 flex justify-center items-center">
                   <label htmlFor="uploadImg">
-                    <img src="images/Posting/photo.png" alt="uploaeImg" />
+                    <img src="/images/Posting/photo.png" alt="uploaeImg" />
                     <p>사진 올리기</p>
                   </label>
                 </div>
