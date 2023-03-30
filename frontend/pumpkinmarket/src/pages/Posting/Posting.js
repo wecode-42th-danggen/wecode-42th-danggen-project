@@ -9,7 +9,7 @@ export default function Posting() {
     image: '',
     title: '',
     description: '',
-    // location: '',
+    location: '',
     categoryId: 0,
     price: 0,
     priceSuggestion: 0,
@@ -45,6 +45,13 @@ export default function Posting() {
   const handleprice = e => {
     const price = e.target.value ? parseInt(e.target.value) : 0;
     setUploadInfo(prev => ({ ...prev, price }));
+    const numCheck = /^[0-9]/.test(price);
+    if (!numCheck && price) return;
+    if (numCheck) {
+      const numValue = price.replaceAll(',', '');
+      price = numValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    setUploadInfo(price);
   };
 
   const handleImage = e => {
