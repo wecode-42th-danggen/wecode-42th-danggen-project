@@ -53,7 +53,7 @@ export default function CommunityInventory() {
 
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center min-h-[36rem]">
         {communityInventory.length === 0 ? (
           <div className="flex justify-center items-center pt-10">
             <img
@@ -71,7 +71,9 @@ export default function CommunityInventory() {
                   key={list.id}
                   className="flex border-t border-solid border-slate-200"
                 >
-                  <Link>
+                  <Link
+                    to={`${process.env.PUBLIC_URL}/neighborinfo/${list.postId}`}
+                  >
                     <li className="flex justify-between">
                       <div className="p-5">
                         <h1 className="font-bold pb-3 pl-2">{list.title}</h1>
@@ -89,11 +91,7 @@ export default function CommunityInventory() {
                     </li>
                   </Link>
                   <button type="button" onClick={deleteBtn}>
-                    <img
-                      className="w-4 h-4"
-                      src="/images/Mypage/wastebasket.png"
-                      alt="delete inventory"
-                    />
+                    ×
                   </button>
                 </div>
               );

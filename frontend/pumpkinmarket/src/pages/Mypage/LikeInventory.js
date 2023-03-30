@@ -20,7 +20,7 @@ export default function LikeInventory() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-[36rem]">
       {likeInventory.length === 0 ? (
         <div className="flex justify-center items-center pt-10">
           <img
