@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { API } from '../../config/config';
 
 export default function Comment() {
-  const [getComment, setGetComment] = useState([]);
+  const [acquireComment, setAcquireComment] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
   const [comment, setComment] = useState('');
 
   const params = useParams();
@@ -16,6 +17,9 @@ export default function Comment() {
   };
 
   const addComment = () => {
+    if (comment === '') {
+      return alert('댓글을 입력 해 주세요');
+    }
     fetch(`${API.COMMENTS}/${params.cmpostId}`, {
       method: 'POST',
       headers: {
@@ -28,27 +32,26 @@ export default function Comment() {
     })
       .then(res => res.json())
       .then(res => {
-        if (comment === '') {
-          return alert('댓글을 입력 해 주세요');
-        } else if (Token === 'undefined') {
-          alert('로그인이 필요합니다.');
-        }
         const result = [
           {
-            content: comment,
+            commentContent: comment,
+            userProfileImage: userInfo.profileImageUrl,
+            userNickname: userInfo.nickname,
           },
-          ...getComment,
+          ...acquireComment,
         ];
-        setGetComment(result);
+        setAcquireComment(result);
+        window.location.reload();
         setComment('');
+        alert('댓글이 작성되었습니다');
       });
   };
 
   const handledeletedBtn = commentId => {
-    const updateComment = getComment.filter(
+    const updateComment = acquireComment.filter(
       comment => comment.commentId !== commentId
     );
-    setGetComment(updateComment);
+    setAcquireComment(updateComment);
     fetch(`${API.COMMENTS}/${commentId}`, {
       method: 'DELETE',
       headers: {
@@ -61,11 +64,25 @@ export default function Comment() {
       })
       .then(data => {
         if (data.message === 'DELETE_COMMENT') {
-          setGetComment(updateComment);
-          alert('게시글이 삭제되었습니다!');
+          setAcquireComment(updateComment);
+          alert('댓글이 삭제되었습니다!');
         }
       });
   };
+
+  useEffect(() => {
+    fetch(`http://192.168.0.194:4000/users/image`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: Token,
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUserInfo(data);
+      });
+  }, []);
 
   useEffect(() => {
     fetch(`${API.COMMENTS}/${params.cmpostId}`, {
@@ -79,16 +96,15 @@ export default function Comment() {
         return res.json();
       })
       .then(data => {
-        setGetComment(data.data);
+        setAcquireComment(data.data);
       });
   }, [params.cmpostId]);
-
   return (
     <div>
-      <p className="font-bold pt-3">댓글 {getComment.length}</p>
+      <p className="font-bold pt-3">댓글 {acquireComment.length}</p>
       <form>
         <ol className="flex pt-3 flex-col">
-          {getComment.map(list => {
+          {acquireComment.map(list => {
             return (
               <li key={list.commentId}>
                 <div className="flex items-center">
@@ -123,16 +139,20 @@ export default function Comment() {
           placeholder="댓글을 입력해주세요."
           onChange={commnetInput}
           type="text"
+          value={comment}
           onKeyDown={e => {
             if (e.key === 'Enter') {
+              e.preventDefault();
               addComment();
             }
           }}
         />
         <button
           className="pl-4 text-sm font-semibold"
-          type="submit"
-          onClick={addComment}
+          onClick={e => {
+            e.preventDefault();
+            addComment();
+          }}
         >
           게시
         </button>
