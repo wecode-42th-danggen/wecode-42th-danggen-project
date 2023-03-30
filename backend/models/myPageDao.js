@@ -65,6 +65,7 @@ const getCommunityCommentsByUserId = async (userId) => {
     SELECT
       cc.id,
       cc.user_id,
+      cc.community_post_id as postId,
       cc.content
     FROM community_comments cc
     WHERE cc.user_id=?
