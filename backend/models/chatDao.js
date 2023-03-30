@@ -2,7 +2,7 @@ const { appDataSource } = require('../models');
 
 const createRoom = async (userId, postId) => {
   try {
-    return await appDataSource.query(
+    const result = await appDataSource.query(
       `
       INSERT INTO chat_rooms (
         buyer_id, 
@@ -15,6 +15,8 @@ const createRoom = async (userId, postId) => {
     `,
       [userId, postId]
     );
+
+    return { raw: { insertId: result.insertId } };
   } catch (error) {
     console.error('SQL Query:', error.sql);
     console.error('createRoom Error Message:', error.sqlMessage);
@@ -23,28 +25,27 @@ const createRoom = async (userId, postId) => {
 
 const createChat = async (userId, content, roomId) => {
   try {
-    return await appDataSource
-      .createQueryBuilder()
-      .insert()
-      .into('chats')
-      .values({ user_id: userId, content: content, room_id: roomId })
-      .execute();
+    const result = await appDataSource.query(
+      `
+      INSERT INTO chats (
+        user_id, 
+        content, 
+        room_id
+      ) 
+      VALUES (
+        ?, 
+        ?, 
+        ?
+      )
+    `,
+      [userId, content, roomId]
+    );
+
+    return { raw: { insertId: result.insertId } };
   } catch (error) {
     console.error('SQL Query:', error.sql);
     console.error('createChat Error Message:', error.sqlMessage);
   }
 };
-
-// const getRoom = async (roomId) => {
-//   try {
-//     return await appDataSource.query(
-//       `
-//       SELECT
-//       `
-//     );
-//   } catch (error) {
-//     throw new Error();
-//   }
-// };
 
 module.exports = { createRoom, createChat };
