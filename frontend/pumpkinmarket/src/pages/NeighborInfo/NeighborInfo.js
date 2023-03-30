@@ -39,7 +39,7 @@ export default function NeighborInfo() {
   }, [params.cmpostId]);
 
   return (
-    <section className="py-32 flex flex-col m-auto w-[32rem]">
+    <section className="py-32 flex flex-col m-auto w-[40rem] min-h-[36rem]">
       <div>
         <div className="flex items-center">
           <img
@@ -54,17 +54,17 @@ export default function NeighborInfo() {
         <span className="bg-slate-100 p-1 rounded-xl text-sm ml-9">
           {neighborInfo[0]?.cmpostInfo.postCategoryName}
         </span>
-        <h1 className="font-bold pt-3">
+        <h1 className="font-bold pt-7">
           {neighborInfo[0]?.cmpostInfo.postTitle}
         </h1>
-        <p className="pt-3">{neighborInfo[0]?.cmpostInfo.postDescription}</p>
+        <p className="pt-5">{neighborInfo[0]?.cmpostInfo.postDescription}</p>
         {img === null ? (
           ''
         ) : (
           <img
             src={neighborInfo[0]?.cmpostInfo.postImageUrl}
             alt="neighbor info posting img"
-            className="object-cover w-[32rem] h-96 rounded-lg pt-3"
+            className="object-cover w-[40rem] h-96 rounded-lg mt-7"
           />
         )}
       </div>
