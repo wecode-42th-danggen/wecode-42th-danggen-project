@@ -5,7 +5,6 @@ import { API } from '../../config/config';
 export default function CommentInventory() {
   const [commentInventory, setCommentInventory] = useState([]);
   const [deleteModal, setDeletModal] = useState(false);
-  console.log('commentInventory::', commentInventory);
   const Token = localStorage.getItem('accessToken');
 
   const deleteBtn = () => {

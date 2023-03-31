@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuContext } from '../../components/Nav/MenuProvider';
-
+import { API } from '../../config/config';
 export default function ProductList() {
   const [searchData, setSearchData] = useContext(MenuContext);
 
@@ -11,7 +11,7 @@ export default function ProductList() {
   };
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/posts`, {
+    fetch(`${API.POSTS}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

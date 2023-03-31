@@ -7,8 +7,6 @@ import 'moment/locale/ko';
 export default function NeighborInformation({ postCategoryID }) {
   const [information, setInformation] = useState([]);
 
-  const startTime = new Date(information[0]?.cmpostInfo[0].postCreateTime);
-
   useEffect(() => {
     fetch(`${API.CATEGORY}${postCategoryID}`, {
       method: 'GET',
@@ -59,7 +57,7 @@ export default function NeighborInformation({ postCategoryID }) {
                           fromNow
                           className="pl-3 text-xs text-gray-500 pt-4"
                         >
-                          {startTime}
+                          {new Date(list.postCreateTime)}
                         </Moment>
                       </div>
                     </div>

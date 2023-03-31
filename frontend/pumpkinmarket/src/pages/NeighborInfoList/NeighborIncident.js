@@ -5,13 +5,6 @@ import { API } from '../../config/config';
 
 export default function NeighborIncident({ postCategoryID }) {
   const [incident, setIncident] = useState([]);
-  console.log('incident::', incident);
-  // const startTime = new Date(incident[0]?.cmpostInfo[0].postCreateTime);
-
-  const startTime = incident.map(item => {
-    const incidentStartTime = new Date(item.cmpostInfo[0].postCreateTime);
-    return incidentStartTime;
-  });
 
   useEffect(() => {
     fetch(`${API.CATEGORY}${postCategoryID}`, {
@@ -59,15 +52,12 @@ export default function NeighborIncident({ postCategoryID }) {
                         <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-80 h-10 pl-3 mr-8 text-sm">
                           {list.postDescription}
                         </p>
-                        {startTime.map((time, index) => (
-                          <Moment
-                            key={index}
-                            fromNow
-                            className="pl-3 text-xs text-gray-500 pt-4"
-                          >
-                            {time}
-                          </Moment>
-                        ))}
+                        <Moment
+                          fromNow
+                          className="pl-3 text-xs text-gray-500 pt-4"
+                        >
+                          {new Date(list.postCreateTime)}
+                        </Moment>
                       </div>
                     </div>
                   </div>

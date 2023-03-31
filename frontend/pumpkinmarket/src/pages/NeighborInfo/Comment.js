@@ -71,7 +71,7 @@ export default function Comment() {
   };
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/users/image`, {
+    fetch(`${API.USERPROFILEIMG}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

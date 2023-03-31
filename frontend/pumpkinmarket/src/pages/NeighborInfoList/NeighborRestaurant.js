@@ -6,8 +6,6 @@ import { API } from '../../config/config';
 export default function NeighborRestaurant({ postCategoryID }) {
   const [restaurant, setRestaurant] = useState([]);
 
-  const startTime = new Date(restaurant[0]?.cmpostInfo[0].postCreateTime);
-
   useEffect(() => {
     fetch(`${API.CATEGORY}${postCategoryID}`, {
       method: 'GET',
@@ -58,7 +56,7 @@ export default function NeighborRestaurant({ postCategoryID }) {
                           fromNow
                           className="pl-3 text-xs text-gray-500 pt-4"
                         >
-                          {startTime}
+                          {new Date(list.postCreateTime)}
                         </Moment>
                       </div>
                     </div>

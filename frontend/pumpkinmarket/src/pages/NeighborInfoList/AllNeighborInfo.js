@@ -3,8 +3,6 @@ import 'moment/locale/ko';
 import { Link } from 'react-router-dom';
 
 export default function AllNeighborInfo({ allNeighborInfo }) {
-  const startTime = new Date(allNeighborInfo[0]?.cmpostInfo[0].postCreateTime);
-
   return (
     <div className="grid grid-cols-2 gap-3 py-10">
       {allNeighborInfo.map(data => {
@@ -41,7 +39,7 @@ export default function AllNeighborInfo({ allNeighborInfo }) {
                           fromNow
                           className="pl-3 text-xs text-gray-500 pt-4"
                         >
-                          {startTime}
+                          {new Date(list.postCreateTime)}
                         </Moment>
                       </div>
                     </div>
