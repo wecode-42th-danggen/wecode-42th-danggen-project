@@ -66,8 +66,10 @@ const getCommunityCommentsByUserId = async (userId) => {
       cc.id,
       cc.user_id,
       cc.community_post_id as postId,
-      cc.content
+      cc.content,
+      cp.title
     FROM community_comments cc
+    INNER JOIN community_posts cp ON cp.id=cc.community_post_id
     WHERE cc.user_id=?
     `,
     [userId]

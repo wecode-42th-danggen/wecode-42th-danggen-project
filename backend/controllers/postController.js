@@ -91,10 +91,16 @@ const deletePost = catchAsync(async (req, res) => {
 const getPosts = catchAsync(async (req, res) => {
   const { postId, keyword } = req.query;
   const cookie = req.headers.headers;
+  console.log('🍪', cookie);
 
   const data = await postService.getPosts(postId, keyword, cookie);
 
-  return res.status(200).json({ data });
+  return res
+    .cookie(`my-cookie`, true, {
+      maxAge: 60 * 1000,
+    })
+    .status(200)
+    .json({ data });
 });
 
 const createLike = catchAsync(async (req, res) => {
