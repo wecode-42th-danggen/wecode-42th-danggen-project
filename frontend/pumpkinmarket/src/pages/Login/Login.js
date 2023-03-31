@@ -23,7 +23,7 @@ export default function Login() {
 
     e.preventDefault();
 
-    fetch('http://192.168.0.194:4000/users/signin', {
+    fetch('http://52.79.164.28:3000/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

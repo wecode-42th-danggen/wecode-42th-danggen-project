@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MenuContext } from '../Nav/MenuProvider';
+import { API } from '../../config/config';
 
 export default function Nav() {
   const [searchData, setSearchData] = useContext(MenuContext);
@@ -44,7 +45,7 @@ export default function Nav() {
 
   // TOFIX: API 연결 시 동작할 코드
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/posts?keyword=${searchKeyword}`, {
+    fetch(`${API.SEARCH}${searchKeyword}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -59,7 +60,7 @@ export default function Nav() {
 
   // TOFIX: API 연결 시 동작할 코드
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/users/image`, {
+    fetch(`${API.USERPROFILEIMG}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { API } from '../../config/config';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 
@@ -34,19 +35,8 @@ export default function Product() {
   const Token = localStorage.getItem('accessToken');
 
   // TOFIX: API 연결 시 동작할 코드
-  // useEffect(() => {
-  //   fetch(`./data/data.json`, {
-  //     method: 'GET',
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setProductData(data.data);
-  //     });
-  // }, []);
-
-  // TOFIX: API 연결 시 동작할 코드
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/posts?postId=${params.id}`, {
+    fetch(`${API.POSTSID}${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -59,13 +49,12 @@ export default function Product() {
       })
       .then(data => {
         setProductData(data.data);
-        console.log(productData);
       });
   }, [params.id]);
 
   // TOFIX: addLike API 연결 시 동작할 코드
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/posts/likes/${params.id}`, {
+    fetch(`${API.POSTS}/likes/${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -83,7 +72,7 @@ export default function Product() {
   // TOFIX: addLike API 연결 시 동작할 코드
   useEffect(() => {
     if (isClickedLikeBtn && addLike)
-      fetch(`http://192.168.0.194:4000/posts/likes/${params.id}`, {
+      fetch(`${API.POSTS}/likes/${params.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -102,7 +91,7 @@ export default function Product() {
 
   useEffect(() => {
     if (isClickedLikeBtn !== null && !addLike)
-      fetch(`http://192.168.0.194:4000/posts/likes/${params.id}`, {
+      fetch(`${API.POSTS}/likes/${params.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API } from '../../config/config';
 import CommunityInventory from './CommunityInventory';
 import ChattingInventory from './ChattingInventory';
 import LikeInventory from './LikeInventory';
@@ -31,7 +32,7 @@ export default function Mypage() {
   };
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/users/image`, {
+    fetch(`${API.USERPROFILEIMG}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

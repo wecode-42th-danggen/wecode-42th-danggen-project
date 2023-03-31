@@ -1,33 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AllNeighborInfo from './AllNeighborInfo';
 import NeighborIncident from './NeighborIncident';
 import NeighborInformation from './NeighborInformation';
 import NeighborRestaurant from './NeighborRestaurant';
+import { API } from '../../config/config';
 
 export default function NeighborInfoList() {
   const [navigate, setNavigate] = useState('전체');
+  const [allNeighborInfo, setAllNeighborInfo] = useState([]);
+  const [postCategoryID, setPostCategoryID] = useState(null);
+
   const navigated = useNavigate();
 
   const goToPosting = () => {
     navigated('/neighborinfo-posting');
   };
 
-  const onClickCategory = category => {
+  const onClickCategory = (category, id) => {
     setNavigate(category);
+    setPostCategoryID(id);
   };
 
   const categoryNavigate = () => {
     if (navigate === '전체') {
-      return <AllNeighborInfo />;
+      return <AllNeighborInfo allNeighborInfo={allNeighborInfo} />;
     } else if (navigate === '동네 정보') {
-      return <NeighborInformation />;
+      return <NeighborInformation postCategoryID={postCategoryID} />;
     } else if (navigate === '맛집/카페') {
-      return <NeighborRestaurant />;
+      return <NeighborRestaurant postCategoryID={postCategoryID} />;
     } else if (navigate === '동네 사건/사고') {
-      return <NeighborIncident />;
+      return <NeighborIncident postCategoryID={postCategoryID} />;
     }
   };
+
+  useEffect(() => {
+    fetch(`${API.COMMUNITY}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: '',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setAllNeighborInfo(data.data);
+      });
+  }, []);
 
   return (
     <>
@@ -69,7 +88,9 @@ export default function NeighborInfoList() {
                       : 'bg-slate-100 rounded-full mr-5 last:mr-0 text-sm p-1'
                   }
                 >
-                  <Link onClick={() => onClickCategory(category.title)}>
+                  <Link
+                    onClick={() => onClickCategory(category.title, category.id)}
+                  >
                     {category.title}
                   </Link>
                 </li>
@@ -85,19 +106,19 @@ export default function NeighborInfoList() {
 
 const CATEGORY = [
   {
-    id: 1,
+    id: 0,
     title: '전체',
   },
   {
-    id: 2,
+    id: 1,
     title: '동네 정보',
   },
   {
-    id: 3,
+    id: 2,
     title: '맛집/카페',
   },
   {
-    id: 4,
+    id: 3,
     title: '동네 사건/사고',
   },
 ];

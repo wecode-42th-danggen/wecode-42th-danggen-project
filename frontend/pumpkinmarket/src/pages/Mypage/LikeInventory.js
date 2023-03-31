@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API } from '../../config/config';
 
 export default function LikeInventory() {
   const [likeInventory, setLikeInventory] = useState([]);
 
   const Token = localStorage.getItem('accessToken');
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/mypage/likes`, {
+    fetch(`${API.MYPAGE}/likes`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

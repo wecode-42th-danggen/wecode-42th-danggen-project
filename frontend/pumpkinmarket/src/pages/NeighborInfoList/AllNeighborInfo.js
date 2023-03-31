@@ -1,27 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
-import { API } from '../../config/config';
 import { Link } from 'react-router-dom';
 
-export default function AllNeighborInfo() {
-  const [allNeighborInfo, setAllNeighborInfo] = useState([]);
-
-  const startTime = new Date(allNeighborInfo[0]?.cmpostInfo[0].postCreateTime);
-
-  useEffect(() => {
-    fetch(`${API.COMMUNITY}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        authorization: '',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setAllNeighborInfo(data.data);
-      });
-  }, []);
+export default function AllNeighborInfo({ allNeighborInfo }) {
   return (
     <div className="grid grid-cols-2 gap-3 py-10">
       {allNeighborInfo.map(data => {
@@ -30,7 +11,7 @@ export default function AllNeighborInfo() {
             {data.cmpostInfo.map(list => {
               return (
                 <div
-                  className="border-t border-solid border-slate-200"
+                  className="border-t border-solid border-slate-200 pl-5"
                   key={list.postId}
                 >
                   <div className="mt-5">
@@ -58,7 +39,7 @@ export default function AllNeighborInfo() {
                           fromNow
                           className="pl-3 text-xs text-gray-500 pt-4"
                         >
-                          {startTime}
+                          {new Date(list.postCreateTime)}
                         </Moment>
                       </div>
                     </div>
