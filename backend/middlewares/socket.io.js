@@ -57,7 +57,9 @@ const socketMessage = (io) => {
       const userId = socket.userId;
       await chatDao.createChat(userId, content, roomId);
       socket.to(roomId).emit('new_text', content);
-      callback(content);
+      if (typeof callback === 'function') {
+        callback(content);
+      }
     });
 
     socket.on('disconnect', () => {
