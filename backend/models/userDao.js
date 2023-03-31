@@ -1,4 +1,5 @@
 const { appDataSource } = require('./index');
+const { deleteImage } = require('../utils/imageUploader');
 
 // const getUserByUserId = async (userId) => {
 //   const userInfo = await appDataSource.query(
@@ -20,6 +21,7 @@ const { appDataSource } = require('./index');
 //   );
 //   return userInfo[0];
 // };
+
 const getUserByEmail = async (email) => {
   const userEmail = await appDataSource.query(
     `
@@ -125,14 +127,14 @@ const createUser = async (email, password, phoneNumber, nickName, image) => {
   try {
     await queryRunner.query(
       `
-      INSERT INTO
-        users(
-          email,
-          password,
-          phone_number,
-          nickname,
-          profile_image_url,
-          user_status_id)
+      INSERT INTO users (
+        email,
+        password,
+        phone_number,
+        nickname,
+        profile_image_url,
+        user_status_id
+      )
       VALUES
         (?,?,?,?,?,?)
     `,
@@ -153,8 +155,8 @@ const createUser = async (email, password, phoneNumber, nickName, image) => {
     await queryRunner.query(
       `
       INSERT INTO users_social_types (
-          user_id,
-          social_type_id
+        user_id,
+        social_type_id
         )
       VALUES (
         ?,
@@ -215,9 +217,9 @@ const getEmailByUserId = async (userId) => {
     SELECT
       u.email
     FROM
-     users u
+      users u
     WHERE
-     u.id=?
+      u.id=?
     `,
     [userId]
   );
@@ -299,6 +301,51 @@ const waemSignIn = async (email, otp, otpKey) => {
 //     throw error;
 //   }
 // };
+
+const updateUserInfo = async (phoneNumber, nickName, image, userId) => {
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  try {
+    const [userInfo] = await queryRunner.query(
+      `
+      SELECT
+        u.id,
+        u.profile_image_url as imageUrl
+      FROM users u
+      WHERE u.id=?
+      `,
+      [userId]
+    );
+
+    const imageFileName = userInfo.imageUrl.split('com/')[1];
+    console.log(imageFileName);
+
+    deleteImage(imageFileName);
+
+    await queryRunner.query(
+      `
+      UPDATE users
+      SET
+        phone_number=?,
+        nickname=?,
+        profile_image_url=?
+      WHERE id=?
+    `,
+      [phoneNumber, nickName, image.location, userId]
+    );
+
+    await queryRunner.commitTransaction();
+    await queryRunner.release();
+  } catch (err) {
+    await queryRunner.rollbackTransaction();
+    await queryRunner.release();
+
+    throw new Error('Failed To Update User Info');
+  }
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
@@ -312,4 +359,5 @@ module.exports = {
   waemSignIn,
   // waemSignOut,
   // getUserByUserId,
+  updateUserInfo,
 };

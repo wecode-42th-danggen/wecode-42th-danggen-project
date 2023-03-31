@@ -65,10 +65,20 @@ const waemSignIn = catchAsync(async (req, res) => {
 //   await userService.waemSignOut(userId);
 // });
 
+const updateUserInfo = catchAsync(async (req, res) => {
+  const image = req.file;
+  const userId = req.user;
+  const { phoneNumber, nickName } = req.body;
+
+  await userService.updateUserInfo(phoneNumber, nickName, image, userId);
+  return res.status(200).json({ message: 'Update User Info Successfully' });
+});
+
 module.exports = {
   getUserImageByUserId,
   signUp,
   signIn,
   waemSignIn,
   //waemSignOut,
+  updateUserInfo,
 };

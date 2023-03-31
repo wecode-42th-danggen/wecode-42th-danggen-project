@@ -154,7 +154,7 @@ const deletePost = async (userId, postId) => {
   await queryRunner.startTransaction();
 
   try {
-    const [post] = await appDataSource.query(
+    const [post] = await queryRunner.query(
       `
       SELECT
         post_id,
