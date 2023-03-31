@@ -10,5 +10,11 @@ router.post('/signup', upload.single('image'), userController.signUp);
 router.post('/signin', userController.signIn);
 router.post('/waemsignin', userController.waemSignIn);
 //router.post('/waemsignout', checkValidationToken, userController.waemSignOut);
+router.patch(
+  '/',
+  checkValidationToken,
+  upload.single('image'),
+  userController.updateUserInfo
+);
 
 module.exports = { router };

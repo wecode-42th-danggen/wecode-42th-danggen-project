@@ -37,7 +37,7 @@ const deleteImage = (fileKey) => {
       if (err) {
         throw err;
       } else {
-        console.log('Unposted Image Deleted');
+        console.log('Image Deleted');
       }
     }
   );

@@ -1,7 +1,5 @@
 const postDao = require('../models/postDao');
 
-const viewObj = new Object();
-
 const createPost = async (
   image,
   title,

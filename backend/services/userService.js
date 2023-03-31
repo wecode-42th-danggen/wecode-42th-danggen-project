@@ -167,10 +167,15 @@ const waemSignIn = async (email) => {
 //   console.log(`logout : `, logout);
 //   return await userDao.waemSignOut(email);
 // };
+
+const updateUserInfo = async (phoneNumber, nickName, image, userId) => {
+  return await userDao.updateUserInfo(phoneNumber, nickName, image, userId);
+};
 module.exports = {
   getUserImageByUserId,
   signUp,
   signIn,
   waemSignIn,
   //waemSignOut,
+  updateUserInfo,
 };
