@@ -7,6 +7,7 @@ export const API = {
   SEARCH: `${BASE_URl}/posts?keyword=`,
   POSTS: `${BASE_URl}/posts`,
   COMMUNITY: `${BASE_URl}/communityposts`,
+  CATEGORY: `${BASE_URl}/communityposts?categoryId=`,
   ADMIN: `${BASE_URl}/admin`,
   CHATS: `${BASE_URl}/chats`,
   MYPAGE: `${BASE_URl}/mypage`,
