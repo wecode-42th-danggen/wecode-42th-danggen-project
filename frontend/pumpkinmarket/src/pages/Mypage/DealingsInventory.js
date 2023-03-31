@@ -5,7 +5,7 @@ import { API } from '../../config/config';
 export default function DealingsInventory() {
   const [dealingsInventory, setDealingsInventory] = useState([]);
   const [deleteModal, setDeletModal] = useState(false);
-  console.log('dealingsInventory::', dealingsInventory);
+
   const Token = localStorage.getItem('accessToken');
 
   const deleteBtn = () => {

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AllNeighborInfo from './AllNeighborInfo';
 import NeighborIncident from './NeighborIncident';
-import Incident from './NeighborIncident';
 import NeighborInformation from './NeighborInformation';
-import Information from './NeighborInformation';
 import NeighborRestaurant from './NeighborRestaurant';
-import Restaurant from './NeighborRestaurant';
 
 export default function NeighborInfoList() {
   const [navigate, setNavigate] = useState('전체');
+  const navigated = useNavigate();
+
+  const goToPosting = () => {
+    navigated('/neighborinfo-posting');
+  };
 
   const onClickCategory = category => {
     setNavigate(category);
@@ -31,6 +33,12 @@ export default function NeighborInfoList() {
     <>
       <section className="pt-20 bg-amber-50">
         <div className="flex items-center justify-around">
+          <button
+            className="text-lg rounded-full p-1.5 bg-green-500 text-white text-sm w-20 fixed bottom-28 right-40 max-md:right-12"
+            onClick={goToPosting}
+          >
+            + 글쓰기
+          </button>
           <div>
             <h1 className="text-4xl font-bold pb-3">
               문情 생활 이렇게 해보세요.
@@ -55,7 +63,11 @@ export default function NeighborInfoList() {
               return (
                 <li
                   key={category.id}
-                  className="bg-slate-200 rounded-full mr-5 last:mr-0 p-2"
+                  className={
+                    navigate === category.title
+                      ? 'visited: bg-lime-100 rounded-full mr-5 last:mr-0 text-sm p-1'
+                      : 'bg-slate-100 rounded-full mr-5 last:mr-0 text-sm p-1'
+                  }
                 >
                   <Link onClick={() => onClickCategory(category.title)}>
                     {category.title}
