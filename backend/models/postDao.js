@@ -285,14 +285,14 @@ const getPostViewsByPostId = async (postId) => {
   );
 };
 
-const addPostViewCount = async (viewCount, postId) => {
+const addPostViewCount = async (postId) => {
   return await appDataSource.query(
     `
     UPDATE posts
-    SET view_count = ?
+    SET view_count = view_count + 1
     WHERE id = ?
     `,
-    [viewCount, postId]
+    [postId]
   );
 };
 
