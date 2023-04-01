@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../../config/config';
 import CommunityInventory from './CommunityInventory';
 import ChattingInventory from './ChattingInventory';
@@ -10,6 +10,12 @@ import CommentInventory from './CommentInventory';
 export default function Mypage() {
   const [navigate, setNavigate] = useState('문정마켓 게시글');
   const [userInfo, setUserInfo] = useState([]);
+
+  const navigated = useNavigate();
+
+  const goUserInfo = () => {
+    navigated('/user-info');
+  };
 
   const Token = localStorage.getItem('accessToken');
 
@@ -55,6 +61,13 @@ export default function Mypage() {
           alt="user profile img"
         />
         <h2 className="font-semibold text-gray-600">{userInfo.nickname}</h2>
+        <button
+          type="button"
+          onClick={goUserInfo}
+          className="border border-gray-300 rounded-md p-1 mt-3 hover:bg-gray-400"
+        >
+          회원정보
+        </button>
       </div>
       <nav className="pt-5">
         <ul className="flex justify-between p-8 pb-24">

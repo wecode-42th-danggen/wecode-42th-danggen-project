@@ -17,6 +17,7 @@ import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
 import { MenuProvider } from './components/Nav/MenuProvider';
+import UserInfo from './pages/Mypage/UserInfo';
 
 const Router = () => {
   return (
@@ -41,6 +42,7 @@ const Router = () => {
           <Route path="/community" element={<Community />} />
           <Route path="/dealings" element={<Dealings />} />
           <Route path="/member" element={<Member />} />
+          <Route path="/user-info" element={<UserInfo />} />
         </Routes>
         <Footer />
       </BrowserRouter>
