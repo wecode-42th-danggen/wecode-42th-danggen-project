@@ -11,7 +11,7 @@ const checkValidationEmail = async (email) => {
 
 const checkValidationPassword = async (password) => {
   const PASSWORD_REGEX = new RegExp(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^&*()_+|~\-=?{}[\];:'",.<>/])[A-Za-z\d@$!%^&*()_+|~\-=?{}[\];:'",.<>/]{8,20}$/
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^&*()_+|~\-=?{}[\];:'",.<>#₩`/])[A-Za-z\d@$!%^&*()_+|~\-=?{}[\];:'",.<>#₩`/]{8,20}$/
   );
   if (!PASSWORD_REGEX.test(password)) {
     const err = new Error('INVALID_PASSWORD');
