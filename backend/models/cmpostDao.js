@@ -81,7 +81,7 @@ const deleteCmpost = async (postId) => {
 };
 
 const checkCmpostId = async (postId) => {
-  const result = appDataSource.query(
+  const [result] = await appDataSource.query(
     `
     SELECT EXISTS(
       SELECT
@@ -94,7 +94,8 @@ const checkCmpostId = async (postId) => {
     `,
     [postId]
   );
-  return !!parseInt(result);
+
+  return !!parseInt(result.registed);
 };
 
 const getCmpost = async (categoryId) => {
@@ -230,7 +231,7 @@ const getLikeStatus = async (userId, cmpostId) => {
       SELECT
         id
       FROM
-       community_likes
+        community_likes
       WHERE
         user_id=? AND community_post_id=?
     ) AS isLike

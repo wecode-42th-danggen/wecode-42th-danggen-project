@@ -11,6 +11,8 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [roomId, setRoomId] = useState([]);
   const [userInfoData, setUserInfoData] = useState({});
+  const [usersInfo, setUsersInfo] = useState([]);
+  console.log('usersInfo::', usersInfo);
   console.log('userInfoData::', userInfoData);
   const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ const Chat = () => {
     console.error('Access token not found.');
   }
 
-  const socket = io.connect('http://192.168.0.194:4000', {
+  const socket = io.connect('http://52.79.164.28:3000', {
     withCredentials: true,
     extraHeaders: {
       Authorization: Token,
@@ -97,7 +99,7 @@ const Chat = () => {
     this.roomId = roomId;
     this.time = time;
 
-    function makeLi() {
+    const makeLi = () => {
       const sendNickname = sendNicknames;
       const li = document.createElement('li');
       li.classList.add(sendNickname === this.name ? 'sent' : 'received');
@@ -108,27 +110,27 @@ const Chat = () => {
       });
 
       const dom = `
-        <div className="message-row__content">
-          <div className="message__info">
+        <div class="message-row__content">
+          <div class="message__info">
           <img 
-          className="userImg"
+          class="userImg"
           src=${
             userInfoData.profileImageUrl === null
               ? '/images/Nav/profile.png'
               : userInfoData.profileImageUrl
           } />
 
-            <span className="message__bubble message">${this.msg}</span>
-            <span className="message__time time" id="clock">
+            <span class="message__bubble message">${this.msg}</span>
+            <span class="message__time time" id="clock">
              ${timeString}
             </span>
           </div>
         </div>`;
       li.innerHTML = dom;
       chatList?.appendChild(li);
-    }
+    };
 
-    return { makeLi: makeLi.bind(this) };
+    return { makeLi };
   }
 
   const onCheckEnter = e => {
@@ -138,7 +140,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/posts?postId=${params.id}`, {
+    fetch(`http:///52.79.164.28:3000/posts?postId=${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -156,7 +158,7 @@ const Chat = () => {
   }, [params.id]);
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/users/image`, {
+    fetch(`http:///52.79.164.28:3000/users/image`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -168,6 +170,20 @@ const Chat = () => {
         setUserInfoData(data);
       });
   }, []);
+
+  // useEffect(() => {
+  //   fetch('http:///192.168.0.194:4000/chats/${roomId}', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json;charset=utf-8',
+  //       authorization: Token,
+  //     },
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setUsersInfo(data.data);
+  //     });
+  // }, []);
 
   return (
     <div className="h-screen pt-36 h-screen overflow-scroll">
@@ -193,6 +209,11 @@ const Chat = () => {
       </div>
       <button onClick={handleCreateRoom}>방 만들기</button>
       <button onClick={() => handleJoinRoom(roomId)}>입장하기</button>
+      <input
+        type="text"
+        value={roomId}
+        onChange={e => setRoomId(e.target.value)}
+      />
       <header className="alt-header">
         <div className="alt-header-column">
           <span>

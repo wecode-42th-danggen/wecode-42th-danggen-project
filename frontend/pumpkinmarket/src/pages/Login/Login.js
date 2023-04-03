@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
+import { API } from '../../config/config';
 
 const cookies = new Cookies();
 
@@ -23,7 +24,8 @@ export default function Login() {
 
     e.preventDefault();
 
-    fetch('http://192.168.0.194:4000/users/signin', {
+    fetch(`${API.LOGIN}`, {
+      // fetch('http://52.79.164.28:3000/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -49,19 +51,20 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center ">
-      <div className="flex justify-center leading-10 h-screen align-items: center;">
+    <div className="flex justify-center h-screen">
+      <div className="flex justify-center leading-10 align-items: center">
         <form
           className="flex flex-col space-x-6 justify-center items-center"
           encType="multipart/form-data"
           method="POST"
           action="login"
         >
+          <h1 className="font-bold m-5 text-xl">💝 문情</h1>
           <input
             placeholder="email"
             type="email"
             name="email"
-            className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md"
+            className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md pl-2"
             onChange={getUserInfo}
             autoComplete="on"
           />
@@ -69,18 +72,24 @@ export default function Login() {
             placeholder="password"
             type="password"
             name="password"
-            className="mb-7 border-solid border-2 border-slate-100 rounded-md"
+            className="mb-7 border-solid border-2 border-slate-100 rounded-md pl-2"
             onChange={getUserInfo}
             autoComplete="on"
           />
-
-          <button
-            type="submit"
-            onClick={goToMain}
-            className="w-44 bg-green-500 rounded-lg text-slate-50"
-          >
-            Login
-          </button>
+          <div>
+            <button
+              type="submit"
+              onClick={goToMain}
+              className="w-32 bg-green-500 rounded-lg text-slate-50"
+            >
+              로그인
+            </button>
+          </div>
+          <Link to="/weam">
+            <p className="text-sm pt-3 border-b border-gray-500 ">
+              weam 간편 로그인
+            </p>
+          </Link>
         </form>
       </div>
     </div>
