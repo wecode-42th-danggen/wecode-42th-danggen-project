@@ -220,7 +220,6 @@ const cancelLike = async (userId, cmpostId) => {
     `,
     [userId, cmpostId]
   );
-  console.log(`좋아요 취소 : `, result);
   return result;
 };
 

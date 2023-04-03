@@ -322,7 +322,6 @@ const updateUserInfo = async (phoneNumber, nickName, image, userId) => {
     );
 
     const imageFileName = userInfo.imageUrl.split('com/')[1];
-    console.log(imageFileName);
 
     deleteImage(imageFileName);
 
