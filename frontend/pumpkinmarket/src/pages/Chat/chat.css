@@ -235,4 +235,31 @@
   text-align: center;
 }
 
+.message {
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 12px;
+  margin: 0 5px;
+  flex: 7;
+}
+.time {
+  font-size: 10px;
+  margin: 0 5px;
+}
 
+.sent {
+  flex-direction: row-reverse;
+  float: right;
+}
+
+.sent .message {
+  background: var(--green);
+}
+
+.received .message {
+  background: vat(--gray);
+}
+
+.userImg {
+  width: 40px;
+}

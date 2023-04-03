@@ -31,7 +31,7 @@ export default function SignUp() {
 
   const submitUser = (e, props) => {
     e.preventDefault();
-    fetch('http://192.168.0.195:3000/users/signup', {
+    fetch('http://52.79.164.28:3000/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
