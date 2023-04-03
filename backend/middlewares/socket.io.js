@@ -53,12 +53,12 @@ const socketMessage = (io) => {
       })
     );
 
-    socket.on('new_text', async (content, roomId, params, callback) => {
+    socket.on('new_text', async (content, roomId, paramsVal, callback) => {
       const userId = socket.userId;
       await chatDao.createChat(userId, content, roomId);
-      socket.to(roomId).emit('new_text', content, params);
+      socket.to(roomId).emit('new_text', content, paramsVal);
       if (typeof callback === 'function') {
-        callback(content, params);
+        callback(content, paramsVal);
       }
     });
 
