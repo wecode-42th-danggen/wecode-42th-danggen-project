@@ -119,23 +119,28 @@ export default function Nav() {
                 />
               </div>
             )}
-            <button type="button" onClick={toLogout}>
-              <img
-                className="w-7 h-7 rounded-full"
-                src={
-                  userInfo.profileImageUrl
-                    ? userInfo.profileImageUrl
-                    : '/images/Nav/profile.png'
-                }
-                alt="profileImg"
-              />
-            </button>
+            <img
+              className="w-7 h-7 rounded-full"
+              src={
+                userInfo.profileImageUrl
+                  ? userInfo.profileImageUrl
+                  : '/images/Nav/profile.png'
+              }
+              alt="profileImg"
+            />
             <button
-              className="text-lg rounded-md p-1.5 bg-green-500 text-white ml-3.5 text-sm mr-10"
+              className="text-lg text-gray-500 pr-1.5 text-sm ml-3 hover:text-gray-600"
               type="button"
               onClick={toMypage}
             >
               마이페이지
+            </button>
+            <button
+              type="button"
+              onClick={toLogout}
+              className="text-lg text-gray-500 pr-1.5 text-sm mx-3 hover:text-gray-600"
+            >
+              로그아웃
             </button>
           </div>
         ) : (
