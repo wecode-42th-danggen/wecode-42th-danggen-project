@@ -89,7 +89,8 @@ const getUserImageByUserId = async (userId) => {
     SELECT
       u.id,
       u.nickname,
-      u.profile_image_url AS profileImageUrl
+      u.profile_image_url AS profileImageUrl,
+      u.phone_number AS phoneNumber
     FROM
       users u
     WHERE
