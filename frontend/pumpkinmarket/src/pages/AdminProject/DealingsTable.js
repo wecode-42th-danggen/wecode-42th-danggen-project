@@ -5,7 +5,7 @@ function DealingsTable() {
   const [Data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/admin/posts`, {
+    fetch(`http://52.79.164.28:3000/admin/posts`, {
       method: 'GET',
     })
       .then(res => res.json())

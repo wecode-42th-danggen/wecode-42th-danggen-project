@@ -5,7 +5,7 @@ export default function MemberPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://192.168.0.194:4000/admin/users`, {
+    fetch(`http://52.79.164.28:3000/admin/users`, {
       method: 'GET',
     })
       .then(res => res.json())
