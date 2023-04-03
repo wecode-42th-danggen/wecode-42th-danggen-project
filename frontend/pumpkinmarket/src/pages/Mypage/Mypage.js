@@ -56,7 +56,7 @@ export default function Mypage() {
       <h1 className="font-bold text-2xl">마이페이지</h1>
       <div className="flex flex-col items-center">
         <img
-          className="w-32 mb-2 rounded-full"
+          className="w-32 h-32 mb-2 rounded-full object-cover"
           src={userInfo.profileImageUrl}
           alt="user profile img"
         />
