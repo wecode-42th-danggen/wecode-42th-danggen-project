@@ -65,7 +65,6 @@ export default function DealingsInventory() {
       ) : (
         <ul>
           {dealingsInventory.map(list => {
-            console.log('list::', list);
             return (
               <div
                 className="flex border-t border-solid border-slate-200 p-5 max-md:w-[40rem]"

@@ -64,7 +64,7 @@ export default function Mypage() {
         <button
           type="button"
           onClick={goUserInfo}
-          className="border border-gray-300 rounded-md p-1 mt-3 hover:bg-gray-400"
+          className="border border-slate-200 rounded-md p-1 mt-3 hover:bg-slate-200"
         >
           회원정보
         </button>

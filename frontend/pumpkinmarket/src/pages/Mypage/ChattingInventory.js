@@ -48,7 +48,7 @@ export default function ChattingInventory() {
                 <Link to={`${process.env.PUBLIC_URL}/product/${list.postId}`}>
                   <li className="flex justify-between">
                     <div>
-                      <div className="flex items-center justify-between p-2">
+                      <div className="flex items-center justify-between p-2 w-[44rem]">
                         <div className="flex items-center">
                           <p className="mr-3 text-sm font-bold">
                             💌 {list.roomId}
