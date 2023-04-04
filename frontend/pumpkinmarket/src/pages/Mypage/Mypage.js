@@ -57,7 +57,11 @@ export default function Mypage() {
       <div className="flex flex-col items-center">
         <img
           className="w-32 h-32 mb-2 rounded-full object-cover"
-          src={userInfo.profileImageUrl}
+          src={
+            userInfo.profileImageUrl
+              ? userInfo.profileImageUrl
+              : '/images/Nav/profile.png'
+          }
           alt="user profile img"
         />
         <h2 className="font-semibold text-gray-600">{userInfo.nickname}</h2>

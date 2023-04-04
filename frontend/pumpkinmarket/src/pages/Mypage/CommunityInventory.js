@@ -17,8 +17,7 @@ export default function CommunityInventory() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE5LCJpc3MiOiJ3YWVtLWRhbmdnZW4iLCJpYXQiOjE2Nzk2NjY0ODcsImV4cCI6MTQ1MTIzMTg0NDc2ODAwfQ.PIHokLiq9ho1e5e3xhi0q-V4TRtRUyNIRgfrBUpUFzM',
+        authorization: Token,
       },
     })
       .then(res => res.json())
@@ -80,11 +79,15 @@ export default function CommunityInventory() {
                         <p className="text-ellipsis overflow-hidden break-words line-clamp-2 w-[44rem] h-12 pl-2 mr-5 max-md:w-[36rem]">
                           {list.description}
                         </p>
-                        <img
-                          className="w-20 h-20 rounded-lg object-cover max-md:hidden mr-5"
-                          src={list.image_url}
-                          alt="inventory title img"
-                        />
+                        {list.image_url === null ? (
+                          ''
+                        ) : (
+                          <img
+                            className="w-20 h-20 rounded-lg object-cover max-md:hidden mr-5"
+                            src={list.image_url}
+                            alt="inventory title img"
+                          />
+                        )}
                       </div>
                     </div>
                   </li>
