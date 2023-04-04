@@ -9,11 +9,13 @@ const getUserPostsByUserId = async (userId) => {
       p.description as postDescription,
       u.nickname as userNickname,
       u.profile_image_url as profileImageUrl,
-      pi.image_url as postImageUrl
+      pi.image_url as postImageUrl,
+      p.created_at as createdTime
     FROM posts p
     INNER JOIN post_images pi ON p.id=pi.post_id
     INNER JOIN users u ON u.id=p.user_id
     WHERE p.user_id=?
+    ORDER BY p.created_at
     `,
     [userId]
   );
@@ -51,9 +53,11 @@ const getCommunityPostsByUserId = async (userId) => {
       cp.id as postId,
       cp.title,
       cp.description,
-      cp.image_url
+      cp.image_url,
+      cp.created_at as createdTime
     FROM community_posts cp
     WHERE cp.user_id=?
+    ORDER BY cp.created_at
     `,
     [userId]
   );

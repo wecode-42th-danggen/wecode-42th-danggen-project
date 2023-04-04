@@ -231,7 +231,7 @@ const getLikeStatus = async (userId, cmpostId) => {
       SELECT
         id
       FROM
-       community_likes
+        community_likes
       WHERE
         user_id=? AND community_post_id=?
     ) AS isLike
