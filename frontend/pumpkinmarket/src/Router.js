@@ -18,6 +18,7 @@ import ProductList from './pages/ProductList/ProductList';
 import SignUp from './pages/SignUp/SignUp';
 import { MenuProvider } from './components/Nav/MenuProvider';
 import UserInfo from './pages/Mypage/UserInfo';
+import Weam from './pages/Login/Weam';
 
 const Router = () => {
   return (
@@ -43,6 +44,7 @@ const Router = () => {
           <Route path="/dealings" element={<Dealings />} />
           <Route path="/member" element={<Member />} />
           <Route path="/user-info" element={<UserInfo />} />
+          <Route path="/weam" element={<Weam />} />
         </Routes>
         <Footer />
       </BrowserRouter>
