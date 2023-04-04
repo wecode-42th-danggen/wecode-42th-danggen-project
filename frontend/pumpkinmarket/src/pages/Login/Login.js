@@ -57,11 +57,12 @@ export default function Login() {
           method="POST"
           action="login"
         >
+          <h1 className="font-bold m-5 text-xl">💝 문情</h1>
           <input
             placeholder="email"
             type="email"
             name="email"
-            className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md"
+            className="ml-7 mb-7 border-solid border-2 border-slate-100 rounded-md pl-2"
             onChange={getUserInfo}
             autoComplete="on"
           />
@@ -69,7 +70,7 @@ export default function Login() {
             placeholder="password"
             type="password"
             name="password"
-            className="mb-7 border-solid border-2 border-slate-100 rounded-md"
+            className="mb-7 border-solid border-2 border-slate-100 rounded-md pl-2"
             onChange={getUserInfo}
             autoComplete="on"
           />
@@ -79,7 +80,7 @@ export default function Login() {
             onClick={goToMain}
             className="w-44 bg-green-500 rounded-lg text-slate-50"
           >
-            Login
+            로그인
           </button>
         </form>
       </div>
