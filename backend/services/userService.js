@@ -97,13 +97,21 @@ siteCode = process.env.WAEM_SIGNIN_SITE_CODE;
 clientIp = process.env.WAEM_SIGNIN_CLIENT_IP;
 
 const waemSignIn = async (email) => {
+  const getUserByEmail = await userDao.getUserByEmail(email);
+  if (!getUserByEmail) {
+    const error = new Error('NOT_EXIST_USER');
+    error.statusCode = 400;
+    throw error;
+  }
+  const userId = getUserByEmail.id;
+
   const loginSync = await axios.post(
     `https://livecertcew.waem.kr:39401/live/client/login_sync`,
     {
       req_id: reqId,
       site_code: siteCode,
       site_usr_id: email,
-      sync: true,
+      sync: false,
       usr_id: 'zeler1004@naver.com',
       client_ip: clientIp,
     },
@@ -143,30 +151,8 @@ const waemSignIn = async (email) => {
       'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
     }
   );
-  const getUserByEmail = await userDao.getUserByEmail(email);
-  if (!getUserByEmail) {
-    const error = new Error('NOT_EXIST_USER');
-    error.statusCode = 400;
-    throw error;
-  }
-  const userId = getUserByEmail.id;
-
   return accessToken(userId);
 };
-// const waemSignOut = async (userId) => {
-//   const getUserByUserId = await userDao.getUserByUserId(userId);
-//   const email = getUserByUserId.email;
-//   const logout = await axios.post(
-//     `https://livecertcew.waem.kr:39401/live/client/logout`,
-//     {
-//       req_id: email,
-//       site_code: siteCode,
-//       site_usr_id: email,
-//     }
-//   );
-//   console.log(`logout : `, logout);
-//   return await userDao.waemSignOut(email);
-// };
 
 const updateUserInfo = async (phoneNumber, nickName, image, userId) => {
   return await userDao.updateUserInfo(phoneNumber, nickName, image, userId);
@@ -176,6 +162,5 @@ module.exports = {
   signUp,
   signIn,
   waemSignIn,
-  //waemSignOut,
   updateUserInfo,
 };

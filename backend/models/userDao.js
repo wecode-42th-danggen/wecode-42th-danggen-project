@@ -1,27 +1,6 @@
 const { appDataSource } = require('./index');
 const { deleteImage } = require('../utils/imageUploader');
 
-// const getUserByUserId = async (userId) => {
-//   const userInfo = await appDataSource.query(
-//     `
-//     SELECT
-//       u.id,
-//       u.social_id AS socialId,
-//       u.email,
-//       u.password,
-//       u.phone_number AS PhoneNumber,
-//       u.nickname AS nickName,
-//       u.user_status_id AS userStatusId
-//     FROM
-//       users u
-//     WHERE
-//       u.id=?
-//     `,
-//     [userId]
-//   );
-//   return userInfo[0];
-// };
-
 const getUserByEmail = async (email) => {
   const userEmail = await appDataSource.query(
     `
@@ -283,27 +262,6 @@ const waemSignIn = async (email, otp, otpKey) => {
   }
 };
 
-// const waemSignOut = async (email) => {
-//   try {
-//     await appDataSource.query(
-//       `
-//       UPDATE
-//         users
-//       SET
-//         otp=null,
-//         otp_key=null
-//       WHERE
-//         email=?
-//       `,
-//       [email]
-//     );
-//   } catch (err) {
-//     const error = new Error('FAIL_WAEM_SIGN_OUT');
-//     error.statusCode = 400;
-//     throw error;
-//   }
-// };
-
 const updateUserInfo = async (phoneNumber, nickName, image, userId) => {
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
@@ -358,7 +316,5 @@ module.exports = {
   getEmailByUserId,
   checkRegisterUserEmail,
   waemSignIn,
-  // waemSignOut,
-  // getUserByUserId,
   updateUserInfo,
 };
