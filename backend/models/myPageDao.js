@@ -102,7 +102,7 @@ const getChatRoomsByUserId = async (userId) => {
       INNER JOIN users u ON u.id=p.user_id
     ) AS postInfo ON postInfo.id=cr.post_id
     INNER JOIN users uu ON uu.id=cr.buyer_id
-    WHERE uu.id=? OR postInfo.user_id=?;
+    WHERE uu.id=? OR postInfo.user_id=?; 
     `,
     [userId, userId]
   );
