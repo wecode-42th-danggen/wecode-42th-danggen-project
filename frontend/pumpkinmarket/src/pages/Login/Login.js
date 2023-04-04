@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
+import { API } from '../../config/config';
 
 const cookies = new Cookies();
 
@@ -23,7 +24,7 @@ export default function Login() {
 
     e.preventDefault();
 
-    fetch('http://192.168.0.194:4000/users/signin', {
+    fetch(`${API.LOGIN}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -49,8 +50,8 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center ">
-      <div className="flex justify-center leading-10 h-screen align-items: center;">
+    <div className="flex justify-center h-screen">
+      <div className="flex justify-center leading-10 align-items: center">
         <form
           className="flex flex-col space-x-6 justify-center items-center"
           encType="multipart/form-data"
@@ -74,14 +75,20 @@ export default function Login() {
             onChange={getUserInfo}
             autoComplete="on"
           />
-
-          <button
-            type="submit"
-            onClick={goToMain}
-            className="w-44 bg-green-500 rounded-lg text-slate-50"
-          >
-            로그인
-          </button>
+          <div>
+            <button
+              type="submit"
+              onClick={goToMain}
+              className="w-32 bg-green-500 rounded-lg text-slate-50"
+            >
+              로그인
+            </button>
+          </div>
+          <Link to="/weam">
+            <p className="text-sm pt-3 border-b border-gray-500 ">
+              weam 간편 로그인
+            </p>
+          </Link>
         </form>
       </div>
     </div>
