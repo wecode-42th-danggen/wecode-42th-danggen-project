@@ -59,7 +59,7 @@ export default function NeighborInfoList() {
             + 글쓰기
           </button>
           <div>
-            <h1 className="text-4xl font-bold pb-3">
+            <h1 className="text-3xl font-bold pb-3">
               문情 생활 이렇게 해보세요.
             </h1>
             <span className="text-lg">

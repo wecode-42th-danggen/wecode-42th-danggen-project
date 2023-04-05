@@ -25,7 +25,6 @@ export default function Login() {
     e.preventDefault();
 
     fetch(`${API.LOGIN}`, {
-      // fetch('http://52.79.164.28:3000/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
