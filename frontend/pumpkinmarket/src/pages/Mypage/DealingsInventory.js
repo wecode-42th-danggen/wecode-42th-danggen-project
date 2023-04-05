@@ -5,14 +5,16 @@ import { API } from '../../config/config';
 export default function DealingsInventory() {
   const [dealingsInventory, setDealingsInventory] = useState([]);
   const [deleteModal, setDeletModal] = useState(false);
+  const [postId, setPostId] = useState(null);
 
   const Token = localStorage.getItem('accessToken');
 
-  const deleteBtn = () => {
+  const deleteBtn = id => {
+    setPostId(id);
     setDeletModal(prev => !prev);
   };
 
-  const handleDeletBtn = postId => {
+  const handleDeletBtn = () => {
     const updatedInventory = dealingsInventory.filter(
       post => post.postId !== postId
     );
@@ -99,7 +101,7 @@ export default function DealingsInventory() {
                     </div>
                   </li>
                 </Link>
-                <button type="button" onClick={deleteBtn}>
+                <button type="button" onClick={() => deleteBtn(list.postId)}>
                   ×
                 </button>
                 {deleteModal && (
@@ -117,7 +119,7 @@ export default function DealingsInventory() {
                         <button
                           type="button"
                           className="bg-green-500 w-16 h-8 rounded hover:bg-green-600"
-                          onClick={() => handleDeletBtn(list.postId)}
+                          onClick={() => handleDeletBtn(postId)}
                         >
                           삭제
                         </button>

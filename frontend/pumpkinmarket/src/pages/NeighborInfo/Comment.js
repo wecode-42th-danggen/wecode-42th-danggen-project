@@ -140,12 +140,12 @@ export default function Comment() {
           onChange={commnetInput}
           type="text"
           value={comment}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              addComment();
-            }
-          }}
+          // onKeyDown={e => {
+          //   if (e.key === 'Enter') {
+          //     e.preventDefault();
+          //     addComment();
+          //   }
+          // }}
         />
         <button
           className="pl-4 text-sm font-semibold"

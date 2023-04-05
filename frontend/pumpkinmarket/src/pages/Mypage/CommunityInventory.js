@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API } from '../../config/config';
+import DeleteModal from './DeleteModal';
 
 export default function CommunityInventory() {
   const [communityInventory, setCommuntiyInventory] = useState([]);
   const [deleteModal, setDeletModal] = useState(false);
-
+  const [postId, setPostId] = useState(null);
   const Token = localStorage.getItem('accessToken');
 
-  const deleteBtn = () => {
+  const deleteBtn = id => {
+    setPostId(id);
     setDeletModal(prev => !prev);
   };
 
@@ -26,11 +28,10 @@ export default function CommunityInventory() {
       });
   }, []);
 
-  const handledeletedBtn = postId => {
-    const updateInventory = communityInventory.filter(
-      post => post.id !== postId
+  const handleDeletBtn = () => {
+    const updatedInventory = communityInventory.filter(
+      post => post.postId !== postId
     );
-    setCommuntiyInventory(updateInventory);
     fetch(`${API.COMMUNITY}/${postId}`, {
       method: 'DELETE',
       headers: {
@@ -42,12 +43,12 @@ export default function CommunityInventory() {
         return res.json();
       })
       .then(data => {
-        if (data.message === 'Post Deleted Successfully') {
-          setCommuntiyInventory(updateInventory);
+        if (data.message === 'DELETE_COMMUNITY_POST') {
+          setCommuntiyInventory(updatedInventory);
         }
         alert('게시글이 삭제되었습니다!');
       });
-    setDeletModal(prev => !prev);
+    setDeletModal(false);
   };
 
   return (
@@ -92,37 +93,20 @@ export default function CommunityInventory() {
                     </div>
                   </li>
                 </Link>
-                <button type="button" onClick={deleteBtn}>
+                <button type="button" onClick={() => deleteBtn(list.postId)}>
                   ×
                 </button>
-                {deleteModal && (
-                  <div className="fixed top-0 left-0 right-0 bottom-0 z-1 bg-gray-100/75">
-                    <div className="bg-white w-64 h-32 rounded-lg flex flex-col justify-center items-center top-1/2 left-1/2 absolute -translate-y-1/2 -translate-x-1/2">
-                      <p className="pb-5">게시글을 삭제 하시겠습니까?</p>
-                      <div>
-                        <button
-                          type="button"
-                          className="bg-slate-200 w-16 h-8 rounded mr-5 hover:bg-slate-300"
-                          onClick={deleteBtn}
-                        >
-                          취소
-                        </button>
-                        <button
-                          type="button"
-                          className="bg-green-500 w-16 h-8 rounded hover:bg-green-600"
-                          onClick={() => handledeletedBtn(list.postId)}
-                        >
-                          삭제
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             );
           })}
         </ul>
       )}
+      <DeleteModal
+        deleteModal={deleteModal}
+        postId={postId}
+        deleteBtn={deleteBtn}
+        handleDeletBtn={() => handleDeletBtn(postId)}
+      />
     </div>
   );
 }
