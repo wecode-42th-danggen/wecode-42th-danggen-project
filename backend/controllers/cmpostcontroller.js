@@ -40,8 +40,9 @@ const updateCmpost = catchAsync(async (req, res) => {
 
 const deleteCmpost = catchAsync(async (req, res) => {
   const { postId } = req.params;
+  const userId = req.user;
 
-  await cmpostService.deleteCmpost(postId);
+  await cmpostService.deleteCmpost(postId, userId);
 
   return res.status(200).json({ message: 'DELETE_COMMUNITY_POST' });
 });

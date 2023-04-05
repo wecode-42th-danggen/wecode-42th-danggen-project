@@ -98,6 +98,21 @@ const checkCmpostId = async (postId) => {
   return !!parseInt(result.registed);
 };
 
+const getUserIdByCmpostId = async (postId) => {
+  const [result] = await appDataSource.query(
+    `
+      SELECT
+        cp.user_id AS userId
+      FROM
+        community_posts cp
+      WHERE
+        cp.id=?
+      `,
+    [postId]
+  );
+  return result.userId;
+};
+
 const getCmpost = async (categoryId) => {
   const whereClause = categoryId ? `WHERE cp.category_id = ${categoryId}` : '';
   const data = await appDataSource.query(
@@ -251,4 +266,5 @@ module.exports = {
   createLike,
   cancelLike,
   getLikeStatus,
+  getUserIdByCmpostId,
 };
