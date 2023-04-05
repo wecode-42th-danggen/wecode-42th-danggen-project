@@ -5,7 +5,7 @@ function CommunityTable() {
   const [Data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://192.168.0.195:3000/admin/cmpost`, {
+    fetch(`http://52.79.164.28:3000/admin/cmpost`, {
       method: 'GET',
     })
       .then(res => res.json())
@@ -15,7 +15,7 @@ function CommunityTable() {
   }, []);
 
   const deleteBtn = id => {
-    fetch(`http://52.79.164.28:300/admin/cmpost/${id}`, {
+    fetch(`http://52.79.164.28:3000/admin/cmpost/${id}`, {
       method: 'DELETE',
     })
       .then(res => res.json())
