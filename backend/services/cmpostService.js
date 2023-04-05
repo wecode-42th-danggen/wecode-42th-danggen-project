@@ -32,7 +32,7 @@ const updateCmpost = async (
   );
 };
 
-const deleteCmpost = async (postId) => {
+const deleteCmpost = async (postId, userId) => {
   const checkPostId = await cmpostDao.checkCmpostId(postId);
 
   if (!checkPostId) {
@@ -40,6 +40,14 @@ const deleteCmpost = async (postId) => {
     error.statusCode = 400;
     throw error;
   }
+
+  const getUserIdByCmpostId = await cmpostDao.getUserIdByCmpostId(postId);
+  if (userId !== getUserIdByCmpostId) {
+    const error = new Error('NOT_AUTHORIZED_USER');
+    error.statusCode = 403;
+    throw error;
+  }
+
   return cmpostDao.deleteCmpost(postId);
 };
 
