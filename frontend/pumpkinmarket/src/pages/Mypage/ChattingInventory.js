@@ -4,13 +4,8 @@ import { API } from '../../config/config';
 
 export default function ChattingInventory() {
   const [chattingInventory, setChattingInventory] = useState([]);
-  const [deleteModal, setDeletModal] = useState(false);
 
   const Token = localStorage.getItem('accessToken');
-
-  const deleteBtn = () => {
-    setDeletModal(prev => !prev);
-  };
 
   useEffect(() => {
     fetch(`${API.MYPAGE}/chat-rooms`, {
