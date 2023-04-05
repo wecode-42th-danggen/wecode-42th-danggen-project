@@ -29,39 +29,28 @@ const Chat = () => {
     console.error('Access token not found.');
   }
 
-  const socket = io.connect('http://52.79.164.28:3000', {
+  const socket = io.connect('http://192.168.0.194:4000', {
     withCredentials: true,
     extraHeaders: {
       Authorization: Token,
     },
   });
 
-  socket.on('connect', () => {
-    console.log('Connected to server');
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Disconnected from server');
-  });
-
   const handleCreateRoom = event => {
     event.preventDefault();
     if (socket) {
       socket.emit('create_room', postId, postId => {
-        console.log('postId:', postId);
+        setRoomId(postId);
+        console.log('룸아이디:', postId);
+        handleJoinRoom(postId);
       });
     }
   };
 
-  socket.on('create_room', roomId => {
-    setRoomId(roomId);
-    console.log('룸아이디:', roomId);
-  });
-
   const handleJoinRoom = roomId => {
     socket.emit('enter_room', roomId, roomId => {
       console.log(`Joined room ${roomId}`);
-      handleNewText(roomId);
+      // handleNewText(roomId);
     });
   };
 
@@ -72,33 +61,37 @@ const Chat = () => {
     const nickname = userInfoData.nickname;
     console.log('nickname::', nickname);
     inputText.value = '';
-    console.log(`roomId: ${roomId}`);
-    const paramsVal = JSON.stringify({
-      name: nickname,
-      msg: content,
-      roomId: `${roomId}`,
-    });
-
-    socket.emit('new_text', content, roomId, nickname, response => {
-      setMessages(prevMessages => [...prevMessages, JSON.parse(paramsVal)]);
-    });
+    if (socket) {
+      console.log(`roomId: ${roomId}`);
+      const paramsVal = JSON.stringify({
+        name: nickname,
+        msg: content,
+        roomId: `${roomId}`,
+      });
+      socket.emit('new_text', content, roomId, nickname, response => {
+        setMessages(prevMessages => [...prevMessages, JSON.parse(paramsVal)]);
+      });
+    }
   };
 
-  socket.on('new_text', data => {
-    const { content, roomId, nickname, time } = data;
-    const item = new LiModel(content, roomId, nickname, time);
-    const makeLi = item.makeLi.bind(item);
-    makeLi();
-    const displayContainer = document.querySelector('.displayContainer');
-    displayContainer.scrollTo(0, displayContainer.scrollHeight);
-  });
+  useEffect(() => {
+    socket.on('new_text', (data, roomIs) => {
+      const { content, roomId, nickname, time } = data;
+      const item = new LiModel(content, roomId, nickname, time);
+      const makeLi = item.makeLi.bind(item);
+      makeLi();
+      const displayContainer = document.querySelector('.displayContainer');
+      displayContainer.scrollTo(0, displayContainer.scrollHeight);
+    });
+  }, [roomId]);
 
   function LiModel(content, roomId, nickname, time) {
-    this.name = nickname;
     this.msg = content;
     this.roomId = roomId;
+    this.name = nickname;
     this.time = time;
 
+    console.log(this.msg);
     const makeLi = () => {
       const sendNickname = sendNicknames;
       const li = document.createElement('li');
@@ -135,7 +128,7 @@ const Chat = () => {
 
   const onCheckEnter = e => {
     if (e.key === 'Enter') {
-      Chat();
+      handleNewText();
     }
   };
 
@@ -227,13 +220,11 @@ const Chat = () => {
 
       <main className="main-screen main-chat h-screen overflow-scroll">
         <div className="message-col">
-          <ul className="chatting-list flex flex-col">
-            {/* <img src={productData[0]?.postInfo[0].imageUrl} /> */}
-          </ul>
+          <ul className="chatting-list flex flex-col" />
         </div>
 
         <div className="message-row message-row--own">
-          <div className="message__info">
+          <div classNambe="message__info">
             <span className="message__bubble">What's up?</span>
             <span className="message__time">21:27</span>
           </div>
@@ -251,7 +242,7 @@ const Chat = () => {
             className="chatting-input"
             onKeyDown={onCheckEnter}
           />
-          <button className="reply__Btn" onClick={handleNewText}>
+          <button className="reply__Btn" onClick={e => handleNewText(e)}>
             전송
           </button>
         </div>
