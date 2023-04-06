@@ -63,6 +63,21 @@ const checkRegisterCommentId = async (commentId) => {
   }
 };
 
+const getUserIdByCommentId = async (commentId) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT
+      cc.user_id AS userId
+    FROM
+      community_comments cc
+    WHERE
+      cc.id=?
+    `,
+    [commentId]
+  );
+  return result.userId;
+};
+
 const getComment = async (cmpostId) => {
   try {
     const data = await appDataSource.query(
@@ -96,5 +111,6 @@ module.exports = {
   createComment,
   deleteComment,
   checkRegisterCommentId,
+  getUserIdByCommentId,
   getComment,
 };

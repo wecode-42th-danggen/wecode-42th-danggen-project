@@ -10,7 +10,7 @@ router.post(
   commentController.createComment
 );
 router.delete(
-  '/:commentId',
+  '/:cmpostId/:commentId',
   checkValidationToken,
   commentController.deleteComment
 );
