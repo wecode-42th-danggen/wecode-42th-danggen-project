@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const userDao = require('../models/userDao');
 const { catchAsync } = require('../utils/error');
 
-const secterKey = process.env.SECRET_KEY;
+const secretKey = process.env.SECRET_KEY;
 
 const checkValidationToken = catchAsync(async (req, res, next) => {
   const accesstoken = req.headers.authorization;
@@ -13,7 +13,7 @@ const checkValidationToken = catchAsync(async (req, res, next) => {
     throw error;
   }
 
-  const decoded = jwt.verify(accesstoken, secterKey);
+  const decoded = jwt.verify(accesstoken, secretKey);
   const user = await userDao.checkRegisterUserId(decoded.userId);
 
   if (!user) {
