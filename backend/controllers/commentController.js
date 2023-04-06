@@ -20,9 +20,10 @@ const createComment = catchAsync(async (req, res) => {
 });
 
 const deleteComment = catchAsync(async (req, res) => {
-  const { commentId } = req.params;
+  const { cmpostId, commentId } = req.params;
+  const userId = req.user;
 
-  await commentService.deleteComment(commentId);
+  await commentService.deleteComment(cmpostId, commentId, userId);
 
   return res.status(200).json({ message: `DELETE_COMMENT` });
 });
