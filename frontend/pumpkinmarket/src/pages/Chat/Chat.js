@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './chat.css';
+import { API } from '../../config/config';
 
 const Chat = () => {
   const [productData, setProductData] = useState([]);
@@ -36,6 +37,14 @@ const Chat = () => {
     },
   });
 
+  useEffect(() => {
+    if (socket.connect) {
+      console.log('Socket is connected');
+    } else {
+      console.log('Socket is disconnected');
+    }
+  }, [socket]);
+
   const handleCreateRoom = event => {
     event.preventDefault();
     if (socket) {
@@ -50,7 +59,7 @@ const Chat = () => {
   const handleJoinRoom = roomId => {
     socket.emit('enter_room', roomId, roomId => {
       console.log(`Joined room ${roomId}`);
-      // handleNewText(roomId);
+      handleNewText(roomId);
     });
   };
 
@@ -75,13 +84,15 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket.on('new_text', (data, roomIs) => {
+    socket.on('new_text', (data, callback) => {
       const { content, roomId, nickname, time } = data;
+      console.log('data::', data);
       const item = new LiModel(content, roomId, nickname, time);
       const makeLi = item.makeLi.bind(item);
       makeLi();
       const displayContainer = document.querySelector('.displayContainer');
       displayContainer.scrollTo(0, displayContainer.scrollHeight);
+      callback(data.content);
     });
   }, [roomId]);
 
@@ -115,7 +126,7 @@ const Chat = () => {
 
             <span class="message__bubble message">${this.msg}</span>
             <span class="message__time time" id="clock">
-             ${timeString}
+              ${timeString}
             </span>
           </div>
         </div>`;
@@ -133,7 +144,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    fetch(`http:///52.79.164.28:3000/posts?postId=${params.id}`, {
+    fetch(`${API.POSTS}?postId=${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -151,7 +162,7 @@ const Chat = () => {
   }, [params.id]);
 
   useEffect(() => {
-    fetch(`http:///52.79.164.28:3000/users/image`, {
+    fetch(`${API.USERPROFILEIMG}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

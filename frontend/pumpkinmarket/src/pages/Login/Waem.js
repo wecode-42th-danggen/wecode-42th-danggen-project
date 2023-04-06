@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const cookies = new Cookies();
 
-export default function Weam() {
+export default function Waem() {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export default function Weam() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const weamLogin = e => {
+  const waemLogin = e => {
     cookies.set('my-cookie', 'hello', {
       maxAge: 60000000,
       secure: true,
@@ -22,7 +22,7 @@ export default function Weam() {
     });
 
     e.preventDefault();
-
+    //와임 로그인 API 192.168.0.195로 등록 되어 있음
     fetch('http://192.168.0.195:3000/users/waemsignin', {
       method: 'POST',
       headers: {
@@ -68,7 +68,7 @@ export default function Weam() {
             <div>
               <button
                 type="submit"
-                onClick={weamLogin}
+                onClick={waemLogin}
                 className="w-32 bg-green-500 rounded-lg text-slate-50 mr-2"
               >
                 로그인
