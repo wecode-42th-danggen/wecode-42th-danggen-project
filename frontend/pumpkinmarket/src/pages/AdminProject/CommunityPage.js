@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CommunityTable from './CommunityTable';
 import Chat from '../Chat/Chat';
+import { API } from '../../config/config';
 
 export default function CommunityPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://52.79.164.28:3000/admin/cmpost`, {
+    fetch(`${API.ADMIN}/cmpost`, {
       method: 'GET',
     })
       .then(res => res.json())

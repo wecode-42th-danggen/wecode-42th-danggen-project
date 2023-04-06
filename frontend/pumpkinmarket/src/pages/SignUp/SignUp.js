@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../../config/config';
 
 export default function SignUp() {
   const [imgFile, setImgFile] = useState('');
@@ -31,7 +32,7 @@ export default function SignUp() {
 
   const submitUser = (e, props) => {
     e.preventDefault();
-    fetch('http://52.79.164.28:3000/users/signup', {
+    fetch(`${API.SIGNUP}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

@@ -84,9 +84,9 @@ export default function Login() {
               로그인
             </button>
           </div>
-          <Link to="/weam">
+          <Link to="/waem">
             <p className="text-sm pt-3 border-b border-gray-500 ">
-              weam 간편 로그인
+              waem 간편 로그인
             </p>
           </Link>
         </form>

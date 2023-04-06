@@ -1,5 +1,5 @@
-// const BASE_URl = 'http://52.79.164.28:3000';
-const BASE_URl = 'http://192.168.0.194:4000';
+const BASE_URl = 'http://52.79.164.28:3000';
+// const BASE_URl = 'http://192.168.0.194:4000';
 
 export const API = {
   LOGIN: `${BASE_URl}/users/signin`,

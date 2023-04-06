@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import DealingsTable from './DealingsTable';
+import { API } from '../../config/config';
 
 export default function MemberPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://52.79.164.28:3000/admin/posts`, {
+    fetch(`${API.ADMIN}/posts`, {
       method: 'GET',
     })
       .then(res => res.json())
