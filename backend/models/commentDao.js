@@ -107,10 +107,31 @@ const getComment = async (cmpostId) => {
   }
 };
 
+const comparePostAndCommentPost = async (cmpostId) => {
+  const [result] = await appDataSource.query(
+    `
+    SELECT EXISTS(
+      SELECT
+        cp.id
+      FROM
+        community_posts cp
+      INNER JOIN
+        community_comments cc
+      ON
+        cp.id=cc.community_post_id
+      WHERE
+        cp.id=?)AS registed
+    `,
+    [cmpostId]
+  );
+  return !!parseInt(result.registed);
+};
+
 module.exports = {
   createComment,
   deleteComment,
   checkRegisterCommentId,
   getUserIdByCommentId,
   getComment,
+  comparePostAndCommentPost,
 };
