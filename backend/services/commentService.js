@@ -9,14 +9,17 @@ const deleteComment = async (cmpostId, commentId, userId) => {
   const checkCmpost = await cmpostDao.checkCmpostId(cmpostId);
   if (!checkCmpost) {
     const error = new Error('NOT_EXIST_CMPOST');
-    error.statusCode = 400;
+    error.statusCode = 404;
     throw error;
   }
 
   const checkComment = await commentDao.checkRegisterCommentId(commentId);
-  if (!checkComment) {
+  const comparePostAndCommentPost = await commentDao.comparePostAndCommentPost(
+    cmpostId
+  );
+  if (!checkComment || !comparePostAndCommentPost) {
     const error = new Error('NOT_EXIST_COMMENT');
-    error.statusCode = 400;
+    error.statusCode = 404;
     throw error;
   }
 
